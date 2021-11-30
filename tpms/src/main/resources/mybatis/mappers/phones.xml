@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lce.tpms.dao.PhoneDao">
+
+	<resultMap type="com.lce.tpms.vo.Phone" id="PhoneMap">
+		<id column="phone_code"  property="code"/>
+		<result column="phone_name"  property="modelName"/>
+		<result column="phone_maker"  property="maker"/>
+		<result column="phone_os"  property="os"/>
+		<result column="phone_version"  property="version"/>
+		<result column="phone_mac_address"  property="macAddress"/>
+		<result column="phone_password"  property="password"/>
+		<result column="phone_memory"  property="memory"/>
+		<result column="phone_display"  property="display"/>
+	</resultMap>
+	
+	<select id="getAllPhones" parameterMap="PhoneMap">
+		select
+			*
+		from 
+			phones
+	</select>
+
+	
+</mapper>

@@ -7,4 +7,6 @@ import com.lce.tpms.vo.User;
 public interface UserDao {
 
 	List<User> getAllUser();
+	
+	User getUserByCode(String code);
 }

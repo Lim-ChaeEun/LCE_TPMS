@@ -15,11 +15,20 @@
 	</resultMap>
 
 	
-	<select id="getAllUser"  resultMap="UserMap">
+	<select id="getAllUser" resultMap="UserMap">
 		select 
 			*
 		from 
 			users
+	</select>
+	
+	<select id="getUserByCode" parameterType="string" resultMap="UserMap">
+		select
+			*
+		from
+			users
+		where 
+			user_code = #{value}
 	</select>
 	
 </mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lce.tpms.dao.RentalDao">
+
+	<resultMap type="com.lce.tpms.vo.Rental" id="RentalMap">
+		<id column="retal_code"  property="code"/>
+		<result column="user_code" property="userCode"/>
+		<result column="phone_code" property="phoneCode"/>
+		<result column="rental_start_date" property="startDate"/>
+		<result column="rental_end_date" property="endDate"/>
+		<result column="rental_give_date" property="giveDate"/>
+		<result column="rental_give" property="give"/>
+	</resultMap>
+	
+	<select id="getRentalsByUserCode" parameterType="string" resultMap="RentalMap">
+		select
+			*
+		from
+			rentals
+		where
+			user_code = #{value} 
+	</select>
+
+	<select id="getRentalByCode" parameterType="string" resultMap="RentalMap">
+		select
+			*
+		from
+			rentals
+		where
+			rental_code = #{value}
+	</select>
+	
+	<select id="getRentalsByPhoneCode" parameterType="string" resultMap="RentalMap">
+		select
+			*
+		from 
+			rentals
+		where
+			phone_code = #{value}
+	</select>
+</mapper>

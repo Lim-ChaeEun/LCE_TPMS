@@ -11,5 +11,7 @@ public interface UserService {
 	 * @return 회원 리스트
 	 */
 	List<User> getAllUser();
+	
+	void login(String id, String password);
 
 }

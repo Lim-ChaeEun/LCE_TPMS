@@ -15,12 +15,30 @@
 		<result column="phone_display"  property="display"/>
 	</resultMap>
 	
-	<select id="getAllPhones" parameterMap="PhoneMap">
+	<select id="getAllPhonesContainsRental" resultType="map">
+		select 
+		    phones.phone_code				AS 	code,
+		    phones.phone_name 			AS 	name, 
+		    phones.phone_maker 			AS 	maker, 
+		    phones.phone_os					AS 	os, 
+		    phones.phone_version 		AS 	version, 
+		    phones.phone_memory 		AS 	memory,
+		    phones.phone_display 			AS 	display, 
+		    rentals.rental_end_date 		AS 	enddate, 
+		    rentals.rental_give 				AS	give
+		from 
+			phones, RENTALS
+		where
+	    	rentals.PHONE_CODE(+) = phones.PHONE_CODE
+	
+	</select>
+	
+	
+	<select id="getAllPhones" resultMap="PhoneMap">
 		select
 			*
 		from 
 			phones
 	</select>
-
 	
 </mapper>

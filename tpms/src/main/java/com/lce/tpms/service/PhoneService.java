@@ -1,14 +1,13 @@
-package com.lce.tpms.dao;
+package com.lce.tpms.service;
 
 import java.util.HashMap;
 import java.util.List;
 
 import com.lce.tpms.vo.Phone;
 
-public interface PhoneDao {
-	
-	List<Phone> getAllPhones();
+public interface PhoneService {
+
+	List<Phone> getAllPhons();
 	
 	List<HashMap<String, Object>> getAllPhonesContainsRental();
-
 }

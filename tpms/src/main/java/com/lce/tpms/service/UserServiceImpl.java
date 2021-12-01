@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lce.tpms.dao.UserDao;
 import com.lce.tpms.exception.LoginException;
@@ -11,6 +12,7 @@ import com.lce.tpms.vo.User;
 import com.lce.tpms.web.util.SessionUtils;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
 
 	@Autowired

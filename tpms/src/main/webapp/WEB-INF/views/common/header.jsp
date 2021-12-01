@@ -13,12 +13,12 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 	    	<a class="navbar-brand" href="/tpms/main">
-	    		<img src="/tpms/resources/images/tpms_logo1.png" class="mx-3" alt="error" width="130" height="40" >
+	    		<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="130" height="40" >
 	    	</a>
 		    <div class="collapse navbar-collapse mx-3" >
 			  	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			  		<li class="nav-item mx-3" >
-			       		<a class="nav-link active fs-5 fw-bold"  href="#">기기대여</a>
+			       		<a class="nav-link active fs-5 fw-bold"  href="/tpms/user/phone/list">기기대여</a>
 			        </li>
 			        <li class="nav-item mx-3">
 			          	<a class="nav-link fs-5 fw-bold" href="#">문의</a>
@@ -27,7 +27,7 @@
 			  	<c:choose>
 			  		<c:when test="${empty LOGINED_USER }">
 			  			<div class="text-end">
-				          	<a class="btn btn-outline-danger fw-bold" href="/tpms/login">로그인</a>
+				          	<a class="btn btn-outline-danger btn-sm fw-bold" href="/tpms/login">로그인</a>
 				   		</div>
 			  		</c:when>
 			  		<c:otherwise>

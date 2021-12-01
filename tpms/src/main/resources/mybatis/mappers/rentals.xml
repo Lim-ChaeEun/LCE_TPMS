@@ -13,6 +13,15 @@
 		<result column="rental_give" property="give"/>
 	</resultMap>
 	
+	<select id="getCurrentRentalList" resultMap="RentalMap">
+		select
+			*
+		from 
+			rentals
+		where
+			rental_give = 'N'
+	</select>
+	
 	<select id="getRentalsByUserCode" parameterType="string" resultMap="RentalMap">
 		select
 			*

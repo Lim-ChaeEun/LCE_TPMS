@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<title>샘플 애플리케이션</title>
+<title>TPMS || 메인</title>
 </head>
 <body>
 <div class="container-fluid my-3 mt-0 p-0">
@@ -18,22 +18,22 @@
 		<h1>메인화면</h1>
 		<table class="table text-center">
 			<thead>
-					<colgroup>
-						<col width="15%"/>
-						<col width="15%"/>
-						<col width="20%"/>
-						<col width="10%"/>
-						<col width="20%"/>
-						<col width="15%"/>
-					</colgroup>
-					<tr>
-						<th scope="col">사번</th>
-						<th scope="col">이름</th>
-						<th scope="col">이메일</th>
-						<th scope="col">휴대폰</th>
-						<th scope="col">팀</th>
-						<th scope="col">직책</th>
-					</tr>
+				<colgroup>
+					<col width="15%"/>
+					<col width="15%"/>
+					<col width="20%"/>
+					<col width="10%"/>
+					<col width="20%"/>
+					<col width="15%"/>
+				</colgroup>
+				<tr>
+					<th scope="col">사번</th>
+					<th scope="col">이름</th>
+					<th scope="col">이메일</th>
+					<th scope="col">휴대폰</th>
+					<th scope="col">팀</th>
+					<th scope="col">직책</th>
+				</tr>
 			</thead>
 			<tbody>
 					<c:choose>

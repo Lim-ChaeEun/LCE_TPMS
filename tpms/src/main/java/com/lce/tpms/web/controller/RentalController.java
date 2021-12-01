@@ -1,8 +1,11 @@
 package com.lce.tpms.web.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lce.tpms.service.RentalService;
@@ -15,11 +18,13 @@ public class RentalController {
 	@Autowired
 	private RentalService rentalService;
 	
-	@GetMapping("/apply")
-	public String applyRental(String phoneCode) {
+	@PostMapping("/apply")
+	public String applyRental(String phoneCode, String startDate, String endDate) {
 		// 대여신청 
-		
-		return "";
+		System.out.println(phoneCode);
+		System.out.println(startDate);
+		System.out.println(endDate);
+		return "redirect:/user/phone/list";
 	}
 	
 

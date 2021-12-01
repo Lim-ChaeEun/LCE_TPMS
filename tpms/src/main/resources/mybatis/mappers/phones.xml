@@ -30,7 +30,8 @@
 			phones, RENTALS
 		where
 	    	rentals.PHONE_CODE(+) = phones.PHONE_CODE
-	
+	   	and
+            (rentals.rental_status in ('WAIT', 'ING') OR rentals.rental_status IS NULL)
 	</select>
 	
 	

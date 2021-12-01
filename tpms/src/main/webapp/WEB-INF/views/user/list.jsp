@@ -21,15 +21,15 @@
 					<colgroup>
 						<col width="10%"/>
 						<col width="*%"/>
-						<col width="10%"/>
-						<col width="10%"/>
-						<col width="10%"/>
-						<col width="10%"/>
 						<col width="8%"/>
 						<col width="10%"/>
-						<col width="15%"/>
+						<col width="10%"/>
+						<col width="10%"/>
+						<col width="10%"/>
+						<col width="10%"/>
+						<col width="10%"/>
 					</colgroup>
-					<tr class="table-secondary">
+					<tr>
 						<th scope="col">순번 </th>
 						<th scope="col">모델명 </th>
 						<th scope="col">제조사 </th>
@@ -52,26 +52,26 @@
 						<c:forEach var="phone" items="${phones}" varStatus="loop">
 							<tr id="${phone.CODE}">
 								<td>${loop.count }</td>
-								<td>${phone.NAME }</td>
+								<td class="fw-bold">${phone.NAME }</td>
 								<td>${phone.MAKER }</td>
 								<td>${phone.OS }</td>
 								<td>${phone.VERSION }</td>
 								<td>${phone.MEMORY } GB </td>
 								<td>${phone.DISPLAY } 인치 </td>
 								<c:choose>
-									<c:when test="${phone.STATUS eq 'ABLE' }">
-										<td><button class="btn-sm btn-outline-danger" >대여신청 </button></td>
+									<c:when test="${empty phone.STATUS}">
+										<td><button class="btn btn-outline-danger btn-sm">대여신청 </button></td>
 										<td></td>									
 									</c:when>
 									<c:otherwise>
 										<c:choose>
 											<c:when test="${phone.STATUS eq 'WAIT' }">
-												<td><button class="btn-sm btn-outline-danger" >승인대기중 </button></td>
+												<td><strong class="text-success">승인대기중</strong></td>
 												<td></td>									
 											</c:when>
 											<c:otherwise>
-												<td><button class="btn-sm btn-outline-secondary" disabled>대여중 </button></td>
-												<td><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/dd"/> 반납예정 </td>
+												<td><strong class="text-danger">대여중</strong></td>
+												<td class="fw-bold"><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/dd"/> 반납예정</td>
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>
@@ -82,6 +82,35 @@
 				</c:choose>
 			</tbody>
 		</table>
+		<!-- 대여 모달창 -->
+		<div class="modal fade" id="rental-Modal" tabindex="-1" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title text-center" id="model-head">기기대여신청</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <form action="../../rental/apply" method="post" class="offset-2" id="rental-form">
+		        	<input type="hidden" id="phone-code" name="phoneCode" value="" />
+  					<div class="col-md-10">
+    					<label class="form-label">시작일자</label>
+    					<input type="date" class="form-control" id="rental-start" name="startDate">
+  					</div>
+  					<div class="col-md-10 mt-3">
+    					<label class="form-label">종료일자</label>
+    					<input type="date" class="form-control" id="rental-end" name="endDate">
+  					</div>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-outline-danger">신청</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- 대여 모달창 -->
 		</div>
 	</main>
 </div>
@@ -92,6 +121,11 @@
  -->
 <script>
 $(function(){
+	
+	// 대여신청 모달
+	var rentalModal = new bootstrap.Modal(document.getElementById("rental-Modal"), {
+		keyboard: false
+	})
 	
 	// 대여신청을 클릭한 경우
 	// 1. 로그인이 되어있는지 확인 -> 되어있지 않다면 알림창띄우고 로그인 페이지이동여부 결정 
@@ -106,13 +140,64 @@ $(function(){
 		.done(function(user){
 			if(!user){
 				// 로그인 되어있지 않은 경우 
-				
+				console.log("로그인 안됨")
+				let confirmValue = confirm("대여신청은 로그인 후에만 가능합니다. \n로그인 페이지로 이동하시겠습니까?");
+				if(confirmValue){
+					// 로그인 된 후에 다시 전페이지로 돌아가는 부분 추가 구현하면 좋을듯
+					location.href = "/tpms/login"; 
+				}
 			}else{
-				console.log("login")
-				console.log(phoneCode);
+				// 기기코드 설정하고 값 비우고 띄우기
+				$('#rental-form').find('#phone-code').val(phoneCode);
+				$('#rental-form').find('#rental-start').val('')
+				$('#rental-form').find('#rental-end').val('')
+				rentalModal.show();
 			}
 		});
 	});
+	
+	// 대여모달 신청누르면 -> 유효성검사 후 제출
+	$('#rental-Modal').on('click', '.btn-outline-danger', function(){
+		// 값 유효성 확인
+		// 1.시작일이 종료일보다 앞이 맞는지
+		let startDateString = $('#rental-form').find('#rental-start').val();
+		let endDateString = $('#rental-form').find('#rental-end').val();
+		let startDate = new Date(startDateString);
+		let endDate = new Date(endDateString);
+		
+		if(startDateString == ''){
+			alert("시작일을 입력하세요");
+			$('#rental-form').find('#rental-start').focus();
+			return;
+		} else if(endDateString == ''){
+			alert("종료일를 입력하세요");
+			$('#rental-form').find('#rental-end').focus();			
+			return;
+		} else if(startDateString > endDateString){
+			alert("시작일은 종료일보다 앞이여야 합니다.");
+			$('#rental-form').find('#rental-start').focus();
+			return;
+		} else if(startDateString == endDateString){
+			alert("시작일과 종료일은 같을 수 없습니다.");
+			$('#rental-form').find('#rental-start').focus();
+			return;
+		} else if(endDate - startDate > 518400000){
+			alert("대여할 수 있는 최대기간은 일주일입니다.");
+			$('#rental-form').find('#rental-end').focus();	
+			return;
+		} else if(new Date() > startDate){
+			alert("대여시작일은 오늘보다 뒤여야합니다.");
+			$('#rental-form').find('#rental-start').focus();	
+			return;
+		} else if(startDate - new Date() > 345600000){
+			alert("대여신청은 대여일로부터 3일 이전부터 가능합니다.");
+			$('#rental-form').find('#rental-start').focus();	
+			return;
+		}
+		
+		// 유효성 검사 완료하면 폼 제출
+		$('#rental-form').submit();
+	})
 	
 }
 );

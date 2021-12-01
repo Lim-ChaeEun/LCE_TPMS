@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.RentalService;
-import com.lce.tpms.vo.Phone;
-import com.lce.tpms.vo.Rental;
 
 @Controller
 @RequestMapping("/user")
@@ -30,5 +28,6 @@ public class UserController {
 		model.addAttribute("phones", phones);
 		return "user/list";
 	}
+	
 
 }

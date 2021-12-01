@@ -25,7 +25,7 @@
 		    phones.phone_memory 		AS 	memory,
 		    phones.phone_display 			AS 	display, 
 		    rentals.rental_end_date 		AS 	enddate, 
-		    rentals.rental_give 				AS	give
+		    rentals.rental_status 			AS	status
 		from 
 			phones, RENTALS
 		where

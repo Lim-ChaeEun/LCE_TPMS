@@ -41,9 +41,9 @@
 						<th scope="col"></th>
 					</tr>
 				</thead>
-			<tbody>
+			<tbody id="phone-list">
 				<c:choose>
-					<c:when test="${empty phones } }">
+					<c:when test="${empty phones }">
 						<tr>
 							<td colspan="8">대여가능한 기기가 존재하지 않습니다.</td>
 						</tr>
@@ -59,13 +59,21 @@
 								<td>${phone.MEMORY } GB </td>
 								<td>${phone.DISPLAY } 인치 </td>
 								<c:choose>
-									<c:when test="${phone.GIVE eq 'N' }">
-										<td><button class="btn-sm btn-outline-secondary" disabled>대여중 </button> </td>
-										<td><fmt:formatDate value="${phone.ENDDATE }" pattern="yy-MM-dd"/> 반납예정  </td>
+									<c:when test="${phone.STATUS eq 'ABLE' }">
+										<td><button class="btn-sm btn-outline-danger" >대여신청 </button></td>
+										<td></td>									
 									</c:when>
 									<c:otherwise>
-										<td><a class="btn btn-sm btn-outline-danger" href="#">대여신청 </a></td>									
-										<td></td>									
+										<c:choose>
+											<c:when test="${phone.STATUS eq 'WAIT' }">
+												<td><button class="btn-sm btn-outline-danger" >승인대기중 </button></td>
+												<td></td>									
+											</c:when>
+											<c:otherwise>
+												<td><button class="btn-sm btn-outline-secondary" disabled>대여중 </button></td>
+												<td><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/dd"/> 반납예정 </td>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -84,7 +92,27 @@
  -->
 <script>
 $(function(){
-	// s
+	
+	// 대여신청을 클릭한 경우
+	// 1. 로그인이 되어있는지 확인 -> 되어있지 않다면 알림창띄우고 로그인 페이지이동여부 결정 
+	// 로그인 되어있으면 대여신청 팝업 띄우고 신청받기
+	$('#phone-list').on('click', '.btn-outline-danger' , function(){
+		let phoneCode = $(this).closest('tr').attr('id');
+		// 로그인 여부 확인
+		$.ajax({
+			type:"GET",
+			url:"../rest/islogin",
+		})
+		.done(function(user){
+			if(!user){
+				// 로그인 되어있지 않은 경우 
+				
+			}else{
+				console.log("login")
+				console.log(phoneCode);
+			}
+		});
+	});
 	
 }
 );

@@ -10,7 +10,7 @@
 		<result column="rental_start_date" property="startDate"/>
 		<result column="rental_end_date" property="endDate"/>
 		<result column="rental_give_date" property="giveDate"/>
-		<result column="rental_give" property="give"/>
+		<result column="rental_status" property="status"/>
 	</resultMap>
 	
 	<select id="getCurrentRentalList" resultMap="RentalMap">
@@ -19,7 +19,7 @@
 		from 
 			rentals
 		where
-			rental_give = 'N'
+			rental_give not in ('ING')
 	</select>
 	
 	<select id="getRentalsByUserCode" parameterType="string" resultMap="RentalMap">

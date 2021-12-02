@@ -8,6 +8,7 @@
 <!doctype html>
 <head>
 <meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <header class="my-3 mt-0">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">

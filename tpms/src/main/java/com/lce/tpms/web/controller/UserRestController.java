@@ -8,7 +8,7 @@ import com.lce.tpms.vo.User;
 import com.lce.tpms.web.util.SessionUtils;
 
 @RestController
-@RequestMapping("/user/rest")
+@RequestMapping("/rest")
 public class UserRestController {
 
 	@GetMapping("/islogin")

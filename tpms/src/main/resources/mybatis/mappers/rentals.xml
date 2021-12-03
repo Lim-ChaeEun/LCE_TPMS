@@ -13,6 +13,13 @@
 		<result column="rental_status" property="status"/>
 	</resultMap>
 	
+	<insert id="insertRental" parameterType="com.lce.tpms.vo.Rental">
+	insert into rentals
+		(rental_code, user_code, phone_code, rental_start_date, rental_end_date)
+	values
+		('RENTAL' || lpad(RENTAL_SEQ.nextval, 3, 0), #{userCode}, #{phoneCode}, #{startDate}, #{endDate})
+	</insert>
+	
 	<select id="getCurrentRentalList" resultMap="RentalMap">
 		select
 			*

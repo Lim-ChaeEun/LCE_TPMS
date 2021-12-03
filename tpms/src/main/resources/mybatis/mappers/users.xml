@@ -12,6 +12,7 @@
 		<result column="user_team" property="team"/>
 		<result column="user_position" property="position"/>
 		<result column="user_admin" property="admin"/>
+		<result column="user_status" property="status"/>
 	</resultMap>
 
 	

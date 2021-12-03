@@ -17,5 +17,6 @@ public class User {
 	private String team;
 	private String position;
 	private String admin;
+	private String status;
 	
 }

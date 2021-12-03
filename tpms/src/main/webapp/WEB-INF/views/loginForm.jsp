@@ -7,7 +7,6 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
-	
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
@@ -122,6 +121,7 @@
 		<script src="/tpms/resources/static/assets/js/breakpoints.min.js"></script>
 		<script src="/tpms/resources/static/assets/js/util.js"></script>
 		<script src="/tpms/resources/static/assets/js/main.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </body>
 </html>

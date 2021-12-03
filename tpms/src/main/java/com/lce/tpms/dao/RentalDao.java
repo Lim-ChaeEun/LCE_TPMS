@@ -7,4 +7,6 @@ import com.lce.tpms.vo.Rental;
 public interface RentalDao {
 
 	List<Rental> getCurrentRentalList();
+	
+	void insertRental(Rental rental);
 }

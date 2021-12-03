@@ -25,4 +25,9 @@ public class RentalServiceImpl implements RentalService {
 		return rentals;
 	}
 	
+	@Override
+	public void applyRental(Rental rental) {
+		rentalDao.insertRental(rental);
+	}
+	
 }

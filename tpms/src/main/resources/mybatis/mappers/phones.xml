@@ -15,6 +15,13 @@
 		<result column="phone_display"  property="display"/>
 	</resultMap>
 	
+	<insert id="insertPhone" parameterType="com.lce.tpms.vo.Phone">
+		insert into phones
+    		(PHONE_CODE, PHONE_NAME, PHONE_MAKER, PHONE_OS, PHONE_VERSION, PHONE_MAC_ADDRESS, PHONE_PASSWORD, PHONE_MEMORY, PHONE_DISPLAY)
+		values
+    		('PHONE' || lpad(PHONE_SEQ.nextval, 3, 0), #{modelName}, #{maker}, #{os}, #{version}, #{macAddress}, #{password}, #{memory}, #{display})
+	</insert>
+	
 	<select id="getAllPhonesContainsRental" resultType="map">
 		select 
 		    phones.phone_code				AS 	code,

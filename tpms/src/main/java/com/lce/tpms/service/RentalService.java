@@ -7,4 +7,6 @@ import com.lce.tpms.vo.Rental;
 public interface RentalService {
 
 	List<Rental> getCurrentRentalList();
+	
+	void applyRental(Rental rental);
 }

@@ -14,35 +14,71 @@
 	</resultMap>
 	
 	<insert id="insertRental" parameterType="com.lce.tpms.vo.Rental">
-	insert into rentals
+	insert into rental
 		(rental_code, user_code, phone_code, rental_start_date, rental_end_date)
 	values
-		('RENTAL' || lpad(RENTAL_SEQ.nextval, 3, 0), #{userCode}, #{phoneCode}, #{startDate}, #{endDate})
+		('RT' || lpad(RENTAL_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode}, #{startDate}, #{endDate})
 	</insert>
 	
 	<select id="getCurrentRentalList" resultMap="RentalMap">
 		select
 			*
 		from 
-			rentals
+			rental
 		where
 			rental_give not in ('ING')
 	</select>
 	
-	<select id="getRentalsByUserCode" parameterType="string" resultMap="RentalMap">
+	<select id="getFinRentalsByUser" parameterType="string" resultType="map">
 		select
-			*
+	        rental.rental_code 			as code,
+	        rental.user_code 			as userCode,
+	        phone.phone_code 			as phoneCode,
+	        rental.rental_start_date 	as startDate,
+	        rental.rental_end_date 		as endDate,
+	        rental.rental_give_date 	as giveDate,
+	        phone.phone_name 			as name,
+	        phone.phone_maker 			as maker,
+	        phone.phone_os 				as os,
+	        phone.phone_version 		as version
 		from
-			rentals
+			rental, phone
 		where
-			user_code = #{value} 
+			user_code = #{userCode}
+        and 
+        	rental.phone_code = phone.phone_code
+        and 
+        	rental.rental_status = 'FIN'
+        order by 
+        	rental.rental_end_date desc
+	</select>
+	
+	<select id="getRentalByUserAndStatus" parameterType="map" resultType="map">
+		select
+		        rental.rental_code 			as code,
+		        rental.user_code 			as userCode,
+		        phone.phone_code 			as phoneCode,
+		        rental.rental_start_date 	as startDate,
+		        rental.rental_end_date 		as endDate,
+		        phone.phone_name 			as name,
+		        phone.phone_maker 			as maker,
+		        phone.phone_os 				as os,
+		        phone.phone_version 		as version
+			from
+				rental, phone
+			where
+				user_code = #{userCode}
+	        and 
+	        	rental.phone_code = phone.phone_code
+	        and 
+	        	rental.rental_status = #{status}
 	</select>
 
 	<select id="getRentalByCode" parameterType="string" resultMap="RentalMap">
 		select
 			*
 		from
-			rentals
+			rental
 		where
 			rental_code = #{value}
 	</select>
@@ -51,7 +87,7 @@
 		select
 			*
 		from 
-			rentals
+			rental
 		where
 			phone_code = #{value}
 	</select>

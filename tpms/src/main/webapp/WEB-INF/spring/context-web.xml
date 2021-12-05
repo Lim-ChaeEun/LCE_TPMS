@@ -9,7 +9,20 @@
         http://www.springframework.org/schema/context/spring-context-3.2.xsd 
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-  <mvc:annotation-driven />
+	<mvc:annotation-driven>
+  		<mvc:argument-resolvers>
+         	<bean class="com.lce.tpms.web.argumentResolver.LoginUserArgumentResolver"></bean>
+        	<bean class="com.lce.tpms.web.argumentResolver.LoginAdminArgumentResolver"></bean>
+      	</mvc:argument-resolvers>
+  	</mvc:annotation-driven>
+  
+   	<mvc:interceptors>
+    	<mvc:interceptor>
+         	<mvc:mapping path="/**"/>
+         	<mvc:exclude-mapping path="/resources/**"/>
+         	<bean class="com.lce.tpms.web.interceptor.LoginCheckInterceptor"></bean>
+      	</mvc:interceptor>
+   	</mvc:interceptors> 
 
    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
    

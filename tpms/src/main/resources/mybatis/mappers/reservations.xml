@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lce.tpms.dao.ReservationDao">
+
+	<insert id="insertReservation" parameterType="com.lce.tpms.vo.Reservation">
+		insert into reservation
+			(reservation_code, user_code, phone_code)
+		values
+    		('RV' || lpad(PHONE_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
+	</insert>
+	
+</mapper>

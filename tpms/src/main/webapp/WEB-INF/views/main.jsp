@@ -10,36 +10,9 @@
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
-		<!-- 헤더 시작 -->
-			<section id="header">
-				<!-- TPMS 로고 넣기 -->
-				<h1>
-					<a class="navbar-brand" href="/tpms/main">
-    					<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="200" height="60" >
-    				</a>
-    			</h1>
-				<!-- 네비바 -->
-				<nav id="nav">
-					<ul>
-						<li class="current"><a href="/tpms/main">대여</a></li>
-						<li><a href="#">문의</a></li>
-						<li>
-							<c:choose>
-						  		<c:when test="${empty LOGINED_USER }">
-									<a href="/tpms/login">로그인</a>
-						  		</c:when>
-						  		<c:otherwise>
-									<a>${LOGINED_USER.name} 님</a>
-									<ul>
-										<li><a href="#">내 대여이력 확인</a></li>
-										<li><a href="/tpms/logout">로그아웃</a></li>
-									</ul>
-						  		</c:otherwise>
-						  	</c:choose>
-						</li>
-					</ul>
-				</nav>
-			</section>
+		<!-- 헤더 -->
+		<c:set var="menu" value="main"/>
+		<%@ include file="common/header.jsp" %>
 		<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">
@@ -53,33 +26,34 @@
 									<div class="row">
 										<div class="col-6">
 										</div>
-										<div class="col-6">
+										<div class="col-6" id="search-option">
 											<label>제조사 </label>
 											<select name="maker" class="select">
-												<option>삼성 </option>
-												<option>샤오미</option>
-												<option>애플 </option>
-												<option>엘지</option>
+												<option value="" selected> 선택안함 </option>
+												<option value="삼성">삼성</option>
+												<option value="샤오미">샤오미</option>
+												<option value="애플">애플</option>
+												<option value="엘지">엘지</option>
 											</select>
 											<label>모델명</label>  
-											<input type="text" placeholder="Username" >
-											<button class="btn">검색</button>
+											<input type="text" placeholder=" ex) 아이폰" >
+											<button class="searchBtn">검색</button>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<table class="table table-hover text-center mt-2">
+											<table class="table">
 												<thead>
 													<colgroup>
-														<col width="10%"/>
-														<col width="*%"/>
-														<col width="10%"/>
+														<col width="8%"/>
 														<col width="15%"/>
+														<col width="9%"/>
+														<col width="14%"/>
 														<col width="10%"/>
 														<col width="10%"/>
-														<col width="10%"/>
+														<col width="14%"/>
 														<col width="12%"/>
-														<col width="6%"/>
+														<col width="8%"/>
 													</colgroup>
 													<tr>
 														<th scope="col">순번 </th>
@@ -87,10 +61,10 @@
 														<th scope="col">제조사 </th>
 														<th scope="col">운영체제 / 버전 </th>
 														<th scope="col">메모리 </th>
-														<th scope="col">디스플레이 </th>
-														<th scope="col">대여  </th>
+														<th scope="col">화면 </th>
+														<th scope="col">대여 </th>
 														<th scope="col">예상 반납일</th>
-														<th scope="col"></th>
+														<th scope="col">예약	</th>
 													</tr>
 												</thead>
 												<tbody id="phone-list">
@@ -124,7 +98,7 @@
 																				</c:when>
 																				<c:otherwise>
 																					<td class='bold'>대여중</td>
-																					<td class='bold'><fmt:formatDate value="${phone.ENDDATE }" pattern="MM월 dd일"/> 예정</td>
+																					<td class='bold'><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/d"/> 예정</td>
 																					<td><button class="btn reserve">예약 </button></td>									
 																				</c:otherwise>
 																			</c:choose>
@@ -158,7 +132,7 @@
 												</form>
 												<div class="footer mt-3">
 											        <button type="button" class="btn cancel" id="btn-cancel">취소</button>
-											        <button type="button" class="btn apply">신청</button>
+											        <button type="button" class="btn apply alt">신청</button>
 											     </div>
 								            </div>
 								        </div>
@@ -170,27 +144,7 @@
 				</div>
 			</section>
 		<!-- 푸터 -->
-			<section id="footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-6">
-							<div id="copyright">
-								<ul class="links">
-									<li>TestPhone Management System</li><li>Made by: ChaeEun Lim</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-6">
-							<div id="copyright">
-								<ul class="links">
-									<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
+		<%@ include file="common/footer.jsp" %>
 	</div>
 
 	<!-- Scripts -->

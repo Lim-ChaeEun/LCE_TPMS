@@ -33,11 +33,9 @@ public class HomeController {
 
 	@GetMapping("/main")
 	public String home(Model model) {
-		List<User> users = userService.getAllUser();
 		// 기기전체의 목록 담기
 		List<HashMap<String, Object>> phones = phoneService.getAllPhonesContainsRental();
 		model.addAttribute("phones", phones);
-		model.addAttribute("users", users);
 		return "main";
 	}
 	
@@ -57,6 +55,16 @@ public class HomeController {
 	@PostMapping("/login")
 	public String login(String code, String password) {
 		userService.login(code, password);
+		
+		// 로그인 전 페이지가 있으면 되돌아가기
+		String returnURI = (String)SessionUtils.getAttribute("returnURI");
+		String returnParam = (String)SessionUtils.getAttribute("returnParam");
+		if(returnURI != null && returnParam != null) {		// 둘다 존재하는 경우
+			return "redirect:" + returnURI + "?" + returnParam;
+		}else if(returnURI != null && returnParam == null){
+			return "redirect:" + returnURI;
+		}
+		
 		return "redirect:/main";
 	}
 	

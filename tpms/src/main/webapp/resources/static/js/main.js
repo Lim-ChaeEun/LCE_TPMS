@@ -1,5 +1,5 @@
 /**
- * 
+ * main화면 관련 js
  */
 
 $(function(){
@@ -42,6 +42,9 @@ $(function(){
 					location.href = "/tpms/login"; 
 				}
 			}else{
+				// 이미대여한 이력이 있는지 확인
+				// rental에서 wait이나 ing가 있으면 알림창띄우기
+				
 				// 기기코드 설정하고 값 비우고 띄우기
 				$('#rental-form').find('#phone-code').val(phoneCode);
 				$('#rental-form').find('#rental-start').val('')
@@ -94,6 +97,62 @@ $(function(){
 		// 유효성 검사 완료하면 폼 제출
 		$('#rental-form').submit();
 	})
+	
+	$('#search-option').on('keydown', 'button' , function(e){
+		if(e.keyCode == 13) {
+			console.log('검색')
+		}
+	});
+	
+	$('#search-option').on('click', 'button' ,function(){
+		let selectOption = $('#search-option > select').val();
+		let nameOption = $('#search-option > input').val();
+		// 해당 검색어에 해당하는 결과 찾아서 반환
+		$.ajax({
+			type: "GET",
+			url: "rest/search",
+			data: {maker:selectOption, name:nameOption},
+			dataType: "json"
+		}).done(function(phones){
+			console.log(phones);		
+			$('#phone-list').empty();
+			$tr = "";
+			if(phones.length == 0){
+				// 검색결과가 없을 때
+				$tr += "<tr>";
+				$tr += "<td colspan='8' class='noresult'> 대여가능한 기기가 존재하지 않습니다. </td>";
+				$tr += "</tr>";
+			}else{
+				$.each(phones, function(index, phone){
+					$tr += "<tr id="+phone.CODE+">";
+					$tr += "<td>"+(index+1)+"</td>";
+					$tr += "<td><strong>"+phone.NAME+"</strong></td>";
+					$tr += "<td>"+phone.MAKER+"</td>";
+					$tr += "<td>"+phone.OS +" "+phone.VERSION+"</td>";
+					$tr += "<td>"+phone.MEMORY+" GB </td>";
+					$tr += "<td>"+phone.DISPLAY+" 인치 </td>";
+					if(phone.STATUS == null){
+						$tr += "<td><button class='btn apply'><span>신청</span></button></td>";
+						$tr += "<td></td>";
+						$tr += "<td></td>";
+					} else if(phone.STATUS == 'WAIT'){
+						$tr += "<td class='bold'>승인대기중</td>";
+						$tr += "<td></td>";
+						$tr += "<td></td>";
+					} else {
+						$tr += "<td class='bold'>대여중</td>";
+						let endDate = new Date(phone.ENDDATE);
+						$tr += "<td class='bold'>"+(endDate.getMonth() +1)+"/"+endDate.getDate()+" 예정</td>";
+						$tr += "<td><button class='btn reserve'>예약 </button></td>";
+					}
+					$tr += "</tr>"
+				})
+			}
+			$('#phone-list').append($tr);
+		});
+		
+	});
 
+	
 	
 });

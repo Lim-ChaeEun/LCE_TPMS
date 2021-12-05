@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lce.tpms.dao.InquiryDao">
+
+	<resultMap type="com.lce.tpms.vo.Inquiry" id="InquiryMap">
+		<id column="inquiry_code"  property="code"/>
+		<result column="user_code"  property="userCode"/>
+		<result column="inquiry_title"  property="title"/>
+		<result column="inquiry_content"  property="content"/>
+		<result column="inquiry_respond"  property="respond"/>
+		<result column="inquiry_status"  property="status"/>
+		<result column="inquiry_respond_date"  property="respondDate"/>
+		<result column="inquiry_created_date"  property="createdDate"/>
+	</resultMap>
+	
+	<insert id="insertInquiry" parameterType="com.lce.tpms.vo.Inquiry">
+		insert into inquiry
+			(inquiry_code, user_code, inquiry_title, inquiry_content)
+		values
+    		('IQ' || lpad(PHONE_SEQ.nextval, 4, 0), #{userCode}, #{title}, #{content})
+	</insert>
+	
+	<select id="getInquiriesByUser" parameterType="string" resultMap="InquiryMap">
+		select 
+			*
+		from 
+			inquiry
+		where 
+			user_code = #{value}
+	</select>
+	
+</mapper>

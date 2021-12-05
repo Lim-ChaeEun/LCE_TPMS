@@ -5,14 +5,15 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class Rental {
+public class Inquiry {
 	
 	private String code;
 	private String userCode;
-	private String phoneCode;
-	private Date startDate;
-	private Date endDate;
-	private Date giveDate;
+	private String title;
+	private String content;
+	private String respond;
 	private String status;
-
+	private Date respondDate;
+	private Date createdDate;
+	
 }

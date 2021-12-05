@@ -33,4 +33,8 @@ public class PhoneServiceImpl implements PhoneService{
 		return phoneDao.getAllPhonesContainsRental();
 	}
 	
+	@Override
+	public List<HashMap<String, Object>> getPhonesContainsRentalforOption(HashMap<String, String> option) {
+		return phoneDao.getPhonesContainsRentalforOption(option);
+	}
 }

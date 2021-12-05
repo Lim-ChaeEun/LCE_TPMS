@@ -2,6 +2,7 @@ package com.lce.tpms.service;
 
 import java.util.List;
 
+import com.lce.tpms.vo.Inquiry;
 import com.lce.tpms.vo.User;
 
 public interface UserService {
@@ -14,4 +15,7 @@ public interface UserService {
 	
 	void login(String id, String password);
 
+	void registerInquiry(Inquiry inquiry);
+	
+	List<Inquiry> getInquiriesByUser(String userCode);
 }

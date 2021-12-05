@@ -16,29 +16,62 @@
 	</resultMap>
 	
 	<insert id="insertPhone" parameterType="com.lce.tpms.vo.Phone">
-		insert into phones
+		insert into phone
     		(PHONE_CODE, PHONE_NAME, PHONE_MAKER, PHONE_OS, PHONE_VERSION, PHONE_MAC_ADDRESS, PHONE_PASSWORD, PHONE_MEMORY, PHONE_DISPLAY)
 		values
-    		('PHONE' || lpad(PHONE_SEQ.nextval, 3, 0), #{modelName}, #{maker}, #{os}, #{version}, #{macAddress}, #{password}, #{memory}, #{display})
+    		('PH' || lpad(PHONE_SEQ.nextval, 4, 0), #{modelName}, #{maker}, #{os}, #{version}, #{macAddress}, #{password}, #{memory}, #{display})
 	</insert>
 	
 	<select id="getAllPhonesContainsRental" resultType="map">
 		select 
-		    phones.phone_code				AS 	code,
-		    phones.phone_name 			AS 	name, 
-		    phones.phone_maker 			AS 	maker, 
-		    phones.phone_os					AS 	os, 
-		    phones.phone_version 		AS 	version, 
-		    phones.phone_memory 		AS 	memory,
-		    phones.phone_display 			AS 	display, 
-		    rentals.rental_end_date 		AS 	enddate, 
-		    rentals.rental_status 			AS	status
+		    phone.phone_code			AS 	code,
+		    phone.phone_name 			AS 	name, 
+		    phone.phone_maker 			AS 	maker, 
+		    phone.phone_os				AS 	os, 
+		    phone.phone_version 		AS 	version, 
+		    phone.phone_memory 			AS 	memory,
+		    phone.phone_display 		AS 	display, 
+		    rental.rental_end_date 		AS 	enddate, 
+		    rental.rental_status 		AS	status
 		from 
-			phones, RENTALS
+			phone, rental
 		where
-	    	rentals.PHONE_CODE(+) = phones.PHONE_CODE
+	    	rental.PHONE_CODE(+) = phone.PHONE_CODE
 	   	and
-            (rentals.rental_status in ('WAIT', 'ING') OR rentals.rental_status IS NULL)
+            (rental.rental_status in ('WAIT', 'ING') OR rental.rental_status IS NULL)
+        order by
+        	phone.phone_code desc
+	</select>
+	
+	<select id="getPhonesContainsRentalforOption" parameterType="map" resultType="map">
+		select 
+		    phone.phone_code			AS 	code,
+		    phone.phone_name 			AS 	name, 
+		    phone.phone_maker 			AS 	maker, 
+		    phone.phone_os				AS 	os, 
+		    phone.phone_version 		AS 	version, 
+		    phone.phone_memory 			AS 	memory,
+		    phone.phone_display 		AS 	display, 
+		    rental.rental_end_date 		AS 	enddate, 
+		    rental.rental_status 		AS	status
+		from 
+			phone, rental
+		where
+	    	rental.PHONE_CODE(+) = phone.PHONE_CODE
+    	<choose>
+			<when test="maker != null">
+				and phone_maker like #{maker}
+			</when>
+		</choose>
+		<choose>
+			<when test="name != null">
+				and phone_name like '%' || #{name} || '%'
+			</when>
+		</choose>
+	   	and
+            (rental.rental_status in ('WAIT', 'ING') OR rental.rental_status IS NULL)
+        order by
+        	phone.phone_code desc
 	</select>
 	
 	
@@ -46,7 +79,7 @@
 		select
 			*
 		from 
-			phones
+			phone
 	</select>
 	
 </mapper>

@@ -8,46 +8,35 @@
 <!doctype html>
 <head>
 <meta charset="utf-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<header class="my-3 mt-0">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-	    	<a class="navbar-brand" href="/tpms/main">
-	    		<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="130" height="40" >
-	    	</a>
-		    <div class="collapse navbar-collapse mx-3" >
-			  	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			  		<li class="nav-item mx-3" >
-			       		<a class="nav-link active fs-5 fw-bold"  href="/tpms/user/phone/list">기기대여</a>
-			        </li>
-			        <li class="nav-item mx-3">
-			          	<a class="nav-link fs-5 fw-bold" href="#">문의</a>
-			        </li>
-			  	</ul>	
-			  	<c:choose>
+<!-- 헤더 시작 -->
+<section id="header">
+	<!-- TPMS 로고 넣기 -->
+	<h1>
+		<a class="navbar-brand" href="/tpms/main">
+			<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="200" height="60" >
+		</a>
+	</h1>
+	<!-- 네비바 -->
+	<nav id="nav">
+		<ul>
+			<li class="${menu eq 'main' ? 'current' : '' }"><a href="/tpms/main">대여</a></li>
+			<li class="${menu eq 'inquiry' ? 'current' : '' }"><a href="/tpms/user/inquiry">문의</a></li>
+			<li class="${menu eq 'my' ? 'current' : '' }">
+				<c:choose>
 			  		<c:when test="${empty LOGINED_USER }">
-			  			<div class="text-end">
-				          	<a class="btn btn-outline-danger btn-sm fw-bold" href="/tpms/login">로그인</a>
-				   		</div>
+						<a href="/tpms/login">로그인</a>
 			  		</c:when>
 			  		<c:otherwise>
-						<div class="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
-					      <ul class="navbar-nav">
-					        <li class="nav-item dropdown">
-					          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					          	<strong>${LOGINED_USER.name}</strong> 님 안녕하세요!
-					          </a>
-					          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-					            <li><a class="dropdown-item" href="#">내 기록관리</a></li>
-					            <li><a class="dropdown-item" href="/tpms/logout">로그아웃</a></li>
-					          </ul>
-					        </li>
-					      </ul>
-					    </div>
+						<a>${LOGINED_USER.name} 님</a>
+						<ul>
+							<li><a href="/tpms/user/history/rental">내 대여이력 확인</a></li>
+							<li><a href="/tpms/user/history/inquiry">내 문의내역 확인</a></li>
+							<li><a href="/tpms/logout">로그아웃</a></li>
+						</ul>
 			  		</c:otherwise>
 			  	</c:choose>
-		    </div>
-	  </div>
+			</li>
+		</ul>
 	</nav>
-</header>
+</section>

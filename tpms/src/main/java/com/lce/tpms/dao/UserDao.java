@@ -9,4 +9,6 @@ public interface UserDao {
 	List<User> getAllUser();
 	
 	User getUserByCode(String code);
+	
+	void insertUser(User user);
 }

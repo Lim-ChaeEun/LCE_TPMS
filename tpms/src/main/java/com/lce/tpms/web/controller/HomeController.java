@@ -39,6 +39,11 @@ public class HomeController {
 		return "main";
 	}
 	
+	@GetMapping("/register")
+	public String registerForm() {
+		return "register";
+	}
+	
 	/**
 	 * 로그인 폼 보여줌
 	 * @return

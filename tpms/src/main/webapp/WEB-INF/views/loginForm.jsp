@@ -19,6 +19,9 @@
 					<div class="row">
 						<div class="col-12">
 							<section>
+								<header class="major">
+									<h2>로그인</h2>
+								</header>
 								<div class="row">
 									<div class="col-2 col-12-small"></div>
 									<div class="col-8 col-12-small">
@@ -62,6 +65,11 @@
 													</div>
 												</div>
 											</form>	
+											<div class="row">
+												<div class="col-12">
+													<p class="bold">아직 회원이 아니신가요?    >   <a href="register" class="distance">회원가입 하러가기  </a></p>
+												</div>	
+											</div>
 										</section>
 									</div>
 									<div class="col-2 col-12-small"></div>

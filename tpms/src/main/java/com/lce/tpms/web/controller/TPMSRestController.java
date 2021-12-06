@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lce.tpms.service.PhoneService;
@@ -26,8 +27,9 @@ public class TPMSRestController {
 	}
 	
 	@GetMapping("/search")
-	public List<HashMap<String, Object>> getPhoneListBySerachOption(String maker, String name){
-		HashMap<String, String> option = new HashMap<String, String>();
+	public List<HashMap<String, Object>> getPhoneListBySerachOption(String maker, String name, @RequestParam(name = "page", required = false, defaultValue = "1") int pageNo){
+		HashMap<String, Object> option = new HashMap<String, Object>();
+		System.out.println("왜 안되니");
 		if(maker.equals("")) {
 			option.put("maker", null);			
 		}else {
@@ -38,7 +40,9 @@ public class TPMSRestController {
 		}else {
 			option.put("name", name);
 		}
-		List<HashMap<String, Object>> phones = phoneService.getPhonesContainsRentalforOption(option);
+		option.put("page", 1);
+		List<HashMap<String, Object>> phones = (List<HashMap<String, Object>>) phoneService.getAllPhonesContainsRentalByPageAndOption(option).get("phones");
+		
 		return phones;
 	}
 

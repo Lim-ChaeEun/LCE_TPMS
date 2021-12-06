@@ -28,6 +28,74 @@ table{
 	margin-top: 2em;
 }
 
+.page{
+	text-align: center;
+	width: 100%
+}
+
+.pagination{
+	list-style: none;
+	display: inline-block;
+	padding: 0;
+	margin-top: 20px
+}
+
+.pagination li{
+	display: inline;
+	text-align: center;
+}
+
+.pagination a{
+	float: left;
+	display: block;
+	font-size: 15px;
+	text-decoration: none;
+	padding: 5px 12px;
+	color: #525b69;
+	line-height: 1.5;
+	font-weight: 500;
+}
+
+.first, .last{
+	margin-left: 15px;
+}
+
+.first:hover, .last:hover{
+	color: #FF1644;
+}
+
+.pagination a.active{
+	cursor: default;
+	color: #ffffff;
+}
+
+.pagination a:active{
+	outline: none;
+
+	}
+	
+.modal .num{
+	margin-left: 3px;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+
+.modal .num:hover {
+	background-color: #FF1644;
+	color: #ffffff;
+}
+
+.modal .num.active, .modal .num:active{
+	background-color: #FF1644;
+	cursor: pointer;
+}
+
+
 p.success{
 	color: #008000;
 }
@@ -50,10 +118,13 @@ p.bold{
 }
 
 div.register input{
-	width: 250px;
+	padding: 10px;
+	width: 350px;
 	height: 50px;
 	margin-bottom: 15px;
 	margin-top: 10px;
+	border-radius: 5px;
+	border : 2px solid #9e9d9d;
 }
 div.register select{
 	width: 200px;
@@ -105,11 +176,15 @@ div.alert strong{
 	padding-right: 10px;
 	line-height: 2em;
 	padding-left: 10px;
+	border-radius: 5px;
+	border : 2px solid;
 }
 
 
 #search-option input{
 	margin-right: 10px;
+	border-radius: 5px;
+	line-height: 2em;
 }
 
 #modal.modal-overlay {
@@ -128,17 +203,19 @@ div.alert strong{
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
         #modal .modal-window {
-            background: #fefffe;
+ 			background: #fefffe;
             box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
             backdrop-filter: blur( 13.5px );
             -webkit-backdrop-filter: blur( 13.5px );
             border-radius: 10px;
             border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 300px;
-            height: 300px;
-            position: relative;
-            top: -100px;
-            padding: 10px;
+            width : 300px;
+            height : 340px;
+            padding : 20px;
+            position: fixed;
+            top: 50%;
+          	left: 50%;
+          	transform: translate(-50%, -50%);
         }
         #modal .title {
             padding-left: 10px;
@@ -159,6 +236,15 @@ div.alert strong{
             font-size: 14pt;
         }
         
+        #modal input{
+        	border-radius: 5px;
+        	width:200px;
+        	height:40px;
+        	float: center;
+        	margin-bottom: 20px;
+        }
+        
+        
         #modal .content {
             margin-top: 20px;
             padding: 0px 10px;
@@ -170,6 +256,12 @@ div.alert strong{
 				padding: 10px;
 	            display: inline;
 	            color: white;
+	        }
+		#modal .footer {
+				margin-top:10px;
+	            display: inline;
+	            color: white;
+	            float: right;
 	        }
 
 article, aside, details, figcaption, figure,
@@ -218,7 +310,7 @@ input, select, textarea {
 	-webkit-appearance: none;
 	-ms-appearance: none;
 	appearance: none;
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 }
 
 /* Basic */
@@ -1702,6 +1794,10 @@ input, select, textarea {
 		table tbody td.bold{
 			font-weight: 600;
 			color: #000040;
+		}
+		
+		table tbody td.danger{
+			color: #ff0000;
 		}
 
 

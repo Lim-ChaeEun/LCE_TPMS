@@ -10,7 +10,7 @@ public interface RentalService {
 
 	List<Rental> getCurrentRentalList();
 	
-	void applyRental(Rental rental);
+	void applyRental(Rental rental, String userCode);
 	
 	HashMap<String, Object> getRentalByUserAndStatus(String status);
 	

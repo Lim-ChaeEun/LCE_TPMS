@@ -9,8 +9,8 @@ public interface PhoneDao {
 	
 	List<Phone> getAllPhones();
 	
-	List<HashMap<String, Object>> getAllPhonesContainsRental();
+	List<HashMap<String, Object>> getAllPhonesContainsRentalByPageAndOption(HashMap<String, Object> option);
 	
-	List<HashMap<String, Object>> getPhonesContainsRentalforOption(HashMap<String, String> option);
+	int getPhonesCnt();
 
 }

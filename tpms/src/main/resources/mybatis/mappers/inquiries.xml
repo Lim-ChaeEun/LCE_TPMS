@@ -18,7 +18,7 @@
 		insert into inquiry
 			(inquiry_code, user_code, inquiry_title, inquiry_content)
 		values
-    		('IQ' || lpad(PHONE_SEQ.nextval, 4, 0), #{userCode}, #{title}, #{content})
+    		('IQ' || lpad(INQUIRY_SEQ.nextval, 4, 0), #{userCode}, #{title}, #{content})
 	</insert>
 	
 	<select id="getInquiriesByUser" parameterType="string" resultMap="InquiryMap">

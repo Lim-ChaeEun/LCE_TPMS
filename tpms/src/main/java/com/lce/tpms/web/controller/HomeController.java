@@ -6,14 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.exception.LoginException;
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
-import com.lce.tpms.vo.User;
 import com.lce.tpms.web.util.SessionUtils;
 
 @Controller
@@ -32,10 +34,13 @@ public class HomeController {
 	}
 
 	@GetMapping("/main")
-	public String home(Model model) {
+	public String home(Model model, @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
+		HashMap<String, Object> option = new HashMap<String, Object>();
+		option.put("page", pageNo);
 		// 기기전체의 목록 담기
-		List<HashMap<String, Object>> phones = phoneService.getAllPhonesContainsRental();
-		model.addAttribute("phones", phones);
+		HashMap<String, Object> result = phoneService.getAllPhonesContainsRentalByPageAndOption(option);
+		model.addAttribute("phones", result.get("phones"));
+		model.addAttribute("pagination", result.get("pagination"));
 		return "main";
 	}
 	
@@ -78,8 +83,9 @@ public class HomeController {
 	 * @return
 	 */
 	@GetMapping("/logout")
-	public String logout() {
+	public String logout(RedirectAttributes rat) {
 		SessionUtils.destorySession();
+		rat.addFlashAttribute("status", "logout");
 		return "redirect:/main";
 	}
 	

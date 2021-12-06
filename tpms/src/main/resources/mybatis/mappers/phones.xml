@@ -22,62 +22,52 @@
     		('PH' || lpad(PHONE_SEQ.nextval, 4, 0), #{modelName}, #{maker}, #{os}, #{version}, #{macAddress}, #{password}, #{memory}, #{display})
 	</insert>
 	
-	<select id="getAllPhonesContainsRental" resultType="map">
-		select 
-		    phone.phone_code			AS 	code,
-		    phone.phone_name 			AS 	name, 
-		    phone.phone_maker 			AS 	maker, 
-		    phone.phone_os				AS 	os, 
-		    phone.phone_version 		AS 	version, 
-		    phone.phone_memory 			AS 	memory,
-		    phone.phone_display 		AS 	display, 
-		    rental.rental_end_date 		AS 	enddate, 
-		    rental.rental_status 		AS	status
-		from 
-			phone, rental
-		where
-	    	rental.PHONE_CODE(+) = phone.PHONE_CODE
-	   	and
-            (rental.rental_status in ('WAIT', 'ING') OR rental.rental_status IS NULL)
-        order by
-        	phone.phone_code desc
+	<select id="getAllPhonesContainsRentalByPageAndOption" parameterType="map" resultType="map">
+		 select 
+		    *
+		 from ( select row_number() over (order by code desc) rn, a.*
+	    		from
+				    (select 
+				            RANK() OVER (PARTITION BY phone.phone_code ORDER BY TO_CHAR(rental_end_date, 'YYYYMMDD') DESC) AS RNK,
+						    phone.phone_code			AS 	code,
+						    phone.phone_name 			AS 	name, 
+						    phone.phone_maker 			AS 	maker, 
+						    phone.phone_os				AS 	os, 
+						    phone.phone_version 		AS 	version, 
+						    phone.phone_memory 			AS 	memory,
+						    phone.phone_display 		AS 	display, 
+						    rental.rental_end_date 		AS 	enddate, 
+						    rental.rental_status 		AS	status
+						from 
+							phone, rental
+						where
+				            PHONE.PHONE_CODE = RENTAL.PHONE_CODE(+)
+				        <choose>
+							<when test="maker != null">
+								and phone_maker like #{maker}
+							</when>
+						</choose>
+						<choose>
+							<when test="name != null">
+								and phone_name like '%' || #{name} || '%'
+							</when>
+						</choose>
+				        ) a
+				where rnk = '1')
+		where rn between #{beginIndex} and #{endIndex}	
 	</select>
-	
-	<select id="getPhonesContainsRentalforOption" parameterType="map" resultType="map">
-		select 
-		    phone.phone_code			AS 	code,
-		    phone.phone_name 			AS 	name, 
-		    phone.phone_maker 			AS 	maker, 
-		    phone.phone_os				AS 	os, 
-		    phone.phone_version 		AS 	version, 
-		    phone.phone_memory 			AS 	memory,
-		    phone.phone_display 		AS 	display, 
-		    rental.rental_end_date 		AS 	enddate, 
-		    rental.rental_status 		AS	status
-		from 
-			phone, rental
-		where
-	    	rental.PHONE_CODE(+) = phone.PHONE_CODE
-    	<choose>
-			<when test="maker != null">
-				and phone_maker like #{maker}
-			</when>
-		</choose>
-		<choose>
-			<when test="name != null">
-				and phone_name like '%' || #{name} || '%'
-			</when>
-		</choose>
-	   	and
-            (rental.rental_status in ('WAIT', 'ING') OR rental.rental_status IS NULL)
-        order by
-        	phone.phone_code desc
-	</select>
-	
+
 	
 	<select id="getAllPhones" resultMap="PhoneMap">
 		select
 			*
+		from 
+			phone
+	</select>
+	
+	<select id="getPhonesCnt" resultType="int">
+		select
+			count(*)
 		from 
 			phone
 	</select>

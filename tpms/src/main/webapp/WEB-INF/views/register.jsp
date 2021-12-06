@@ -46,23 +46,15 @@
 										                </tr>
 										                <tr>
 										                  <th><span>비밀번호</span><strong class="important">*</strong></th>
-										                  <td><input type="text" placeholder="비밀번호를 입력해주세요."></td>
+										                  <td><input type="password" placeholder="비밀번호를 입력해주세요."></td>
 										                </tr>
 										                <tr>
 										                  <th><span>비밀번호 확인</span><strong class="important">*</strong></th>
-										                  <td><input type="text" placeholder="비밀번호를 확인하세요"></td>
+										                  <td><input type="password" placeholder="비밀번호를 확인하세요"></td>
 										                </tr>
 										                <tr class="email">
 										                  <th><span>이메일</span><strong class="important">*</strong></th>
-										                  <td>
-										                    <input type="text"  class="email" placeholder=""><span class="distance">@</span>
-										                    <select>
-										                    		<option>naver.com</option>
-										                    		<option>gmail.com</option>
-										                    		<option>daum.net</option>
-										                    		<option>bccard.com</option>
-										                    </select>
-										                  </td>
+										                  <td><input type="email"  class="email" placeholder=""></td>
 										                </tr>
 										                <tr>
 										                  <th><span>휴대폰 번호</span></th>
@@ -99,6 +91,5 @@
 		<script src="/tpms/resources/static/assets/js/main.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		
-<script src="/tpms/resources/static/js/main.js"></script>
 </body>
 </html>

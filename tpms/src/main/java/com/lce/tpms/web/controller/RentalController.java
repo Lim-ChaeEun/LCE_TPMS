@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.RentalService;
+import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.User;
+import com.lce.tpms.web.annotation.LoginUser;
 import com.lce.tpms.web.util.DateUtils;
 import com.lce.tpms.web.util.SessionUtils;
 
@@ -24,15 +27,15 @@ public class RentalController {
 	private RentalService rentalService;
 	
 	@PostMapping("/apply")
-	public String applyRental(String phoneCode, String startDate, String endDate) throws ParseException {
+	public String applyRental(String phoneCode, String startDate, String endDate, RedirectAttributes rat, @LoginUser User user) throws ParseException {
 		// 대여신청 
-		User user = (User)SessionUtils.getAttribute("LOGINED_USER");
 		Rental rental = new Rental();
 		rental.setPhoneCode(phoneCode);
 		rental.setStartDate(DateUtils.stringToDate(startDate));
 		rental.setEndDate(DateUtils.stringToDate(endDate));
 		rental.setUserCode(user.getCode());
-		rentalService.applyRental(rental);
+		rentalService.applyRental(rental, user.getCode());
+		rat.addFlashAttribute("status", "rentalFin");
 		return "redirect:/main";
 	}
 	

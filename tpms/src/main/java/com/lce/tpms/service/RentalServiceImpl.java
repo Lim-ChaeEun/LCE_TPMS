@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lce.tpms.dao.RentalDao;
 import com.lce.tpms.dao.ReservationDao;
+import com.lce.tpms.dao.UserDao;
 import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.Reservation;
 import com.lce.tpms.vo.User;
@@ -23,6 +24,9 @@ public class RentalServiceImpl implements RentalService {
 	
 	@Autowired
 	private ReservationDao reservationDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	/**
 	 * 현재진행중인 대여 목
@@ -34,8 +38,13 @@ public class RentalServiceImpl implements RentalService {
 	}
 	
 	@Override
-	public void applyRental(Rental rental) {
+	public void applyRental(Rental rental, String userCode) {
 		rentalDao.insertRental(rental);
+		// 대여신청한 사용자의 상태를 n으로 변경
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", userCode);
+		option.put("status", "N");
+		userDao.updateUserStatus(option);
 	}
 	
 	@Override

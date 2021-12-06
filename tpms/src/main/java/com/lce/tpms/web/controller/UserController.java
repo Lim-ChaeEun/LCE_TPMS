@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.RentalService;
 import com.lce.tpms.service.UserService;
@@ -50,12 +51,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/inquiry/register")
-	private String inqueryRegister(@LoginUser User user, String title, String content) {
+	private String inqueryRegister(@LoginUser User user, String title, String content, RedirectAttributes rat) {
 		Inquiry inquiry = new Inquiry();
 		inquiry.setTitle(title);
 		inquiry.setContent(content);
 		inquiry.setUserCode(user.getCode());
 		userService.registerInquiry(inquiry);
+		rat.addFlashAttribute("status", "inquiryFin");
 		return "redirect:/user/inquiry";
 	}
 

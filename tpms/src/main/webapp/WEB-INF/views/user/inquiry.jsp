@@ -76,6 +76,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(function(){
+	let status = "<c:out value='${status}' />";
+	console.log(status);
+	if(status == 'inquiryFin'){
+		alert("문의글 등록이 완료되었습니다. \n작성하신 문의글은 '내 문의내역 확인'에서 확인이 가능합니다.");
+	}
 	
 	$('#inquiryBtn').on('click', '.submit', function(){
 		// 제목, 내용썼는지

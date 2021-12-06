@@ -1,5 +1,6 @@
 package com.lce.tpms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.lce.tpms.vo.User;
@@ -11,4 +12,6 @@ public interface UserDao {
 	User getUserByCode(String code);
 	
 	void insertUser(User user);
+	
+	void updateUserStatus(HashMap<String, String> option);
 }

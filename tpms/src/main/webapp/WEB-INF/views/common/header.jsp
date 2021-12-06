@@ -28,7 +28,7 @@
 						<a href="/tpms/login">로그인</a>
 			  		</c:when>
 			  		<c:otherwise>
-						<a>${LOGINED_USER.name} 님</a>
+						<a href="">${LOGINED_USER.name} 님</a>
 						<ul>
 							<li><a href="/tpms/user/history/rental">내 대여이력 확인</a></li>
 							<li><a href="/tpms/user/history/inquiry">내 문의내역 확인</a></li>

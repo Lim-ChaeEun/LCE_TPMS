@@ -22,6 +22,15 @@
 			(#{code}, #{password}, #{name}, #{email}, #{phone}, #{team}, #{position})
 	</insert>
 	
+	<update id="updateUserStatus" parameterType="map">
+		update 
+			users
+		set
+		    user_status = #{status}
+		where 
+			user_code = #{userCode}
+	</update>
+	
 	<select id="getAllUser" resultMap="UserMap">
 		select 
 			*

@@ -7,7 +7,7 @@
 		insert into reservation
 			(reservation_code, user_code, phone_code)
 		values
-    		('RV' || lpad(PHONE_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
+    		('RV' || lpad(RESERVATION_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
 	</insert>
 	
 </mapper>

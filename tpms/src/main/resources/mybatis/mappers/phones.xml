@@ -81,6 +81,13 @@
 			phone
 	</select>
 	
+	<select id="getPhoneMakers" resultType="string">
+		select 
+			distinct phone_maker
+		from 
+			phone
+	</select>
+	
 	<select id="getPhonesCntByOption" parameterType="map" resultType="int">
 		select
 			count(*)

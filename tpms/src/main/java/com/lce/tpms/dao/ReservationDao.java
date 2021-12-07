@@ -6,10 +6,10 @@ public interface ReservationDao {
 	
 	void insertReservation(Reservation reservation);
 	
-	String userAlreadyReserveBefore(String userCode);
+	Reservation getUserReserve(String userCode);
 	
-	String phoneAlreadyReserveBefore(String userCode);
+	Reservation getPhoneReserve(String userCode);
 
-	String getReservationByCode(String userCode);
+	Reservation getReservationByCode(String userCode);
 	
 }

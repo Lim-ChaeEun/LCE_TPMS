@@ -29,6 +29,11 @@ public class PhoneServiceImpl implements PhoneService{
 		return phoneDao.getAllPhones();
 	}
 	
+	@Override
+	public List<String> getPhoneMakers() {
+		return phoneDao.getPhoneMakers();
+	}
+	
 	/**
 	 * 기기정보 + 대여정보 함께 반환하는 메소드 
 	 */

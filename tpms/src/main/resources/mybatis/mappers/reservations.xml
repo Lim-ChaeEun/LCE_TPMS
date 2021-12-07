@@ -3,6 +3,12 @@
 
 <mapper namespace="com.lce.tpms.dao.ReservationDao">
 
+	<resultMap type="com.lce.tpms.vo.Reservation" id="ReservMap">
+		<id column="reservation_code"  property="code"/>
+		<result column="user_code"  property="userCode"/>
+		<result column="phone_code"  property="phoneCode"/>
+	</resultMap>
+
 	<insert id="insertReservation" parameterType="com.lce.tpms.vo.Reservation">
 		insert into reservation
 			(reservation_code, user_code, phone_code)
@@ -10,27 +16,27 @@
     		('RV' || lpad(RESERVATION_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
 	</insert>
 	
-	<select id="userAlreadyReserveBefore"  parameterType="string" resultType="string">
+	<select id="getUserReserve"  parameterType="string" resultMap="ReservMap">
 		select 
-			reservation_code
+			*
 		from 
 			reservation
 		where 
 			user_code = #{value}	
 	</select>
 	
-	<select id="phoneAlreadyReserveBefore"  parameterType="string" resultType="string">
+	<select id="getPhoneReserve"  parameterType="string" resultMap="ReservMap">
 		select 
-			reservation_code
+			*
 		from 
 			reservation
 		where 
 			phone_code = #{value}	
 	</select>
 	
-	<select id="getReservationByCode"  parameterType="string" resultType="string">
+	<select id="getReservationByCode"  parameterType="string" resultMap="ReservMap">
 		select 
-			reservation_code
+			*
 		from 
 			reservation
 		where 

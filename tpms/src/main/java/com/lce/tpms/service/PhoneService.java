@@ -12,4 +12,6 @@ public interface PhoneService {
 	HashMap<String, Object> getAllPhonesContainsRentalByPageAndOption(HashMap<String, Object> option);
 	
 	Phone getPhoneByCode(String phoneCode);
+	
+	List<String> getPhoneMakers();
 }

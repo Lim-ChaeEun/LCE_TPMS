@@ -1,7 +1,6 @@
 package com.lce.tpms.web.controller;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +13,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.RentalService;
-import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.annotation.LoginUser;
 import com.lce.tpms.web.util.DateUtils;
-import com.lce.tpms.web.util.SessionUtils;
 
 // 예약과 관련된 
 @Controller
@@ -42,7 +39,7 @@ public class RentalController {
 		rental.setUserCode(user.getCode());
 		rentalService.applyRental(rental, user.getCode());
 		rat.addFlashAttribute("status", "rentalFin");
-		return "redirect:/main";
+		return "redirect:/user/list";
 	}
 	
 	@GetMapping("/apply")

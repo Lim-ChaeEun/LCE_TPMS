@@ -1,5 +1,6 @@
 package com.lce.tpms.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.lce.tpms.vo.Inquiry;
@@ -13,11 +14,13 @@ public interface UserService {
 	 */
 	List<User> getAllUser();
 	
-	void login(String id, String password);
+	User login(String id, String password);
 
 	void registerInquiry(Inquiry inquiry);
 	
 	List<Inquiry> getInquiriesByUser(String userCode);
+	
+	HashMap<String, Object> getUserMainInfo(String userCode);
 	
 	boolean isAbleToReserve(String userCode);
 	

@@ -12,7 +12,7 @@
 	<div id="page-wrapper">
 		<!-- 헤더 -->
 		<c:set var="menu" value="main"/>
-		<%@ include file="common/header.jsp" %>
+		<%@ include file="../common/userHeader.jsp" %>
 		<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">
@@ -30,10 +30,9 @@
 											<label>제조사 </label>
 											<select name="maker" class="select">
 												<option value=""  ${maker eq "null" ? 'selected' : '' }> 선택안함 </option>
-												<option value="삼성"  ${maker eq '삼성' ? 'selected' : '' }>삼성</option>
-												<option value="애플" ${maker eq '애플' ? 'selected' : '' }>애플</option>
-												<option value="엘지" ${maker eq '엘지' ? 'selected' : '' }>엘지</option>
-												<option value="샤오미" ${maker eq '샤오미' ? 'selected' : '' }>샤오미</option>
+												<c:forEach var="mk" items="${makers }">
+													<option value="${mk }"  ${maker eq mk ? 'selected' : '' }>${mk }</option>
+												</c:forEach>
 											</select>
 											<label>모델명</label>
 											<c:choose>
@@ -122,10 +121,10 @@
 												<!-- url 설정하기  -->
 												<c:choose>
 													<c:when test="${maker ne null or name ne null }">
-														<c:set var="url" value="main?maker=${maker }&name=${name }&page=" />
+														<c:set var="url" value="list?maker=${maker }&name=${name }&page=" />
 													</c:when>
 													<c:otherwise>
-														<c:set var="url" value="main?page=" />
+														<c:set var="url" value="list?page=" />
 													</c:otherwise>
 												</c:choose>
 												<div class="page">
@@ -162,15 +161,15 @@
 								            <div class="close-area">X</div>
 								            <div class="content">
 								                <form action="rental/apply" method="post" class="offset-2" id="rental-form">
-											        	<input type="hidden" id="phone-code" name="phoneCode" value="" />
-									  					<div class="col-md-10">
-									    					<label class="form-label">시작일자</label>
-									    					<input type="date" class="form-control" id="rental-start" name="startDate">
-									  					</div>
-									  					<div class="col-md-10">
-									    					<label class="form-label">종료일자</label>
-									    					<input type="date" class="form-control" id="rental-end" name="endDate">
-									  					</div>
+										        	<input type="hidden" id="phone-code" name="phoneCode" value="" />
+								  					<div class="col-md-10">
+								    					<label class="form-label">시작일자</label>
+								    					<input type="date" class="form-control" id="rental-start" name="startDate">
+								  					</div>
+								  					<div class="col-md-10">
+								    					<label class="form-label">종료일자</label>
+								    					<input type="date" class="form-control" id="rental-end" name="endDate">
+								  					</div>
 												</form>
 												<div class="footer mt-3">
 											        <button type="button" class="btn cancel" id="btn-cancel">취소</button>
@@ -186,7 +185,7 @@
 				</div>
 			</section>
 		<!-- 푸터 -->
-		<%@ include file="common/footer.jsp" %>
+		<%@ include file="../common/footer.jsp" %>
 	</div>
 <!-- Scripts -->
 <script src="/tpms/resources/static/assets/js/jquery.min.js"></script>
@@ -206,6 +205,6 @@ $(function(){
 	}
 })
 </script>
-<script src="/tpms/resources/static/js/main.js"></script>
+<script src="/tpms/resources/static/js/list.js"></script>
 </body>
 </html>

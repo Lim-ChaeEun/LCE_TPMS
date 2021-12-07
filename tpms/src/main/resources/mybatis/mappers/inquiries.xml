@@ -28,7 +28,18 @@
 			inquiry
 		where 
 			user_code = #{value}
-		order by inquiry_code desc
+		order by 
+			inquiry_code desc
 	</select>
 	
+	<select id="getUserRecentInquiry" parameterType="string" resultMap="InquiryMap">
+		<![CDATA[
+			select 
+				*
+			from 
+				(select * from inquiry where user_code = #{value} order by inquiry_created_date desc)
+			where 
+				rownum <= 3
+		]]>
+	</select>
 </mapper>

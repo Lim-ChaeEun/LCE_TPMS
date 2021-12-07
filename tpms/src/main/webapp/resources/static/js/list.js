@@ -1,5 +1,5 @@
 /**
- * main화면 관련 js
+ * list화면 관련 js
  */
 
 $(function(){
@@ -31,7 +31,7 @@ $(function(){
 		// 로그인 여부 확인
 		$.ajax({
 			type:"GET",
-			url:"rest/islogin",
+			url:"../rest/islogin",
 		})
 		.done(function(user){
 			if(!user){
@@ -39,7 +39,7 @@ $(function(){
 				let confirmValue = confirm("대여신청은 로그인 후에만 가능합니다. \n로그인 페이지로 이동하시겠습니까?");
 				if(confirmValue){
 					// 로그인 된 후에 다시 전페이지로 돌아가는 부분 추가 구현하면 좋을듯
-					location.href = "/tpms/login"; 
+					location.href = "/tpms/home"; 
 				}
 			}else{
 				// 대여가능한 상태인지 확인하기
@@ -107,7 +107,7 @@ $(function(){
 	function searchOption(){
 		let selectOption = $('#search-option > select').val();
 		let nameOption = $('#search-option > input').val();
-		location.href = "/tpms/main?maker="+selectOption+"&name="+nameOption;		
+		location.href = "/tpms/user/list?maker="+selectOption+"&name="+nameOption;		
 	}
 	
 	$('#search-option').on('keydown', 'input' , function(e){
@@ -135,14 +135,14 @@ $(function(){
 	function loginConfirm(){
 			console.log("로그인 확인 ")
 			$.ajax({
-				url: 'rest/islogin',
+				url: '../rest/islogin',
 				type: "GET",
 			}).done(function(user){
 				if(!user){
 					// 로그인 되어있지 않은 경우 
 					let confirmValue = confirm("예약은 로그인 후에만 가능합니다. \n로그인 페이지로 이동하시겠습니까?");
 					if(confirmValue){
-						location.href = "/tpms/login"; 
+						location.href = "/tpms/home"; 
 					}else{
 						return false;
 					}
@@ -160,7 +160,7 @@ $(function(){
 			console.log("예약가능 여부  확인 ")
 			$.ajax({
 				type:"GET",
-				url:"rest/ableReserve"
+				url:"../rest/ableReserve"
 			}).done(function(result){
 				if(!result){
 					alert("이미 예약하신 기기가 존재합니다. ");

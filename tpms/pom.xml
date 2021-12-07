@@ -275,11 +275,6 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
-            <!-- 맥 설정 추가-->
-            <plugin>
-	          <artifactId>maven-war-plugin</artifactId>
-	          <version>3.2.2</version>
-	        </plugin>
 	        <!-- 맥 설정 추가 끝 -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

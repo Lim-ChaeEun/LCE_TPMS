@@ -63,7 +63,8 @@
 		        phone.phone_name 			as name,
 		        phone.phone_maker 			as maker,
 		        phone.phone_os 				as os,
-		        phone.phone_version 		as version
+		        phone.phone_version 		as version,
+		        rental.rental_status 		as status
 			from
 				rental, phone
 			where
@@ -75,6 +76,15 @@
 	</select>
 
 	<select id="getRentalByCode" parameterType="string" resultMap="RentalMap">
+		select
+			*
+		from
+			rental
+		where
+			rental_code = #{value}
+	</select>
+	
+	<select id="getRentalByUserCode" parameterType="string" resultMap="RentalMap">
 		select
 			*
 		from

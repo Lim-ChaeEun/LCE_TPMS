@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lce.tpms.exception.LoginException;
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
+import com.lce.tpms.vo.User;
+import com.lce.tpms.web.annotation.LoginUser;
 import com.lce.tpms.web.util.SessionUtils;
 
 @Controller
@@ -33,7 +34,7 @@ public class HomeController {
 		return "loginForm";
 	}
 
-	@GetMapping("/main")
+	@GetMapping("/user/list")
 	public String home(Model model,@RequestParam(name = "maker", required = false) String maker, @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
 		HashMap<String, Object> option = new HashMap<String, Object>();
 		if(maker == null || maker.equals("")) {
@@ -53,7 +54,10 @@ public class HomeController {
 		model.addAttribute("pagination", result.get("pagination"));
 		model.addAttribute("maker", maker);
 		model.addAttribute("name", name);
-		return "main";
+		// 제조사정보
+		List<String> makers = phoneService.getPhoneMakers();
+		model.addAttribute("makers", makers);
+		return "user/list";
 	}
 	
 	@GetMapping("/register")
@@ -63,14 +67,6 @@ public class HomeController {
 		return "register";
 	}
 	
-	/**
-	 * 로그인 폼 보여줌
-	 * @return
-	 */
-	@GetMapping("/login")
-	public String loginForm() {
-		return "loginForm";
-	}
 	
 	/**
 	 * 로그인 수행
@@ -78,7 +74,7 @@ public class HomeController {
 	 */
 	@PostMapping("/login")
 	public String login(String code, String password) {
-		userService.login(code, password);
+		User user = userService.login(code, password);
 		
 		// 로그인 전 페이지가 있으면 되돌아가기
 		String returnURI = (String)SessionUtils.getAttribute("returnURI");
@@ -89,7 +85,21 @@ public class HomeController {
 			return "redirect:" + returnURI;
 		}
 		
-		return "redirect:/main";
+		if(user.getAdmin().equals("Y")) {
+			return "redirect:/admin/main";
+		}
+		return "redirect:/user/main";
+	}
+	
+	@GetMapping("/user/main")
+	public String userMain(@LoginUser User user, Model model) {
+		// 최근문의내역, 예약정보들을 받아온다
+		HashMap<String, Object> userInfo = userService.getUserMainInfo(user.getCode());
+		model.addAttribute("inquiries", userInfo.get("inquiries"));
+		model.addAttribute("rental", userInfo.get("rental"));
+		model.addAttribute("reserve", userInfo.get("reserve"));
+		System.out.println(userInfo);
+		return "user/main";
 	}
 	
 	/**
@@ -100,7 +110,17 @@ public class HomeController {
 	public String logout(RedirectAttributes rat) {
 		SessionUtils.destorySession();
 		rat.addFlashAttribute("status", "logout");
-		return "redirect:/main";
+		return "redirect:/home";
+	}
+	
+	@GetMapping(value = {"/home", "/login"})
+	public String home() {
+		// 로그인 되어있다면 로그아웃 시키기
+		User user = (User)SessionUtils.getAttribute("LOGINED_USER");
+		if(user != null) {
+			SessionUtils.destorySession();
+		}
+		return "home";
 	}
 	
 }

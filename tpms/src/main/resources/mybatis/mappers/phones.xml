@@ -65,11 +65,39 @@
 			phone
 	</select>
 	
+	<select id="getPhoneByCode" parameterType="string" resultMap="PhoneMap">
+		select
+			*
+		from 
+			phone
+		where
+			phone_code = #{value}
+	</select>
+	
 	<select id="getPhonesCnt" resultType="int">
 		select
 			count(*)
 		from 
 			phone
+	</select>
+	
+	<select id="getPhonesCntByOption" parameterType="map" resultType="int">
+		select
+			count(*)
+		from 
+			phone
+		where
+			phone_code is not null
+		<choose>
+			<when test="maker != null">
+				and phone_maker like #{maker}
+			</when>
+		</choose>
+		<choose>
+			<when test="name != null">
+				and phone_name like '%' || #{name} || '%'
+			</when>
+		</choose>
 	</select>
 	
 </mapper>

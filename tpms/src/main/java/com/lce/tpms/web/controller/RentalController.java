@@ -5,11 +5,14 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.RentalService;
 import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.Rental;
@@ -26,6 +29,9 @@ public class RentalController {
 	@Autowired
 	private RentalService rentalService;
 	
+	@Autowired
+	private PhoneService phoneService;
+	
 	@PostMapping("/apply")
 	public String applyRental(String phoneCode, String startDate, String endDate, RedirectAttributes rat, @LoginUser User user) throws ParseException {
 		// 대여신청 
@@ -39,5 +45,11 @@ public class RentalController {
 		return "redirect:/main";
 	}
 	
+	@GetMapping("/apply")
+	public String applyPage(@LoginUser User user, @RequestParam(name = "phone") String phoneCode , Model model) {
+		model.addAttribute("user", user);
+		model.addAttribute("phone", phoneService.getPhoneByCode(phoneCode));
+		return "user/rental"; 
+	}
 
 }

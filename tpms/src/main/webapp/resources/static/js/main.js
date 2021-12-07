@@ -3,12 +3,6 @@
  */
 
 $(function(){
-		let status = "<c:out value='${status}' />";
-		if(status == 'rentalFin'){
-			alert("대여신청이 완료되었습니다. \n승인이 완료되면 이메일로 알림이 전송됩니다. ");
-		}else if(status == 'logout'){
-			alert("로그아웃 되셨습니다.");
-		}
 
 		const modal = document.getElementById("modal")
 		const btnModal = document.getElementById("btn-cancel")
@@ -53,13 +47,16 @@ $(function(){
 					alert('이미 대여중이거나, 대여신청을 하셨습니다. \n\n *지난 대여에서 연체가 발생한 경우 \n *반납일로부터 7일이후에 대여가 가능합니다.');
 					return;
 				}
-				
+				location.href = "rental/apply?phone=" + phoneCode;
+				/*
+				 * 
 				// 기기코드 설정하고 값 비우고 띄우기
 				$('#rental-form').find('#phone-code').val(phoneCode);
 				$('#rental-form').find('#rental-start').val('')
 				$('#rental-form').find('#rental-end').val('')
 				modal.style.display = "flex";
 				
+				 */
 			}
 		});
 	});
@@ -107,61 +104,70 @@ $(function(){
 		$('#rental-form').submit();
 	})
 	
-	$('#search-option').on('keydown', 'button' , function(e){
+	function searchOption(){
+		let selectOption = $('#search-option > select').val();
+		let nameOption = $('#search-option > input').val();
+		location.href = "/tpms/main?maker="+selectOption+"&name="+nameOption;		
+	}
+	
+	$('#search-option').on('keydown', 'input' , function(e){
 		if(e.keyCode == 13) {
-			console.log('검색')
+			searchOption();
 		}
 	});
 	
 	$('#search-option').on('click', 'button' ,function(){
-		let selectOption = $('#search-option > select').val();
-		let nameOption = $('#search-option > input').val();
-		// 해당 검색어에 해당하는 결과 찾아서 반환
-		$.ajax({
-			type: "GET",
-			url: "rest/search",
-			data: {maker:selectOption, name:nameOption},
-			dataType: "json"
-		}).done(function(phones){
-			$('#phone-list').empty();
-			$tr = "";
-			if(phones.length == 0){
-				// 검색결과가 없을 때
-				$tr += "<tr>";
-				$tr += "<td colspan='8' class='noresult'> 대여가능한 기기가 존재하지 않습니다. </td>";
-				$tr += "</tr>";
-			}else{
-				console.log(phones);
-				$.each(phones, function(index, phone){
-					$tr += "<tr id="+phone.CODE+">";
-					$tr += "<td>"+(index+1)+"</td>";
-					$tr += "<td><strong>"+phone.NAME+"</strong></td>";
-					$tr += "<td>"+phone.MAKER+"</td>";
-					$tr += "<td>"+phone.OS +" "+phone.VERSION+"</td>";
-					$tr += "<td>"+phone.MEMORY+" GB </td>";
-					$tr += "<td>"+phone.DISPLAY+" 인치 </td>";
-					if(phone.STATUS == null){
-						$tr += "<td class='bold'>신청가능</td>";
-						$tr += "<td></td>";
-						$tr += "<td><button class='btn apply'><span>신청</span></button></td>";
-					} else if(phone.STATUS == 'WAIT'){
-						$tr += "<td class='bold dangers'>승인대기중</td>";
-						$tr += "<td></td>";
-						$tr += "<td></td>";
-					} else {
-						$tr += "<td class='bold danger'>대여중</td>";
-						let endDate = new Date(phone.ENDDATE);
-						$tr += "<td class='bold'>"+(endDate.getMonth() +1)+"/"+endDate.getDate()+" 예정</td>";
-						$tr += "<td><button class='btn reserve'>예약 </button></td>";
-					}
-					$tr += "</tr>"
-				})
-			}
-			$('#phone-list').append($tr);
-		});
-		
+		searchOption();
 	});
-
 	
+	// 예약선택 시 
+	$('#phone-list').on('click', '.reserve' , function(){
+		let phoneCode = $(this).closest('tr').attr('id');
+		// 로그인 여부 , 예약가능 여부 확
+		loginConfirm()
+			.then(function(result){
+				console.log(result)
+			})
+		// 다 확인됨
+		console.log('예약진행가능 ')
+	});	
+	
+	function loginConfirm(){
+			console.log("로그인 확인 ")
+			$.ajax({
+				url: 'rest/islogin',
+				type: "GET",
+			}).done(function(user){
+				if(!user){
+					// 로그인 되어있지 않은 경우 
+					let confirmValue = confirm("예약은 로그인 후에만 가능합니다. \n로그인 페이지로 이동하시겠습니까?");
+					if(confirmValue){
+						location.href = "/tpms/login"; 
+					}else{
+						return false;
+					}
+					// 예약가능한 상태인지 확인하기
+					if(user.status == 'N'){
+						alert('이미 대여중이거나, 대여신청을 하셨습니다. \n\n *지난 대여에서 연체가 발생한 경우 \n *반납일로부터 7일이후에 대여가 가능합니다.');
+						return false;
+					}
+				}
+			});
+			return true;
+	}
+	
+	function reserveConfirm(){
+			console.log("예약가능 여부  확인 ")
+			$.ajax({
+				type:"GET",
+				url:"rest/ableReserve"
+			}).done(function(result){
+				if(!result){
+					alert("이미 예약하신 기기가 존재합니다. ");
+					return false;
+				}
+			})
+		return true;
+	}
 	
 });

@@ -10,4 +10,6 @@ public interface PhoneService {
 	List<Phone> getAllPhons();
 	
 	HashMap<String, Object> getAllPhonesContainsRentalByPageAndOption(HashMap<String, Object> option);
+	
+	Phone getPhoneByCode(String phoneCode);
 }

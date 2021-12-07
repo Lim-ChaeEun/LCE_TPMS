@@ -38,10 +38,18 @@ public class PhoneServiceImpl implements PhoneService{
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("beginIndex", (pageNo-1)*ROWS_PER_PAGE + 1);
 		param.put("endIndex", pageNo*ROWS_PER_PAGE);
+		if(option.get("maker") != null) {
+			String maker = (String)option.get("maker");
+			param.put("maker", maker);
+		}
+		if(option.get("name") != null) {
+			String name = (String)option.get("name");
+			param.put("name", name);			
+		}
 		List<HashMap<String, Object>> phones = phoneDao.getAllPhonesContainsRentalByPageAndOption(param);
 		// 페이징 처리
 		// 총 행의 갯수
-		int totalRows = phoneDao.getPhonesCnt();
+		int totalRows = phoneDao.getPhonesCntByOption(param);
 		// 총 페이지 수
 		int totalPages = (int)Math.ceil((double)totalRows/ROWS_PER_PAGE);
 		// 총 페이지 블럭 수
@@ -61,5 +69,10 @@ public class PhoneServiceImpl implements PhoneService{
 		result.put("phones", phones);
 		result.put("pagination", pagination);
 		return result;
+	}
+	
+	@Override
+	public Phone getPhoneByCode(String phoneCode) {
+		return phoneDao.getPhoneByCode(phoneCode);
 	}
 }

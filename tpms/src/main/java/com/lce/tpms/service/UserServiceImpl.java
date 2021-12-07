@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lce.tpms.dao.InquiryDao;
+import com.lce.tpms.dao.ReservationDao;
 import com.lce.tpms.dao.UserDao;
 import com.lce.tpms.exception.LoginException;
 import com.lce.tpms.vo.Inquiry;
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 	@Autowired
 	private InquiryDao inquiryDao;
+	@Autowired
+	private ReservationDao reservationDao;
 	
 	@Override
 	public List<User> getAllUser() {
@@ -49,5 +52,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void registerInquiry(Inquiry inquiry) {
 		inquiryDao.insertInquiry(inquiry);
+	}
+	
+	@Override
+	public boolean isAbleToReserve(String userCode) {
+		String value = reservationDao.userAlreadyReserveBefore(userCode);
+		if(value != null) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public List<String> getAllDepartments() {
+		return userDao.getAllDepartments();
+	}
+	
+	@Override
+	public List<String> getAllTeamsByDept(String dept) {
+		return userDao.getAllTeamsByDept(dept);
 	}
 }

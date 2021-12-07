@@ -47,4 +47,20 @@
 			user_code = #{value}
 	</select>
 	
+	<select id="getAllDepartments" resultType="string">
+		select 
+			distinct department
+		from 
+			departments
+	</select>
+	
+	<select id="getAllTeamsByDept"  parameterType="string" resultType="string">
+		select 
+			team
+		from 
+			departments
+		where 
+			department = #{value}
+	</select>
+	
 </mapper>

@@ -29,14 +29,21 @@
 										<div class="col-6" id="search-option">
 											<label>제조사 </label>
 											<select name="maker" class="select">
-												<option value="" selected> 선택안함 </option>
-												<option value="삼성">삼성</option>
-												<option value="샤오미">샤오미</option>
-												<option value="애플">애플</option>
-												<option value="엘지">엘지</option>
+												<option value=""  ${maker eq "null" ? 'selected' : '' }> 선택안함 </option>
+												<option value="삼성"  ${maker eq '삼성' ? 'selected' : '' }>삼성</option>
+												<option value="애플" ${maker eq '애플' ? 'selected' : '' }>애플</option>
+												<option value="엘지" ${maker eq '엘지' ? 'selected' : '' }>엘지</option>
+												<option value="샤오미" ${maker eq '샤오미' ? 'selected' : '' }>샤오미</option>
 											</select>
-											<label>모델명</label>  
-											<input type="text" placeholder=" ex) 아이폰" >
+											<label>모델명</label>
+											<c:choose>
+												<c:when test="${name ne null }">
+													<input type="text"  value="${name }">
+												</c:when>
+												<c:otherwise>
+													<input type="text"  placeholder=" ex) 아이폰" >
+												</c:otherwise>
+											</c:choose>
 											<button class="searchBtn">검색</button>
 										</div>
 									</div>
@@ -112,6 +119,15 @@
 											</table>
 											<!-- 페이징 -->
 											<c:if test="${pagination.totalRows gt 0 }">
+												<!-- url 설정하기  -->
+												<c:choose>
+													<c:when test="${maker ne null or name ne null }">
+														<c:set var="url" value="main?maker=${maker }&name=${name }&page=" />
+													</c:when>
+													<c:otherwise>
+														<c:set var="url" value="main?page=" />
+													</c:otherwise>
+												</c:choose>
 												<div class="page">
 													<ul class="pagination modal">
 														<c:choose>
@@ -119,18 +135,18 @@
 																<li><a class="first">이전</a></li>
 															</c:when>
 															<c:otherwise>
-																<li><a href="main?page=${pagination.pageNo - 1 }" class="first">이전</a></li>
+																<li><a href="${url }${pagination.pageNo - 1 }" class="first">이전</a></li>
 															</c:otherwise>
 														</c:choose>
 														<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-															<li><a href="main?page=${num }" class="${pagination.pageNo eq num ? 'active' : ''} num">${num }</a></li>
+															<li><a href="${url }${num }" class="${pagination.pageNo eq num ? 'active' : ''} num">${num }</a></li>
 														</c:forEach>
 														<c:choose>
 															<c:when test="${pagination.pageNo ge pagination.totalPages }">
 																<li><a class="last">다음</a></li>
 															</c:when>
 															<c:otherwise>
-																<li><a href="main?page=${pagination.pageNo + 1 }" class="last">다음</a></li>
+																<li><a href="${url }${pagination.pageNo + 1 }" class="last">다음</a></li>
 															</c:otherwise>
 														</c:choose>
 													</ul>
@@ -180,7 +196,16 @@
 <script src="/tpms/resources/static/assets/js/util.js"></script>
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script type="text/javascript">
+$(function(){
+	let status = "<c:out value='${status}' />";
+	if(status == 'rentalFin'){
+		alert("대여신청이 완료되었습니다. \n승인이 완료되면 이메일로 알림이 전송됩니다. ");
+	}else if(status == 'logout'){
+		alert("로그아웃 되셨습니다.");
+	}
+})
+</script>
 <script src="/tpms/resources/static/js/main.js"></script>
 </body>
 </html>

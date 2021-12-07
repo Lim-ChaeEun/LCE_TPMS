@@ -28,6 +28,7 @@
 			inquiry
 		where 
 			user_code = #{value}
+		order by inquiry_code desc
 	</select>
 	
 </mapper>

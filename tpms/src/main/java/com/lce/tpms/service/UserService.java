@@ -18,4 +18,10 @@ public interface UserService {
 	void registerInquiry(Inquiry inquiry);
 	
 	List<Inquiry> getInquiriesByUser(String userCode);
+	
+	boolean isAbleToReserve(String userCode);
+	
+	List<String> getAllDepartments();
+
+	List<String> getAllTeamsByDept(String dept);
 }

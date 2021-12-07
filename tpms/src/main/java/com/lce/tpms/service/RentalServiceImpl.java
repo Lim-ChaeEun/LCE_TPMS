@@ -29,7 +29,7 @@ public class RentalServiceImpl implements RentalService {
 	private UserDao userDao;
 
 	/**
-	 * 현재진행중인 대여 목
+	 * 현재진행중인 대여 목록 
 	 */
 	@Override	
 	public List<Rental> getCurrentRentalList() {
@@ -65,5 +65,6 @@ public class RentalServiceImpl implements RentalService {
 	public void insertReservation(Reservation reservation) {
 		reservationDao.insertReservation(reservation);
 	}
+	
 	
 }

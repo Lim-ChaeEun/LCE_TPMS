@@ -10,4 +10,31 @@
     		('RV' || lpad(RESERVATION_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
 	</insert>
 	
+	<select id="userAlreadyReserveBefore"  parameterType="string" resultType="string">
+		select 
+			reservation_code
+		from 
+			reservation
+		where 
+			user_code = #{value}	
+	</select>
+	
+	<select id="phoneAlreadyReserveBefore"  parameterType="string" resultType="string">
+		select 
+			reservation_code
+		from 
+			reservation
+		where 
+			phone_code = #{value}	
+	</select>
+	
+	<select id="getReservationByCode"  parameterType="string" resultType="string">
+		select 
+			reservation_code
+		from 
+			reservation
+		where 
+			reservation_code = #{value}
+	</select>
+	
 </mapper>

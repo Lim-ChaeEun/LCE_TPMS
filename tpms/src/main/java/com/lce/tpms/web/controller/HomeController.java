@@ -34,18 +34,32 @@ public class HomeController {
 	}
 
 	@GetMapping("/main")
-	public String home(Model model, @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
+	public String home(Model model,@RequestParam(name = "maker", required = false) String maker, @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
 		HashMap<String, Object> option = new HashMap<String, Object>();
+		if(maker == null || maker.equals("")) {
+			option.put("maker", null);			
+		}else {
+			option.put("maker", maker);
+		}
+		if(name == null || name.equals("")) {
+			option.put("name", null);			
+		}else {
+			option.put("name", name);
+		}
 		option.put("page", pageNo);
 		// 기기전체의 목록 담기
 		HashMap<String, Object> result = phoneService.getAllPhonesContainsRentalByPageAndOption(option);
 		model.addAttribute("phones", result.get("phones"));
 		model.addAttribute("pagination", result.get("pagination"));
+		model.addAttribute("maker", maker);
+		model.addAttribute("name", name);
 		return "main";
 	}
 	
 	@GetMapping("/register")
-	public String registerForm() {
+	public String registerForm(Model model) {
+		List<String> depts = userService.getAllDepartments();
+		model.addAttribute("depts", depts);
 		return "register";
 	}
 	

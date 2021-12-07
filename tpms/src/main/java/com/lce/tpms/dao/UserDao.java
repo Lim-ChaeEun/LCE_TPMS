@@ -14,4 +14,8 @@ public interface UserDao {
 	void insertUser(User user);
 	
 	void updateUserStatus(HashMap<String, String> option);
+	
+	List<String> getAllDepartments();
+
+	List<String> getAllTeamsByDept(String dept);
 }

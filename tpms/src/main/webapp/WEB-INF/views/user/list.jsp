@@ -12,7 +12,7 @@
 	<div id="page-wrapper">
 		<!-- 헤더 -->
 		<c:set var="menu" value="main"/>
-		<%@ include file="../common/userHeader.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 		<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">
@@ -152,32 +152,6 @@
 												</div>
 											</c:if>
 										</div>
-									<!-- 모달연습 버튼  -->
-									<div id="modal" class="modal-overlay">
-								        <div class="modal-window">
-								            <div class="title">
-								                <h3>기기대여 신청</h3>
-								            </div>
-								            <div class="close-area">X</div>
-								            <div class="content">
-								                <form action="rental/apply" method="post" class="offset-2" id="rental-form">
-										        	<input type="hidden" id="phone-code" name="phoneCode" value="" />
-								  					<div class="col-md-10">
-								    					<label class="form-label">시작일자</label>
-								    					<input type="date" class="form-control" id="rental-start" name="startDate">
-								  					</div>
-								  					<div class="col-md-10">
-								    					<label class="form-label">종료일자</label>
-								    					<input type="date" class="form-control" id="rental-end" name="endDate">
-								  					</div>
-												</form>
-												<div class="footer mt-3">
-											        <button type="button" class="btn cancel" id="btn-cancel">취소</button>
-											        <button type="button" class="btn apply alt">신청</button>
-											     </div>
-								            </div>
-								        </div>
-								    </div>
 								</div>
 							</section>
 						</div>
@@ -200,8 +174,6 @@ $(function(){
 	let status = "<c:out value='${status}' />";
 	if(status == 'rentalFin'){
 		alert("대여신청이 완료되었습니다. \n승인이 완료되면 이메일로 알림이 전송됩니다. ");
-	}else if(status == 'logout'){
-		alert("로그아웃 되셨습니다.");
 	}
 })
 </script>

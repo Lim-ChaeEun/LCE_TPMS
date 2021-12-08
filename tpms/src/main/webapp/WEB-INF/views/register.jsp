@@ -12,7 +12,7 @@
 	<div id="page-wrapper">
 		<!-- 헤더 -->
 		<c:set var="menu" value="main"/>
-		<%@ include file="common/userHeader.jsp" %>
+		<%@ include file="common/header.jsp" %>
 		<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">

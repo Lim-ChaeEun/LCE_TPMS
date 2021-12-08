@@ -28,6 +28,10 @@ table{
 	margin-top: 2em;
 }
 
+tbody tr.hide{
+	border: 1px solid #dcdddc;
+}
+
 .short{
 	display: block;
 	white-space: nowrap;
@@ -70,6 +74,20 @@ p.header{
 	font-weight: 500;
 }
 
+.box.rental-info table th{
+    background-color : #f1f1f1;
+}
+
+.box.rental-info table{
+	border : 1px solid #c1bdbd;
+}
+
+.box.rental-info table input{
+	border-radius: 5px;
+	padding: 5px;
+	margin: 0.5em;
+	width: 200px;
+}
 
 .first{
 	margin-left: 15px;
@@ -115,7 +133,7 @@ p.success{
 	color: #008000;
 }
 
-p.danger{
+.danger{
 	color: red;
 }
 
@@ -2556,7 +2574,7 @@ input, select, textarea {
 	#banner {
 		background: #efefef url("/tpms/resources/static/images/mainSearch.png");
 		background-position: center center;
-		background-size: auto;
+		background-size: cover;
 		background-repeat: no-repeat;
 		text-align: center;
 		position: relative;

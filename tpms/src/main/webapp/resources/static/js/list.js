@@ -3,25 +3,6 @@
  */
 
 $(function(){
-
-		const modal = document.getElementById("modal")
-		const btnModal = document.getElementById("btn-cancel")
-
-		btnModal.addEventListener("click", e => {
-		    modal.style.display = "none";
-		})
-		
-		const closeBtn = modal.querySelector(".close-area")
-		closeBtn.addEventListener("click", e => {
-		    modal.style.display = "none"
-		})
-		
-		modal.addEventListener("click", e => {
-		    const evTarget = e.target
-		    if(evTarget.classList.contains("modal-overlay")) {
-		        modal.style.display = "none"
-		    }
-		})
 	
 	// 대여신청을 클릭한 경우
 	// 1. 로그인이 되어있는지 확인 -> 되어있지 않다면 알림창띄우고 로그인 페이지이동여부 결정 
@@ -47,62 +28,10 @@ $(function(){
 					alert('이미 대여중이거나, 대여신청을 하셨습니다. \n\n *지난 대여에서 연체가 발생한 경우 \n *반납일로부터 7일이후에 대여가 가능합니다.');
 					return;
 				}
-				location.href = "rental/apply?phone=" + phoneCode;
-				/*
-				 * 
-				// 기기코드 설정하고 값 비우고 띄우기
-				$('#rental-form').find('#phone-code').val(phoneCode);
-				$('#rental-form').find('#rental-start').val('')
-				$('#rental-form').find('#rental-end').val('')
-				modal.style.display = "flex";
-				
-				 */
+				location.href = "../rental/apply?phone=" + phoneCode;
 			}
 		});
 	});
-	
-	// 대여모달 신청누르면 -> 유효성검사 후 제출
-	$('#modal').on('click', '.apply', function(){
-		// 값 유효성 확인
-		// 1.시작일이 종료일보다 앞이 맞는지
-		let startDateString = $('#rental-form').find('#rental-start').val();
-		let endDateString = $('#rental-form').find('#rental-end').val();
-		let startDate = new Date(startDateString);
-		let endDate = new Date(endDateString);
-		
-		if(startDateString == ''){
-			alert("시작일을 입력하세요");
-			$('#rental-form').find('#rental-start').focus();
-			return;
-		} else if(endDateString == ''){
-			alert("종료일를 입력하세요");
-			$('#rental-form').find('#rental-end').focus();			
-			return;
-		} else if(startDateString > endDateString){
-			alert("시작일은 종료일보다 앞이여야 합니다.");
-			$('#rental-form').find('#rental-start').focus();
-			return;
-		} else if(startDateString == endDateString){
-			alert("시작일과 종료일은 같을 수 없습니다.");
-			$('#rental-form').find('#rental-start').focus();
-			return;
-		} else if(endDate - startDate > 518400000){
-			alert("대여할 수 있는 최대기간은 일주일입니다.");
-			$('#rental-form').find('#rental-end').focus();	
-			return;
-		} else if(new Date() > startDate){
-			alert("대여시작일은 오늘보다 뒤여야합니다.");
-			$('#rental-form').find('#rental-start').focus();	
-			return;
-		} else if(startDate - new Date() > 345600000){
-			alert("대여신청은 대여일로부터 3일 이전부터 가능합니다.");
-			$('#rental-form').find('#rental-start').focus();	
-			return;
-		}
-		
-		// 유효성 검사 완료하면 폼 제출
-		$('#rental-form').submit();
-	})
 	
 	function searchOption(){
 		let selectOption = $('#search-option > select').val();

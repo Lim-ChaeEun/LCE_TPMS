@@ -102,6 +102,11 @@ public class HomeController {
 		return "user/main";
 	}
 	
+	@GetMapping("/admin/main")
+	public String adminMain() {
+		return "admin/main";
+	}
+	
 	/**
 	 * 로그아웃 실행
 	 * @return

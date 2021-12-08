@@ -11,7 +11,7 @@
 <body class="homepage is-preload">
 	<div id="page-wrapper">
 		<!-- 헤더 -->
-		<%@ include file="../common/userHeader.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 		<!-- Banner -->
 			<section id="banner">
 				<header>
@@ -81,7 +81,6 @@
 														<col width="50%"/>
 														<col width="25%"/>
 														<col width="25%"/>
-
 													</colgroup>
 													<tr>
 														<th scope="col">제목</th>
@@ -134,7 +133,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(function(){
-	
 	$('#phone-search').on('keydown', function(e){
 		if(e.keyCode == 13) {
 			let name = $('#phone-search').val();

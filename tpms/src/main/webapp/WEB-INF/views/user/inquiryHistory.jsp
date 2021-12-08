@@ -12,7 +12,7 @@
 	<div id="page-wrapper">
 		<!-- 헤더 -->
 		<c:set var="menu" value="my"/>
-		<%@ include file="../common/userHeader.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 			<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">
@@ -43,7 +43,7 @@
 													<th scope="col"> </th>
 												</tr>
 											</thead>
-											<tbody id="phone-list">
+											<tbody id="inquiry-list">
 												<c:choose>
 													<c:when test="${empty inquiries}">
 														<tr>
@@ -52,32 +52,32 @@
 													</c:when>
 													<c:otherwise>
 														<c:forEach var="inquiry" items="${inquiries }" varStatus="loop">
-															<tr>
+															<tr id="${inquiry.code }">
 																<td>${loop.count }</td>
 																<td><p class="bold">${inquiry.title }</p></td>
 																<td>${user.name }</td>
 																<c:choose>
 																	<c:when test="${inquiry.status eq 'N' }">
-																		<td><p class="danger strong">미완료</p></td>
+																		<td><p class="bold">미완료</p></td>
 																	</c:when>
 																	<c:otherwise>	
-																		<td><p class="success strong">답변완료</p></td>
+																		<td><p class="danger bold">답변완료</p></td>
 																	</c:otherwise>
 																</c:choose>
 																<td><p class="bold"><fmt:formatDate value="${inquiry.createdDate}" pattern="yyyy-MM-dd"/></p></td>
 																<td><button id="show">보기</button></td>
 															</tr>
-															<tr class="hide" style="display:none ">
-																<td colspan="1"><p class="danger strong">문의내용</p></td>
+															<tr class="hide" style="display:none "  id="${inquiry.code }">
+																<td colspan="1"><p class="bold">문의내용</p></td>
 																<td colspan="5">${inquiry.content }</td>
 															</tr>
-															<tr class="hide" style="display:none ">
+															<tr class="hide" style="display:none "  id="${inquiry.code }">
 																<c:choose>
 																	<c:when test="${inquiry.status eq 'N' }">
 																		<td colspan="6" class="center"><p class="bold">작성된 답변이 없습니다.</p></td>
 																	</c:when>
 																	<c:otherwise>
-																		<td colspan="1"><p class="success strong">문의답변</p></td>
+																		<td colspan="1"><p class="danger bold">문의답변</p></td>
 																		<td colspan="4">${inquiry.respond }</td>
 																		<td colspan="1"><p class="bold"><fmt:formatDate value="${inquiry.respondDate}" pattern="yyyy-MM-dd"/></p></td>
 																	</c:otherwise>
@@ -110,15 +110,21 @@
 <script>
 $(function(){
 	$('#inquiry-table tbody').on('click', 'button', function(){
-		let val1 = $(this).closest('tr').next('tr:eq(0)');
-		let val2 = val1.next('tr');
-		if(val1.css('display') == 'none'){
-			val1.css('display', '');
-			val2.css('display', '');
-		}else{
-			val1.css('display', 'none');			
-			val2.css('display', 'none');			
+		let inquiryCode = $(this).closest('tr').attr('id');
+		let inquiryContent = $(this).closest('tr').next('tr:eq(0)');
+		let inquiryRespond = inquiryContent.next('tr');
+		
+		if(inquiryContent.css('display') == 'none'){
+			$('.hide').css('display', 'none');
+			if($('#'+inquiryCode+'.hide')){
+				$('#'+inquiryCode+'.hide').css('display', '');
+			}
+		} else{
+			if($('#'+inquiryCode+'.hide')){
+				$('#'+inquiryCode+'.hide').css('display', 'none');
+			}			
 		}
+		
 	})
 })
 </script>

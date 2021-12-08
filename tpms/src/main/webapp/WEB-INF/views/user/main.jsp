@@ -7,6 +7,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
+	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">

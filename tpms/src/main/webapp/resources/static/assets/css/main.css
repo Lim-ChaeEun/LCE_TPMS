@@ -24,12 +24,119 @@ section, summary, time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;}
+	
+table.admin tr.head{
+	background-color: #f1f1f1;
+}
+	
 table{
 	margin-top: 2em;
+	
+}
+
+.table{
+	margin-top: 0;
+}
+
+table .center{
+	text-align: center;
 }
 
 tbody tr.hide{
 	border: 1px solid #dcdddc;
+}
+
+.table tr th{
+	border-top: 2px solid #000000;
+	border-bottom: 1px solid #c8c8c8;
+	text-align: center;
+	background-color: #f4f4f4;
+}
+.table tr.back:hover{
+	background-color: #e8e8e8;
+}
+
+.table tr td button{
+	height:2.3em;
+	width: 4em;
+}
+
+.makeBtn span{
+	color: #3b3b3b;
+}
+.makeBtn span:hover{
+	color: #3b3b3b;
+}
+
+.makeBtn {
+height:2.5em;
+width: 4em;
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #3b3b3b;
+  border: solid #595959 2px;
+  text-decoration: none;
+}
+
+
+.selectbox {
+
+    position: relative;
+    width: 180px;  /* 너비설정 */
+    z-index: 1;
+}
+
+.selectbox label {
+    position: absolute;
+    top: 5px;  /* 위치정렬 */
+    left: 6px;  /* 위치정렬 */
+    padding: .8em .5em;  /* select의 여백 크기 만큼 */
+    color: #000000;
+    z-index: -1;  /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
+}
+
+
+/* 가상 선택자를 활용 화살표 대체 */
+.selectbox:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 0;
+    height: 0;
+    margin-top: -1px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+}
+
+
+.selectbox select {
+    width: 100%;
+    height: auto;  /* 높이 초기화 */
+    line-height: normal;  /* line-height 초기화 */
+    font-family: inherit;  /* 폰트 상속 */
+    padding: .8em .5em;  /* 여백과 높이 결정 */
+    border: 0;
+    opacity: 0;  /* 숨기기 */
+    filter:alpha(opacity=0);  /* IE8 숨기기 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+    margin-bottom: 0;
+}
+
+
+.table tr td{
+	padding: 1em;
 }
 
 .short{
@@ -55,7 +162,7 @@ p.header{
 	list-style: none;
 	display: inline-block;
 	padding: 0;
-	margin-top: 20px
+	margin-top: 20px;
 }
 
 .pagination li{
@@ -72,6 +179,7 @@ p.header{
 	color: #525b69;
 	line-height: 1.5;
 	font-weight: 500;
+	font-size: 1em;
 }
 
 .box.rental-info table th{
@@ -228,7 +336,7 @@ div.alert strong{
 
 
 #search-option input{
-	margin-right: 10px;
+	margin-bottom: 10px;
 	border-radius: 5px;
 	line-height: 2em;
 }
@@ -1822,7 +1930,7 @@ input, select, textarea {
 			font-weight: 700;
 			font-size: 0.9em;
 			width: 4em;
-			height: 2em;
+			height: 2.5em;
 			background: #000040;
 		}
 
@@ -1977,9 +2085,9 @@ input, select, textarea {
 /* Button */
 
 	.searchBtn {
-		background: #FF1644;
 		margin-bottom: 2em;
 		font-size: 1em;
+		height: 42px;
 		padding: 0.35em 0.7em 0.5em 0.8em;
 	}
 

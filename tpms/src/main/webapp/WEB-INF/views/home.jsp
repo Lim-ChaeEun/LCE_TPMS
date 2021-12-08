@@ -7,6 +7,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
+	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
@@ -35,6 +36,15 @@
 													<div class="col-12">
 														<div class="alert alert-danger">
 															<strong>본 서비스는 로그인 후 사용가능합니다.</strong>
+														</div>
+													</div>					
+												</div>
+											</c:if>
+											<c:if test="${param.error eq 'admin' }">
+												<div class="row text-center">
+													<div class="col-12">
+														<div class="alert alert-danger">
+															<strong>본 서비스는 관리자 인증 후 사용가능합니다.</strong>
 														</div>
 													</div>					
 												</div>

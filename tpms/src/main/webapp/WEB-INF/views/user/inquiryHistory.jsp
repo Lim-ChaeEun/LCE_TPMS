@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TPMS</title>
+	<title>TPMS | 내 문의내역</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
+	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
@@ -58,17 +59,17 @@
 																<td>${user.name }</td>
 																<c:choose>
 																	<c:when test="${inquiry.status eq 'N' }">
-																		<td><p class="bold">미완료</p></td>
+																		<td class="bold">미완료</td>
 																	</c:when>
 																	<c:otherwise>	
-																		<td><p class="danger bold">답변완료</p></td>
+																		<td class="bold"><p class="danger">답변완료</p></td>
 																	</c:otherwise>
 																</c:choose>
 																<td><p class="bold"><fmt:formatDate value="${inquiry.createdDate}" pattern="yyyy-MM-dd"/></p></td>
 																<td><button id="show">보기</button></td>
 															</tr>
 															<tr class="hide" style="display:none "  id="${inquiry.code }">
-																<td colspan="1"><p class="bold">문의내용</p></td>
+																<td colspan="1" class="bold"><p>문의내용</p></td>
 																<td colspan="5">${inquiry.content }</td>
 															</tr>
 															<tr class="hide" style="display:none "  id="${inquiry.code }">
@@ -77,9 +78,9 @@
 																		<td colspan="6" class="center"><p class="bold">작성된 답변이 없습니다.</p></td>
 																	</c:when>
 																	<c:otherwise>
-																		<td colspan="1"><p class="danger bold">문의답변</p></td>
+																		<td colspan="1" class="bold"><p class="danger">문의답변</p></td>
 																		<td colspan="4">${inquiry.respond }</td>
-																		<td colspan="1"><p class="bold"><fmt:formatDate value="${inquiry.respondDate}" pattern="yyyy-MM-dd"/></p></td>
+																		<td colspan="1" class="bold"><p><fmt:formatDate value="${inquiry.respondDate}" pattern="yyyy-MM-dd"/></p></td>
 																	</c:otherwise>
 																</c:choose>
 															</tr>

@@ -33,6 +33,11 @@ public class HomeController {
 		model.addAttribute("error", ex);
 		return "loginForm";
 	}
+	
+	@GetMapping("/table")
+	public String table() {
+		return "table";
+	}
 
 	@GetMapping("/user/list")
 	public String home(Model model,@RequestParam(name = "maker", required = false) String maker, @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
@@ -100,11 +105,6 @@ public class HomeController {
 		model.addAttribute("reserve", userInfo.get("reserve"));
 		System.out.println(userInfo);
 		return "user/main";
-	}
-	
-	@GetMapping("/admin/main")
-	public String adminMain() {
-		return "admin/main";
 	}
 	
 	/**

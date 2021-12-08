@@ -42,4 +42,22 @@
 				rownum <= 3
 		]]>
 	</select>
+	
+	<select id="getNoRespondInquiries" resultType="map">
+		select 
+		    inquiry.inquiry_code			as code,
+		    inquiry.inquiry_title 			as title,
+		    inquiry.inquiry_content  		as content,
+		    inquiry.inquiry_created_date 	as createdDate,
+		    users.user_code 				as userCode,
+		    users.user_name 				as userName,
+		    users.user_team 				as userTeam,
+		    users.user_position 			as userPosition
+		from 
+			inquiry, users
+		where 
+			inquiry_status = 'N'
+		and 
+			inquiry.user_code = users.user_code
+	</select>
 </mapper>

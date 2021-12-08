@@ -13,9 +13,18 @@
 <section id="header">
 	<!-- TPMS 로고 넣기 -->
 	<h1>
-		<a class="navbar-brand" href="/tpms/user/main">
-			<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="230" height="70" >
-		</a>
+		<c:choose>
+			<c:when test="${not empty LOGINED_USER and LOGINED_USER.admin eq 'Y'}">
+				<a class="navbar-brand" href="/tpms/admin/main">
+					<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="230" height="70" >
+				</a>
+			</c:when>
+			<c:otherwise>
+				<a class="navbar-brand" href="/tpms/user/main">
+					<img src="/tpms/resources/static/images/tpms_logo1.png" class="mx-3" alt="error" width="230" height="70" >
+				</a>
+			</c:otherwise>
+		</c:choose>
 	</h1>
 	<!-- 네비바 -->
 	<nav id="nav">
@@ -35,8 +44,9 @@
 						</li>
 					</c:when>
 					<c:otherwise>
-						<li class=""><a href="/tpms/user/list">회원관리</a></li>
-						<li class=""><a href="/tpms/user/list">기기관리</a></li>
+						<li class="${menu eq 'approval' ? 'current' : '' }"><a href="/tpms/admin/main">승인관리</a></li>
+						<li class="${menu eq 'phone' ? 'current' : '' }"><a href="/tpms/admin/phone">기기관리</a></li>
+						<li class="${menu eq 'user' ? 'current' : '' }"><a href="/tpms/admin/user">회원관리</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:if>

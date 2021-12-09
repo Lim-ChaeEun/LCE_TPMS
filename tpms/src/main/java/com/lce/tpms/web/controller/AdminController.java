@@ -20,13 +20,13 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
-	@GetMapping("main")
+	@GetMapping("/main")
 	public String adminMain(@LoginAdmin User user, Model model) {
 		List<HashMap<String, Object>> rentals = adminService.getWaitRentals();
 		List<HashMap<String, Object>> inquiries = adminService.getNoRespondInquiries();
 		model.addAttribute("rentals", rentals);
 		model.addAttribute("inquiries", inquiries);
-		return "admin/main";
+		return "admin/table";
 	}
 
 	@GetMapping("/user")

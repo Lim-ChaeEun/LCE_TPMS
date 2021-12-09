@@ -33,6 +33,7 @@
 												<header>
 													<h3>대여 / 예약</h3>
 												</header>
+												
 												<p>현재 대여/ 예약중인 기기가 존재하지 않습니다.</p>
 												<footer>
 													<ul class="actions">
@@ -46,8 +47,10 @@
 														<header>
 															<h3>대여 / 신청중인 기기</h3>
 														</header>
+														<div class="rentalnow">
 														<p><strong>기기: </strong> ${rental.NAME } (${rental.MAKER })</p>
 														<p><strong>운영체제: </strong> IOS 15.1.1</p>
+														</div>
 													</c:when>
 													<c:otherwise>
 														<header>

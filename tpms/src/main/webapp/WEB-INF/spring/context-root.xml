@@ -21,12 +21,13 @@
 	<context:component-scan base-package="com.lce.tpms.service"/>
 	
 	<!-- commons-dbcp2 라이브러리를 이용한 커넥션풀을 스프링의 빈으로 등록 -->
+	<!-- commons-dbcp2 라이브러리를 이용한 커넥션풀을 스프링의 빈으로 등록 -->
 	<bean id="dataSource" 
-		class="org.apache.commons.dbcp2.BasicDataSource"
-		p:driverClassName="oracle.jdbc.OracleDriver"								
-		p:url="jdbc:oracle:thin:@db202111292221_high?TNS_ADMIN=C://Wallet//OracleCloud"
-		p:username="admin"
-		p:password="LimLim2035816@!"/>
+	class="org.apache.commons.dbcp2.BasicDataSource"
+	p:driverClassName="oracle.jdbc.OracleDriver"								
+	p:url="jdbc:oracle:thin:@db202111292221_high?TNS_ADMIN=/Users/bccard/wallet/OracleCloud"
+	p:username="admin"
+	p:password="LimLim2035816@!"/>
 	
 	
 	<!-- 트랜잭션 매니저를 스프링 컨테이너의 빈으로 등록 -->

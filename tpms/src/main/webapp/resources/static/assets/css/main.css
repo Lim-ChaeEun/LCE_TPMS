@@ -25,6 +25,7 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 	
+
 table.admin tr.head{
 	background-color: #f1f1f1;
 }
@@ -2960,6 +2961,8 @@ input, select, textarea {
 			#main {
 				padding: 30px 0;
 			}
+
+
 
 		/* Footer */
 

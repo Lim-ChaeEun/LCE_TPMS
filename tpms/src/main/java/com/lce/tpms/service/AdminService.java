@@ -8,4 +8,6 @@ public interface AdminService {
 	List<HashMap<String, Object>> getNoRespondInquiries();
 
 	List<HashMap<String, Object>> getWaitRentals();
+	
+	List<HashMap<String, Object>> getOverdueRentals();
 }

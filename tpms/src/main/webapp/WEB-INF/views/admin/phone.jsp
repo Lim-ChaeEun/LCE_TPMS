@@ -19,7 +19,61 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-12 rentalHisLine">
-						관리자메인 
+						<header class="major">
+							<h2>기기관리</h2>
+						</header>
+						<div class="row">
+							<div class="col-12 col-12-medium col-12-small">
+								<section class="box">
+									<c:choose>
+										<c:when test="${empty phones }">
+											<p>등록된 기기가 존재하지 않습니다.</p>
+										</c:when>
+										<c:otherwise>
+											<table class="admin">
+												<thead>
+												<colgroup>
+													<col width="10%"/>
+													<col width="10%"/>
+													<col width="25%"/>
+													<col width="15%"/>
+													<col width="15%"/>
+													<col width="15%"/>
+													<col width="10%"/>
+												</colgroup>
+												<tr class="head">
+													<th scope="col">사번</th>
+													<th scope="col">이름</th>
+													<th scope="col">소속</th>
+													<th scope="col">이메일</th>
+													<th scope="col">휴대폰</th>
+													<th scope="col">디스플레이</th>
+													<th scope="col">메모리</th>
+													<th scope="col">대여가능여부</th>
+													<th scope="col">관리자</th>
+												</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="phone" items="${phones }">
+														<tr>
+															<td>${phone.code }</td>
+															<td>${phone.modelName }</td>
+															<td>${phone.os } / ${phone.version }</td>
+															<td>${phone.macAddress }</td>
+															<td>${phone.display }</td>
+															<td>${phone.memory }</td>
+															<td>${phone.password }</td>
+															<td class="strong">대여중</td>
+															<td class="strong">가능</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</c:otherwise>
+									</c:choose>
+								</section>
+							</div> 
+						</div>
 					</div>
 				</div>
 			</div>

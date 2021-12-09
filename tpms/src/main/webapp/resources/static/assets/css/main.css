@@ -26,6 +26,19 @@ section, summary, time, mark, audio, video {
 	vertical-align: baseline;}
 	
 
+input[type="checkbox" i] {
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+    width: 0.8em; /* 너비 설정 */
+    height: 0.8em; /* 높이 설정 */
+}
+
+
 table.admin tr.head{
 	background-color: #f1f1f1;
 }
@@ -246,8 +259,11 @@ p.success{
 	color: red;
 }
 
-p.bold{
+.bold{
 	font-weight: 500;
+}
+.strong{
+	font-weight: 700;
 }
 
 .distance{

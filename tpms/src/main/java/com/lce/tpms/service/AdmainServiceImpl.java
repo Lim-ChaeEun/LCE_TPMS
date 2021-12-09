@@ -29,4 +29,8 @@ public class AdmainServiceImpl implements AdminService{
 		return rentalDao.getWaitRentals();
 	}
 	
+	@Override
+	public List<HashMap<String, Object>> getOverdueRentals() {
+		return rentalDao.getOverdueRentals();
+	}
 }

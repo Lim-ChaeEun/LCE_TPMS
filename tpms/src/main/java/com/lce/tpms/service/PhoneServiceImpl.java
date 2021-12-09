@@ -25,7 +25,7 @@ public class PhoneServiceImpl implements PhoneService{
 	 * 모든 기기정보 반환하는 메소드 
 	 */
 	@Override
-	public List<Phone> getAllPhons() {
+	public List<Phone> getAllPhones() {
 		return phoneDao.getAllPhones();
 	}
 	

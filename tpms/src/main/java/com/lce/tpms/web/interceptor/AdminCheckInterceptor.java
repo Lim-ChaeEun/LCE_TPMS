@@ -34,25 +34,27 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
 		// @LoginAdmin 어노테이션 있지만 session에 저장되어있는 사용자가 없는경우 -> 에러 
 		if (hasLoginAdminAnnotation && SessionUtils.getAttribute("LOGINED_USER") == null) {
 			String returnUri = request.getRequestURI();
-			String returnParameter = request.getQueryString();
-			SessionUtils.addAttribute("returnUri", returnUri.replace("/hmc", ""));
-			SessionUtils.addAttribute("returnParameter", returnParameter);
-			response.sendRedirect("/hmc/login/?error=admin");	
+			String returnParam = request.getQueryString();
+			String uri = returnUri.replace("/tpms", "");
+			SessionUtils.addAttribute("returnURI", uri);
+			SessionUtils.addAttribute("returnParam", returnParam);
+			response.sendRedirect("/tpms/login?error=admin");
 			return false;
 		}else if(hasLoginAdminAnnotation && SessionUtils.getAttribute("LOGINED_USER") != null){
 			// @LoginAdmin 어노테이션이 있고 세션에 사용자도 있는경우
 			// 세션에 있는 사용자의 admin여부가 Y인지 확인한다
 			boolean isAdmin = false;
-			User loginedUser = (User)(SessionUtils.getAttribute("LOGINED_USER"));
-			if("Y".equals(loginedUser.getAdmin())) {
+			User user = (User)(SessionUtils.getAttribute("LOGINED_USER"));
+			if("Y".equals(user.getAdmin())) {
 				isAdmin = true; 
 			}
 			// 어드민이 y가 아닌경우는 로그인폼 재요청
 			if(hasLoginAdminAnnotation && !isAdmin) {
 				String returnUri = request.getRequestURI();
-				String returnParameter = request.getQueryString();
-				SessionUtils.addAttribute("returnUri", returnUri.replace("/tpms", ""));
-				SessionUtils.addAttribute("returnParameter", returnParameter);
+				String returnParam = request.getQueryString();
+				String uri = returnUri.replace("/tpms", "");
+				SessionUtils.addAttribute("returnURI", uri);
+				SessionUtils.addAttribute("returnParam", returnParam);
 				response.sendRedirect("/tpms/home?error=admin");
 				return false;
 			}

@@ -12,6 +12,32 @@
 		<result column="rental_give_date" property="giveDate"/>
 		<result column="rental_status" property="status"/>
 	</resultMap>
+	<select id="getOverdueRentals" resultType="map">
+		<![CDATA[
+			select 
+	  			rental.rental_code 			as code,
+			    users.user_code 			as userCode,
+			    phone.phone_code 			as phoneCode,
+			    rental.rental_start_date 	as startDate,
+			    rental.rental_end_date 		as endDate,
+			    users.user_name 			as userName,
+			    users.user_team 			as userTeam,
+			    users.user_position 		as userPosition,
+			    phone.phone_name  			as phoneName,
+			    phone.phone_maker  			as phoneMaker,
+	            trunc(sysdate) - trunc(rental_end_date) as overDay
+			from 
+				rental, users, phone
+			where 
+				rental_end_date < sysdate
+			and 
+				rental_status = 'ING'
+			and 
+				rental.user_code = users.user_code
+			and 
+				rental.phone_code = phone.phone_code
+		]]>
+	</select>
 	
 	<insert id="insertRental" parameterType="com.lce.tpms.vo.Rental">
 	insert into rental

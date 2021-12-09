@@ -16,5 +16,7 @@ public interface RentalDao {
 	HashMap<String, Object> getRentalByUserAndStatus(HashMap<String, String> option);
 	
 	List<HashMap<String, Object>> getWaitRentals();
+
+	List<HashMap<String, Object>> getOverdueRentals();
 	
 }

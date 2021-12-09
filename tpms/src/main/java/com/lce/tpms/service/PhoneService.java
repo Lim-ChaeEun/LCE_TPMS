@@ -7,7 +7,7 @@ import com.lce.tpms.vo.Phone;
 
 public interface PhoneService {
 
-	List<Phone> getAllPhons();
+	List<Phone> getAllPhones();
 	
 	HashMap<String, Object> getAllPhonesContainsRentalByPageAndOption(HashMap<String, Object> option);
 	

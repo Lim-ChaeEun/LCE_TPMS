@@ -7,8 +7,6 @@ import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.Reservation;
 
 public interface RentalService {
-
-	List<Rental> getCurrentRentalList();
 	
 	void applyRental(Rental rental, String userCode);
 	

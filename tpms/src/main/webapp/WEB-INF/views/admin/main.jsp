@@ -34,7 +34,7 @@
 											<p>대기중인 대여신청이 없습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin">
+											<table class="admin" id="rental-table">
 												<thead>
 												<colgroup>
 													<col width="8%"/>
@@ -55,14 +55,14 @@
 												</thead>
 												<tbody>
 													<c:forEach var="rental" items="${rentals }" varStatus="loop">
-														<tr>
+														<tr id="${rental.CODE }">
 															<td class="center">${loop.count }</td>
 															<td>${rental.PHONENAME }</td>
 															<td>${rental.PHONEMAKER }</td>
 															<td><fmt:formatDate value="${rental.STARTDATE }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="yyyy-MM-dd"/></td>
 															<td>${rental.USERNAME } / ${rental.USERTEAM } (${rental.USERPOSITION })</td>
 															<td>
-																<button>승인</button>
+																<button class="approve">승인</button>
 																<button class="alt">반려</button>
 															</td>
 														</tr>
@@ -94,7 +94,7 @@
 													<col width="12%"/>
 													<col width="10%"/>
 												</colgroup>
-												<tr class="head">
+												<tr class="head" >
 													<th scope="col"><input type="checkbox" name="chk" value="checkAll"></th>
 													<th class="center" scope="col">순번</th>
 													<th scope="col">기기 / 제조사</th>
@@ -106,7 +106,7 @@
 												</thead>
 												<tbody>
 													<c:forEach var="over" items="${overdues }" varStatus="loop">
-														<tr>
+														<tr id="${over.CODE }">
 															<td><input type="checkbox" name="chk" value="${over.CODE }"></td>
 															<td class="center">${loop.count }</td>
 															<td>${over.PHONENAME } / ${over.PHONEMAKER }</td>
@@ -151,7 +151,7 @@
 												</thead>
 												<tbody>
 													<c:forEach var="inquiry" items="${inquiries }" varStatus="loop">
-														<tr>
+														<tr id="${inquiry.CODE }">
 															<td>${loop.count }</td>
 															<td>${inquiry.TITLE }</td>
 															<td>${inquiry.CONTENT }</td>
@@ -182,8 +182,17 @@
 <script src="/tpms/resources/static/assets/js/util.js"></script>
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
 <script>
 $(function(){
+	
+	let status = "<c:out value='${status}' />";
+	if(status == 'approve'){
+		alert("대여신청을 승인했습니다.");
+	}else if(status == 'reject'){
+		alert("대여신청을 반려했습니다.");		
+	}
+	
 	// 체크박스 관련설정
 	$('#overDue-table').on('click', 'input:checkbox', function(){
 		if($(this).val() == 'checkAll'){
@@ -191,6 +200,44 @@ $(function(){
 			$('input:checkbox[name=chk]').prop('checked', status);
 		}
 	})
+	
+	// 기기대여 신청 승인 . 반려 
+	$('#rental-table tbody td').on('click', 'button', function(){
+		// 승인인 경우
+		let rentalCode = $(this).closest('tr').attr('id');
+		let status = 'approve';
+		console.log(rentalCode);
+		if($(this).hasClass('approve')){
+			//  이메일 작성
+			console.log('승인')
+		} else{
+			status = 'reject';
+			// 이메일 작성  
+			console.log('반려 ');
+		}
+		location.href = "rental?code="+rentalCode+"&status="+status;
+		
+	})
+	
+	// 연체알림 이메일 
+	$('#overDue-table tbody td').on('click', '.alt', function(){
+		sendOverEmail();
+	})
+	
+	// 이메일 보내기 
+	function sendEmail(name, message, email){
+		emailjs.init('user_S0kArdgcTNuCZifqLMLpt');
+		let templateParams = {
+				name : name,
+				message : message,
+				email: email
+		}
+		emailjs.send('service_c2kyuum', 'template_fapyng4',templateParams).then(function(response){
+			console.log('success', response.status, response.text);
+		}, function(error){
+			console.log('success', error);
+		})
+	}
 	
 })
 </script>

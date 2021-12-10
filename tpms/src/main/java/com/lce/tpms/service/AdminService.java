@@ -10,4 +10,6 @@ public interface AdminService {
 	List<HashMap<String, Object>> getWaitRentals();
 	
 	List<HashMap<String, Object>> getOverdueRentals();
+	
+	void decideRental(HashMap<String, String> option);
 }

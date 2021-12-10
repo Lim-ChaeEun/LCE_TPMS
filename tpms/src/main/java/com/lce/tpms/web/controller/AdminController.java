@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.AdminService;
 import com.lce.tpms.service.PhoneService;
@@ -38,6 +40,16 @@ public class AdminController {
 		return "admin/main";
 	}
 
+	@GetMapping("/rental")
+	public String decideRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, RedirectAttributes rat) {
+		HashMap<String, String> option = new  HashMap<String, String>();
+		option.put("rentalCode", code);
+		option.put("status", status);
+		adminService.decideRental(option);
+		rat.addFlashAttribute("status", status);
+		return "redirect:/admin/main";
+	}
+	
 	@GetMapping("/user")
 	public String userManagement(@LoginAdmin User user, Model model) {
 		List<User> users = userService.getAllUser();

@@ -108,7 +108,14 @@
 																<td>${rental.MAKER }</td>
 																<td>${rental.OS } ${rental.VERSION }</td>
 																<td><p class="bold"><fmt:formatDate value="${rental.STARTDATE }" pattern="yy-MM-d"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="yy-MM-d"/></p></td>
-																<td><p class="bold"><fmt:formatDate value="${rental.GIVEDATE }" pattern="yy-MM-d"/></p></td>
+																<c:choose>
+																	<c:when test="${rental.STATUS eq 'REJ' }">
+																		<td><p class="bold danger">반려된 요청</p></td>																
+																	</c:when>
+																	<c:otherwise>
+																		<td><p class="bold"><fmt:formatDate value="${rental.GIVEDATE }" pattern="yy-MM-d"/></p></td>																
+																	</c:otherwise>
+																</c:choose>
 															</tr>
 														</c:forEach>
 													</c:otherwise>

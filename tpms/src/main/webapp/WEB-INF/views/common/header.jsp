@@ -26,6 +26,7 @@
 			</c:otherwise>
 		</c:choose>
 	</h1>
+	<p class="header">Test Phone Management System</p>
 	<!-- 네비바 -->
 	<nav id="nav">
 		<ul>

@@ -27,15 +27,6 @@ public class RentalServiceImpl implements RentalService {
 	
 	@Autowired
 	private UserDao userDao;
-
-	/**
-	 * 현재진행중인 대여 목록 
-	 */
-	@Override	
-	public List<Rental> getCurrentRentalList() {
-		List<Rental> rentals = rentalDao.getCurrentRentalList();
-		return rentals;
-	}
 	
 	@Override
 	public void applyRental(Rental rental, String userCode) {
@@ -45,6 +36,9 @@ public class RentalServiceImpl implements RentalService {
 		option.put("userCode", userCode);
 		option.put("status", "N");
 		userDao.updateUserStatus(option);
+		User  user = userDao.getUserByCode(userCode);
+		SessionUtils.removeAttribute("LOGINED_USER");
+		SessionUtils.addAttribute("LOGINED_USER", user);
 	}
 	
 	@Override

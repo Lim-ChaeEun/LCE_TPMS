@@ -6,8 +6,6 @@ import java.util.List;
 import com.lce.tpms.vo.Rental;
 
 public interface RentalDao {
-
-	List<Rental> getCurrentRentalList();
 	
 	void insertRental(Rental rental);
 	
@@ -18,5 +16,9 @@ public interface RentalDao {
 	List<HashMap<String, Object>> getWaitRentals();
 
 	List<HashMap<String, Object>> getOverdueRentals();
+	
+	void updateRental(HashMap<String, String> option);
+	
+	Rental getRentalByCode(String code);
 	
 }

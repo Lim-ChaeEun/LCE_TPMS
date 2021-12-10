@@ -39,21 +39,21 @@
 		]]>
 	</select>
 	
+	<update id="updateRental" parameterType="map">
+		update 
+			rental
+		set
+    		rental_status = #{status}
+		where
+    		rental_code = #{rentalCode} 
+	</update>
+	
 	<insert id="insertRental" parameterType="com.lce.tpms.vo.Rental">
 	insert into rental
 		(rental_code, user_code, phone_code, rental_start_date, rental_end_date)
 	values
 		('RT' || lpad(RENTAL_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode}, #{startDate}, #{endDate})
 	</insert>
-	
-	<select id="getCurrentRentalList" resultMap="RentalMap">
-		select
-			*
-		from 
-			rental
-		where
-			rental_give not in ('ING')
-	</select>
 	
 	<select id="getFinRentalsByUser" parameterType="string" resultType="map">
 		select

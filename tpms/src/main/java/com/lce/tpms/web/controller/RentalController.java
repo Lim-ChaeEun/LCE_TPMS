@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.RentalService;
+import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.Rental;
+import com.lce.tpms.vo.Reservation;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.annotation.LoginUser;
 import com.lce.tpms.web.util.DateUtils;
@@ -28,7 +30,7 @@ public class RentalController {
 	
 	@Autowired
 	private PhoneService phoneService;
-	
+
 	@PostMapping("/apply")
 	public String applyRental(String phoneCode, String startDate, String endDate, RedirectAttributes rat, @LoginUser User user) throws ParseException {
 		// 대여신청 
@@ -47,6 +49,16 @@ public class RentalController {
 		model.addAttribute("user", user);
 		model.addAttribute("phone", phoneService.getPhoneByCode(phoneCode));
 		return "user/rental"; 
+	}
+	
+	@GetMapping("/reservation")
+	public String reserveRental(@LoginUser User user, String phone, RedirectAttributes rat) {
+		Reservation reserve = new  Reservation();
+		reserve.setUserCode(user.getCode());
+		reserve.setPhoneCode(phone);
+		rentalService.insertReservation(reserve);
+		rat.addFlashAttribute("status", "reserveFin");
+		return "redirect:/user/list";
 	}
 
 }

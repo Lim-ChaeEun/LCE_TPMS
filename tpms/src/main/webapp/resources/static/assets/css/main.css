@@ -234,27 +234,6 @@ p.header{
 	outline: none;
 
 	}
-	
-.modal .num{
-	margin-left: 3px;
-	padding: 0;
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	-moz-border-radius: 100%;
-	-webkit-border-radius: 100%;
-	border-radius: 100%;
-}
-
-.modal .num:hover {
-	background-color: #FF1644;
-	color: #ffffff;
-}
-
-.modal .num.active, .modal .num:active{
-	background-color: #FF1644;
-	cursor: pointer;
-}
 
 
 p.success{
@@ -364,82 +343,6 @@ div.alert strong{
 	line-height: 2em;
 }
 
-#modal.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal .modal-window {
- 			background: #fefffe;
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width : 300px;
-            height : 340px;
-            padding : 20px;
-            position: fixed;
-            top: 50%;
-          	left: 50%;
-          	transform: translate(-50%, -50%);
-        }
-        #modal .title {
-            padding-left: 10px;
-            display: inline;
-            color: white;
-            
-        }
-        #modal .title h3 {
-            display: inline;
-        }
-        #modal .close-area {
-            display: inline;
-            float: right;
-            padding-right: 10px;
-            cursor: pointer;
-            color: black;
-            font-weight : 500;
-            font-size: 14pt;
-        }
-        
-        #modal input{
-        	border-radius: 5px;
-        	width:200px;
-        	height:40px;
-        	float: center;
-        	margin-bottom: 20px;
-        }
-        
-        
-        #modal .content {
-            margin-top: 20px;
-            padding: 0px 10px;
-            color: black;
-            font-weight:400;
-        }
-	
-		#modal .title {
-				padding: 10px;
-	            display: inline;
-	            color: white;
-	        }
-		#modal .footer {
-				margin-top:10px;
-	            display: inline;
-	            color: white;
-	            float: right;
-	        }
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {

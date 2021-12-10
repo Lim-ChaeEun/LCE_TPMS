@@ -104,15 +104,17 @@
 	<select id="getWaitRentals" resultType="map">
 		select 
 		    rental.rental_code 			as code,
-		    users.user_code 			as userCode,
+		    users.user_code 				as userCode,
 		    phone.phone_code 			as phoneCode,
+		    phone.phone_name			as phoneName,
 		    rental.rental_start_date 	as startDate,
-		    rental.rental_end_date 		as endDate,
-		    users.user_name 			as userName,
-		    users.user_team 			as userTeam,
-		    users.user_position 		as userPosition,
-		    phone.phone_name  			as phoneName,
-		    phone.phone_maker  			as phoneMaker,
+		    rental.rental_end_date 	as endDate,
+		    users.user_name 				as userName,
+		   	users.user_email				as userEmail,
+		    users.user_team 				as userTeam,
+		    users.user_position 			as userPosition,
+		    phone.phone_name  		as phoneName,
+		    phone.phone_maker  		as phoneMaker,
 		    phone.phone_os 				as phoneOS,
 		    phone.phone_version 		as phoneVersion
 		from 

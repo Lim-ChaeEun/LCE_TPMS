@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
 	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
@@ -60,7 +60,7 @@
 															<td>${rental.PHONENAME }</td>
 															<td>${rental.PHONEMAKER }</td>
 															<td><fmt:formatDate value="${rental.STARTDATE }" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="yyyy-MM-dd"/></td>
-															<td>${rental.USERNAME } / ${rental.USERTEAM } (${rental.USERPOSITION })</td>
+															<td data-user-email="${rental.USEREMAIL }"><span>${rental.USERNAME }</span> / ${rental.USERTEAM } (${rental.USERPOSITION })</td>
 															<td>
 																<button class="approve">승인</button>
 																<button class="alt">반려</button>
@@ -110,7 +110,7 @@
 															<td><input type="checkbox" name="chk" value="${over.CODE }"></td>
 															<td class="center">${loop.count }</td>
 															<td>${over.PHONENAME } / ${over.PHONEMAKER }</td>
-															<td>${over.USERNAME } / ${over.USERTEAM } (${over.USERPOSITION })</td>
+															<td><span>${over.USERNAME }</span> / ${over.USERTEAM } (${over.USERPOSITION })</td>
 															<td><fmt:formatDate value="${over.ENDDATE }" pattern="yyyy-MM-dd"/></td>
 															<td class="center strong">${over.OVERDAY }</td>
 															<td class="center"><button class="alt">알림</button></td>
@@ -163,6 +163,40 @@
 											</table>
 										</c:otherwise>
 									</c:choose>
+									<!-- 모달 -->
+									<div id="ex1" class="modal">
+									  <p>Thanks for clicking. That felt good.</p>
+									  <table class="admin">
+												<thead>
+												<colgroup>
+													<col width="8%"/>
+													<col width="20%"/>
+													<col width="52%"/>
+													<col width="10%"/>
+													<col width="10%"/>
+												</colgroup>
+												<tr class="head">
+													<th scope="col">순번</th>
+													<th scope="col">문의제목</th>
+													<th scope="col">문의내용</th>
+													<th scope="col">등록일</th>
+													<th scope="col">답변</th>
+												</tr>
+												</thead>
+												<tbody>
+														<tr >
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+															<td></td>
+														</tr>
+												</tbody>
+											</table>
+									  <a href="#" rel="modal:close">Close</a>
+									</div>
+									<!-- Link to open the modal -->
+									<p><a href="#ex1" rel="modal:open">Open Modal</a></p>
 								</section>
 							</div> 
 						</div>						
@@ -183,6 +217,8 @@
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
 <script>
 $(function(){
 	
@@ -207,15 +243,31 @@ $(function(){
 		let rentalCode = $(this).closest('tr').attr('id');
 		let status = 'approve';
 		console.log(rentalCode);
+		let name = $('#'+rentalCode).find('td').eq(4).find('span').text();
+		let email = $('#'+rentalCode).find('td').eq(4).data('user-email');
+		let phone = $('#'+rentalCode).find('td').eq(1).text();
 		if($(this).hasClass('approve')){
+			let confirmValue = confirm('해당 요청을 승인하시겠습니까.');
+			if(!confirmValue){
+				return false;
+			}
 			//  이메일 작성
-			console.log('승인')
+			let title = "대여요청이 승인되었습니다.";
+			let message = "요청하셨던" +phone+ " 대여요청이 승인되었습니다. \n\n관리팀으로 오셔서 수령해가시길 바랍니다.";
+			sendEmail(name, title, message, email);
+			
 		} else{
 			status = 'reject';
+			let confirmValue = confirm('해당 요청을 반려하시겠습니까.');
+			if(!confirmValue){
+				return false;
+			}
 			// 이메일 작성  
-			console.log('반려 ');
+			let title = "대여요청이 반려되었습니다.";
+			let message = "요청하셨던" +phone+ " 대여요청이 반려되었습니다. \n\n관련문의는 홈페이지 문의탭을 이용해주세요.";
+			sendEmail(name, title, message, email);
 		}
-		location.href = "rental?code="+rentalCode+"&status="+status;
+		//location.href = "rental?code="+rentalCode+"&status="+status;
 		
 	})
 	
@@ -225,14 +277,15 @@ $(function(){
 	})
 	
 	// 이메일 보내기 
-	function sendEmail(name, message, email){
+	function sendEmail(name, title, message, email){
 		emailjs.init('user_S0kArdgcTNuCZifqLMLpt');
 		let templateParams = {
 				name : name,
+				title : title, 
 				message : message,
 				email: email
 		}
-		emailjs.send('service_c2kyuum', 'template_fapyng4',templateParams).then(function(response){
+		emailjs.send('service_c2kyuum', 'template_l9q572c',templateParams).then(function(response){
 			console.log('success', response.status, response.text);
 		}, function(error){
 			console.log('success', error);

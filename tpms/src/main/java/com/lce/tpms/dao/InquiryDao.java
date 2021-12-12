@@ -1,4 +1,4 @@
-package com.lce.tpms.dao;
+ package com.lce.tpms.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,5 +14,7 @@ public interface InquiryDao {
 	List<Inquiry> getUserRecentInquiry(String userCode);
 
 	List<HashMap<String, Object>> getNoRespondInquiries();
+	
+	void updateInquiry(HashMap<String, String> param);
 	
 }

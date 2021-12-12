@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lce.tpms.vo.Inquiry;
 import com.lce.tpms.vo.User;
+import com.lce.tpms.vo.UserDto;
 
 public interface UserService {
 	
@@ -13,6 +14,8 @@ public interface UserService {
 	 * @return 회원 리스트
 	 */
 	List<User> getAllUser();
+	
+	User getUserByCode(String userCode);
 	
 	User login(String id, String password);
 
@@ -23,8 +26,9 @@ public interface UserService {
 	HashMap<String, Object> getUserMainInfo(String userCode);
 	
 	boolean isAbleToReserve(String userCode);
-	
-	List<String> getAllDepartments();
 
-	List<String> getAllTeamsByDept(String dept);
+	User registerUser(UserDto user);
+	
+	void cancelReserve(String reserveCode, String userCode);
+	
 }

@@ -21,6 +21,17 @@
     		('IQ' || lpad(INQUIRY_SEQ.nextval, 4, 0), #{userCode}, #{title}, #{content})
 	</insert>
 	
+	<update id="updateInquiry" parameterType="map">
+		update
+			inquiry
+		set
+			inquiry_respond = #{respond},
+			inquiry_respond_date = sysdate,
+			inquiry_status = 'Y'
+		where
+			inquiry_code = #{inquiryCode}
+	</update>
+	
 	<select id="getInquiriesByUser" parameterType="string" resultMap="InquiryMap">
 		select 
 			*

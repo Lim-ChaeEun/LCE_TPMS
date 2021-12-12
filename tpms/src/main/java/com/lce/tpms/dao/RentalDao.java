@@ -21,4 +21,9 @@ public interface RentalDao {
 	
 	Rental getRentalByCode(String code);
 	
+	void returnRental(String rentalCode);
+	
+	HashMap<String, Object> getPhoneNowRental(String phoneCode);
+	
+	void deleteRental(String rentalCode);
 }

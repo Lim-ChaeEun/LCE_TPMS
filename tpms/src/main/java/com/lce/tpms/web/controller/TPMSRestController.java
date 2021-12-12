@@ -1,13 +1,12 @@
 package com.lce.tpms.web.controller;
 
-import java.util.List;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.util.SessionUtils;
@@ -17,9 +16,7 @@ import com.lce.tpms.web.util.SessionUtils;
 public class TPMSRestController {
 	
 	@Autowired
-	PhoneService phoneService;
-	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@GetMapping("/islogin")
 	public User isLogined() {
@@ -27,17 +24,19 @@ public class TPMSRestController {
 		return user;
 	}
 	
+	@GetMapping("/isAbleUser")
+	public boolean isAbleUser(String userCode) {
+		User user = userService.getUserByCode(userCode);
+		if(user != null) {
+			return false;
+		}
+		return true;
+	}
+	
 	@GetMapping("/ableReserve")
 	public boolean isAbleToReserve() {
-		System.out.println("실행 ");
 		User user = (User)SessionUtils.getAttribute("LOGINED_USER");
 		boolean result = userService.isAbleToReserve(user.getCode());
 		return result;
 	}
-	
-	@GetMapping("/getTeams")
-	public List<String> getTeamsByDept(String dept){
-		return userService.getAllTeamsByDept(dept);
-	}
-	
 }

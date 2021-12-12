@@ -15,7 +15,7 @@
 		<result column="user_status" property="status"/>
 	</resultMap>
 
-	<insert id="insertUser" parameterType="com.lce.tpms.vo.User">
+	<insert id="insertUser" parameterType="com.lce.tpms.vo.UserDto">
 		insert into users
 			(user_code, user_password, user_name, user_email, user_phone, user_team, user_position)
 		values
@@ -47,20 +47,5 @@
 			user_code = #{value}
 	</select>
 	
-	<select id="getAllDepartments" resultType="string">
-		select 
-			distinct department
-		from 
-			departments
-	</select>
-	
-	<select id="getAllTeamsByDept"  parameterType="string" resultType="string">
-		select 
-			team
-		from 
-			departments
-		where 
-			department = #{value}
-	</select>
 	
 </mapper>

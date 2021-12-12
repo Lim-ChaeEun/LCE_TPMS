@@ -25,6 +25,22 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 	
+a.button.small.alt{
+	padding-left: 0.9em;
+	padding-right: 0.9em;
+	padding-top:0.2em;
+	padding-bottom: 0.2em;
+	font-size: 0.9em;
+}
+
+#respond footer button.alt{
+	float: right;
+}
+
+#respond textarea{
+	float: center;
+	margin-bottom: 0;
+}
 
 input[type="checkbox" i] {
     background-color: initial;
@@ -38,6 +54,16 @@ input[type="checkbox" i] {
     height: 0.8em; /* 높이 설정 */
 }
 
+.reset{
+	background: #ffffff;
+	color: #3b3b3b;
+	border: solid #595959 2px;
+	border-radius: 5px;
+}
+
+.reset:hover{
+	color: #fff;
+	}
 
 table.admin tr.head{
 	background-color: #f1f1f1;
@@ -75,12 +101,9 @@ tbody tr.hide{
 	width: 4em;
 }
 
-.makeBtn span{
-	color: #3b3b3b;
-}
-.makeBtn span:hover{
-	color: #3b3b3b;
-}
+.makeBtn:hover{
+	color: #fff;
+	}
 
 .makeBtn {
 height:2.5em;
@@ -236,6 +259,27 @@ p.header{
 	}
 
 
+.modal .num{
+	margin-left: 3px;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+
+.modal .num:hover{
+	background-color: #ff1644;
+	color: #ffffff;
+}
+
+.modal .num.active, .modal .num:active{
+	background-color: #ff1644;
+	cursor: pointer;
+}
+
 p.success{
 	color: #008000;
 }
@@ -278,6 +322,9 @@ div.register input{
 	border-radius: 5px;
 	border : 2px solid #9e9d9d;
 }
+div.register input.small{
+	width: 200px;
+}
 div.register select{
 	padding: 10px;
 	width: 120px;
@@ -287,10 +334,14 @@ div.register select{
 	border-radius: 5px;
 	border : 2px solid #9e9d9d;
 }
-
+/*
 section.rentalHis{
 	padding-top: 1.5em;
-	height: 450px;
+	height: 420px;
+}
+section.rentalHisSmall{
+	padding-top: 1.5em;
+	height: 300px;
 }
 
 section.rentalHis p{
@@ -300,6 +351,7 @@ section.rentalHis p{
 div.rentalHisLine{
 	margin-bottom: 35px;
 }
+*/
 
 p.center{
 	text-align: center;
@@ -1845,7 +1897,7 @@ input, select, textarea {
 			font-weight: 700;
 			font-size: 0.9em;
 			width: 4em;
-			height: 2em;
+			height: 2.5em;
 		}
 		
 		table td button.btn{
@@ -2029,7 +2081,7 @@ input, select, textarea {
 		border: 0;
 		border-radius: 5px;
 		background: #FF1644;
-		color: #fff !important;
+		color: #fff;
 		font-weight: 700;
 		outline: 0;
 		font-size: 1.1em;

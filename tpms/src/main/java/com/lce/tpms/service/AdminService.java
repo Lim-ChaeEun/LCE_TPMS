@@ -11,5 +11,10 @@ public interface AdminService {
 	
 	List<HashMap<String, Object>> getOverdueRentals();
 	
-	void decideRental(HashMap<String, String> option);
+	void updateRental(HashMap<String, String> option);
+	
+	void returnRental(HashMap<String, String> option);
+	
+	void respondInquiry(HashMap<String, String> param);
+	
 }

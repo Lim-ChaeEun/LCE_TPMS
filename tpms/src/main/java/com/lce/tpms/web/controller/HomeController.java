@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,8 +17,11 @@ import com.lce.tpms.exception.LoginException;
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.User;
+import com.lce.tpms.vo.UserDto;
 import com.lce.tpms.web.annotation.LoginUser;
 import com.lce.tpms.web.util.SessionUtils;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class HomeController {
@@ -31,12 +35,7 @@ public class HomeController {
 	public String handlerLoginException(LoginException ex, Model model) {
 		ex.printStackTrace();
 		model.addAttribute("error", ex);
-		return "loginForm";
-	}
-	
-	@GetMapping("/table")
-	public String table() {
-		return "table";
+		return "home";
 	}
 
 	@GetMapping("/user/list")
@@ -66,12 +65,18 @@ public class HomeController {
 	}
 	
 	@GetMapping("/register")
-	public String registerForm(Model model) {
-		List<String> depts = userService.getAllDepartments();
-		model.addAttribute("depts", depts);
+	public String registerForm() {
 		return "register";
 	}
 	
+	
+	@PostMapping("/register")
+	public String register(UserDto user, RedirectAttributes rat) {
+		User newUser = userService.registerUser(user);
+		SessionUtils.addAttribute("LOGINED_USER", newUser);
+		rat.addFlashAttribute("status", "register");
+		return "redirect:/user/main";
+	}
 	
 	/**
 	 * 로그인 수행
@@ -102,8 +107,9 @@ public class HomeController {
 		HashMap<String, Object> userInfo = userService.getUserMainInfo(user.getCode());
 		model.addAttribute("inquiries", userInfo.get("inquiries"));
 		model.addAttribute("rental", userInfo.get("rental"));
+		model.addAttribute("waitRental", userInfo.get("waitRental"));
 		model.addAttribute("reserve", userInfo.get("reserve"));
-		System.out.println(userInfo);
+		model.addAttribute("reservePhone", userInfo.get("reservePhone"));
 		return "user/main";
 	}
 	

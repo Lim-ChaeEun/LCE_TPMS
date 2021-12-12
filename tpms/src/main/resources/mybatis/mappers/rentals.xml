@@ -21,6 +21,7 @@
 			    rental.rental_start_date 	as startDate,
 			    rental.rental_end_date 		as endDate,
 			    users.user_name 			as userName,
+			    users.user_email 			as userEmail,
 			    users.user_team 			as userTeam,
 			    users.user_position 		as userPosition,
 			    phone.phone_name  			as phoneName,
@@ -48,6 +49,22 @@
     		rental_code = #{rentalCode} 
 	</update>
 	
+	<delete id="deleteRental" parameterType="string">
+		delete from 
+			rental
+		where 
+			rental_code = #{value}
+	</delete>
+	
+	<update id="returnRental" parameterType="string">
+		update
+			rental
+		set
+			rental_give_date = sysdate
+		where
+			rental_code = #{rentalCode}
+	</update>
+	
 	<insert id="insertRental" parameterType="com.lce.tpms.vo.Rental">
 	insert into rental
 		(rental_code, user_code, phone_code, rental_start_date, rental_end_date)
@@ -66,7 +83,8 @@
 	        phone.phone_name 			as name,
 	        phone.phone_maker 			as maker,
 	        phone.phone_os 				as os,
-	        phone.phone_version 		as version
+	        phone.phone_version 		as version,
+	        rental.rental_status        as status
 		from
 			rental, phone
 		where
@@ -74,7 +92,7 @@
         and 
         	rental.phone_code = phone.phone_code
         and 
-        	rental.rental_status = 'FIN'
+        	rental.rental_status IN  ('FIN', 'REJ')
         order by 
         	rental.rental_end_date desc
 	</select>
@@ -90,7 +108,8 @@
 		        phone.phone_maker 			as maker,
 		        phone.phone_os 				as os,
 		        phone.phone_version 		as version,
-		        rental.rental_status 		as status
+		        rental.rental_status 		as status,
+		        trunc(rental.rental_end_date) - trunc(sysdate) as remainDay
 			from
 				rental, phone
 			where
@@ -100,6 +119,31 @@
 	        and 
 	        	rental.rental_status = #{status}
 	</select>
+	
+	<select id="getPhoneNowRental" parameterType="string" resultType="map">
+		select 
+			row_number() over (order by code desc) rn, a.*
+   		from
+		    (select 
+		            RANK() OVER (PARTITION BY phone.phone_code ORDER BY TO_CHAR(rental_end_date, 'YYYYMMDD') DESC) AS RNK,
+				    phone.phone_code			AS 	code,
+				    phone.phone_name 			AS 	name, 
+				    phone.phone_maker 			AS 	maker, 
+				    phone.phone_os				AS 	os, 
+				    phone.phone_version 		AS 	version, 
+				    phone.phone_memory 			AS 	memory,
+				    phone.phone_display 		AS 	display, 
+				    rental.rental_end_date 		AS 	enddate, 
+				    rental.rental_status 		AS	status
+				from 
+					phone, rental
+				where
+		            PHONE.PHONE_CODE = RENTAL.PHONE_CODE(+)	   
+                          and phone.phone_code = #{value}
+		        ) a
+		where rnk = '1'
+	</select>
+	
 	
 	<select id="getWaitRentals" resultType="map">
 		select 

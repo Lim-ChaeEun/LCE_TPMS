@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.RentalService;
-import com.lce.tpms.service.UserService;
 import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.Reservation;
 import com.lce.tpms.vo.User;

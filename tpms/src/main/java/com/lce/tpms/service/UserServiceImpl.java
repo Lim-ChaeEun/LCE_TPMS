@@ -3,6 +3,7 @@ package com.lce.tpms.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +13,8 @@ import com.lce.tpms.dao.ReservationDao;
 import com.lce.tpms.dao.UserDao;
 import com.lce.tpms.exception.LoginException;
 import com.lce.tpms.vo.Inquiry;
-import com.lce.tpms.vo.Reservation;
 import com.lce.tpms.vo.User;
+import com.lce.tpms.vo.UserDto;
 import com.lce.tpms.web.util.SessionUtils;
 
 @Service
@@ -35,6 +36,11 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public User getUserByCode(String userCode) {
+		return userDao.getUserByCode(userCode);
+	}
+	
+	@Override
 	public List<Inquiry> getInquiriesByUser(String userCode) {
 		return inquiryDao.getInquiriesByUser(userCode);
 	}
@@ -47,7 +53,8 @@ public class UserServiceImpl implements UserService{
 			throw new LoginException("사번 / 비밀번호 오류", "사번 혹은 비밀번호가 유효하지 않습니다.");
 		}
 		// 암호화 이전
-		if(!password.equals(user.getPassword())) {
+		String secretPwd = DigestUtils.sha256Hex(password);
+		if(!secretPwd.equals(user.getPassword())) {
 			throw new LoginException("사번 / 비밀번호 오류", "사번 혹은 비밀번호가 유효하지 않습니다.");
 		}
 		SessionUtils.addAttribute("LOGINED_USER", user);
@@ -60,8 +67,17 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public void cancelReserve(String reserveCode, String userCode) {
+		reservationDao.deleteReservation(reserveCode);
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", userCode);
+		option.put("status", "Y");
+		userDao.updateUserStatus(option);
+	}
+	
+	@Override
 	public boolean isAbleToReserve(String userCode) {
-		Reservation reserve = reservationDao.getUserReserve(userCode);
+		HashMap<String, Object> reserve = reservationDao.getUserReserve(userCode);
 		if(reserve != null) {
 			return false;
 		}
@@ -69,8 +85,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<String> getAllDepartments() {
-		return userDao.getAllDepartments();
+	public User registerUser(UserDto user) {
+		String secretPwd = DigestUtils.sha256Hex(user.getPassword());
+		user.setPassword(secretPwd);
+		userDao.insertUser(user);
+		User newUser = userDao.getUserByCode(user.getCode());
+		return newUser;
 	}
 	
 	@Override
@@ -80,18 +100,19 @@ public class UserServiceImpl implements UserService{
 		List<Inquiry> inquiries = inquiryDao.getInquiriesByUser(userCode);
 		// 대여, 예약내역 조회해서 담기
 		HashMap<String, Object> rental = rentalService.getRentalByUserAndStatus("ING");
-		if(rental == null) {
-			rental = rentalService.getRentalByUserAndStatus("WAIT");
-		}
-		Reservation reserve = reservationDao.getUserReserve(userCode);
-		userInfo.put("inquiries", inquiries);
 		userInfo.put("rental", rental);
+		if(rental == null) {
+			HashMap<String, Object> waitRental = rentalService.getRentalByUserAndStatus("WAIT");
+			userInfo.put("waitRental", waitRental);
+		}
+		HashMap<String, Object> reserve = reservationDao.getUserReserve(userCode);
+		if(reserve != null) {
+			String phoneCode = (String)reserve.get("PHONECODE");
+			HashMap<String, Object> reservePhone = rentalService.getPhoneNowRental(phoneCode);
+			userInfo.put("reservePhone", reservePhone);
+		}
+		userInfo.put("inquiries", inquiries);
 		userInfo.put("reserve", reserve);
 		return userInfo;
-	}
-	
-	@Override
-	public List<String> getAllTeamsByDept(String dept) {
-		return userDao.getAllTeamsByDept(dept);
 	}
 }

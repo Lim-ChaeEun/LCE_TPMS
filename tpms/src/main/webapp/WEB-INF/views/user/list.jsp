@@ -25,9 +25,9 @@
 										<h2>기기 리스트</h2>
 									</header>
 									<div class="row">
-										<div class="col-9">
+										<div class="col-8">
 										</div>
-										<div class="col-3" id="search-option">
+										<div class="col-4" id="search-option">
 											<c:choose>
 												<c:when test="${name ne null }">
 													<input type="text"  value="${name }">
@@ -37,6 +37,7 @@
 												</c:otherwise>
 											</c:choose>
 											<button class="searchBtn alt">검색</button>
+											<button class="searchBtn reset">초기화</button>
 										</div>
 									</div>
 									<div class="row">
@@ -88,7 +89,7 @@
 																		<c:when test="${empty phone.STATUS or phone.STATUS eq 'FIN' or phone.STATUS eq 'REJ'}">
 																			<td class="bold center">신청가능</td>									
 																			<td class="center"></td>									
-																			<td class="center"><button class="btn apply makeBtn"><span>신청</span></button></td>
+																			<td class="center"><button class="btn apply makeBtn">신청</button></td>
 																		</c:when>
 																		<c:otherwise>
 																			<c:choose>
@@ -212,8 +213,12 @@ $(function(){
 		}
 	});
 	
-	$('#search-option').on('click', 'button' ,function(){
+	$('#search-option').on('click', '.alt' ,function(){
 		searchOption();
+	});
+	
+	$('#search-option').on('click', '.reset' ,function(){
+		location.href = "/tpms/user/list";	
 	});
 	
 	// 예약선택 시 
@@ -266,8 +271,7 @@ $(function(){
 		}).done(function(result){
 			if(!result){
 				isAble = false;
-				alert("이미 예약하신 기기가 존재합니다. \n기존예약을 취소하시겠습니까? ");
-				// 추가적으로 구현하기 
+				alert("이미 예약하신 기기가 존재합니다. \n다른 기기를 예약하시려면 기존예약을 취소해주세요. ");
 			}
 		})
 		return isAble;

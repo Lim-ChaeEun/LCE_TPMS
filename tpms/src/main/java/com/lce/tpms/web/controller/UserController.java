@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lce.tpms.service.RentalService;
@@ -34,11 +35,7 @@ public class UserController {
 	@GetMapping("/history/rental")
 	public String userRentalHistory(@LoginUser User user, Model model) {
 		List<HashMap<String, Object>> rentalHis = rentalService.getFinRentalsByUser(user.getCode());
-		HashMap<String, Object> rentalNow = rentalService.getRentalByUserAndStatus("ING"); 
-		HashMap<String, Object> rentalWait = rentalService.getRentalByUserAndStatus("WAIT"); 
 		model.addAttribute("rentals", rentalHis);
-		model.addAttribute("nowRental", rentalNow);
-		model.addAttribute("waitRental", rentalWait);
 		return "user/rentalHistory";
 	}
 	
@@ -49,6 +46,21 @@ public class UserController {
 		model.addAttribute("inquiries", inquiries);
 		return "user/inquiryHistory";
 	}
+	
+	@GetMapping("/cancelRental")
+	public String cancelRental(@LoginUser User user, @RequestParam(name="code") String rentalCode,  RedirectAttributes rat) {
+		rentalService.cancelRental(rentalCode, user.getCode());
+		rat.addFlashAttribute("status", "cancelRental");
+		return "redirect:/user/main";
+	}
+	
+	@GetMapping("/cancelReserve")
+	public String cancelReserve(@LoginUser User user, @RequestParam(name="code") String reserveCode, RedirectAttributes rat) {
+		userService.cancelReserve(reserveCode, user.getCode());
+		rat.addFlashAttribute("status", "cancelReserve");
+		return "redirect:/user/main";
+	}
+	
 	
 	@PostMapping("/inquiry/register")
 	private String inqueryRegister(@LoginUser User user, String title, String content, RedirectAttributes rat) {

@@ -16,4 +16,7 @@ public interface RentalService {
 	
 	void insertReservation(Reservation reservation);
 	
+	HashMap<String, Object> getPhoneNowRental(String phoneCode);
+	
+	void cancelRental(String rentalCode, String userCode);
 }

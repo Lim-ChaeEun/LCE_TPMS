@@ -33,38 +33,43 @@
 											<table class="admin">
 												<thead>
 												<colgroup>
+													<col width="8%"/>
+													<col width="8%"/>
+													<col width="15%"/>
 													<col width="10%"/>
-													<col width="10%"/>
-													<col width="25%"/>
 													<col width="15%"/>
-													<col width="15%"/>
-													<col width="15%"/>
+													<col width="20%"/>
+													<col width="8%"/>
+													<col width="8%"/>
+													<col width="13%"/>
 													<col width="10%"/>
 												</colgroup>
 												<tr class="head">
-													<th scope="col">사번</th>
-													<th scope="col">이름</th>
-													<th scope="col">소속</th>
-													<th scope="col">이메일</th>
-													<th scope="col">휴대폰</th>
+													<th scope="col">순번</th>
+													<th scope="col">코드</th>
+													<th scope="col">기기명</th>
+													<th scope="col">제조사</th>
+													<th scope="col">운영체제 / 버전</th>
+													<th scope="col">맥주소</th>
 													<th scope="col">디스플레이</th>
 													<th scope="col">메모리</th>
-													<th scope="col">대여가능여부</th>
-													<th scope="col">관리자</th>
+													<th scope="col">비밀번호</th>
+													<th scope="col"></th>
 												</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="phone" items="${phones }">
+													<c:forEach var="phone" items="${phones }" varStatus="loop">
 														<tr>
+															<td>${loop.count }</td>
 															<td>${phone.code }</td>
 															<td>${phone.modelName }</td>
+															<td>${phone.maker }</td>
 															<td>${phone.os } / ${phone.version }</td>
 															<td>${phone.macAddress }</td>
 															<td>${phone.display }</td>
 															<td>${phone.memory }</td>
 															<td>${phone.password }</td>
 															<td class="strong">대여중</td>
-															<td class="strong">가능</td>
 														</tr>
 													</c:forEach>
 												</tbody>

@@ -23,11 +23,11 @@ import com.lce.tpms.web.annotation.LoginAdmin;
 public class AdminController {
 	
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	PhoneService phoneService;
+	private PhoneService phoneService;
 	
 	@GetMapping("/main")
 	public String adminMain(@LoginAdmin User user, Model model) {
@@ -45,7 +45,7 @@ public class AdminController {
 		HashMap<String, String> option = new  HashMap<String, String>();
 		option.put("rentalCode", code);
 		option.put("status", status);
-		adminService.decideRental(option);
+		adminService.updateRental(option);
 		rat.addFlashAttribute("status", status);
 		return "redirect:/admin/main";
 	}
@@ -57,11 +57,32 @@ public class AdminController {
 		return "admin/user";
 	}
 	
+	@GetMapping("/rental/return")
+	public String returnRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, RedirectAttributes rat) {
+		HashMap<String, String> option = new  HashMap<String, String>();
+		option.put("rentalCode", code);
+		option.put("status", status);
+		System.out.println("반납처리");
+		adminService.returnRental(option);
+		rat.addFlashAttribute("status", status);
+		return "redirect:/admin/main";
+	}
+	
 	@GetMapping("/phone")
 	public String phoneManagement(@LoginAdmin User user, Model model) {
 		List<Phone> phones = phoneService.getAllPhones();
 		model.addAttribute("phones", phones);
 		return "admin/phone";
+	}
+	
+	
+	@GetMapping("/inquiry")
+	public String phoneManagement(@LoginAdmin User user, @RequestParam String code, @RequestParam String respond) {
+		HashMap<String, String> option = new  HashMap<String, String>();
+		option.put("respond", respond);
+		option.put("inquiryCode", code);
+		adminService.respondInquiry(option);
+		return "redirect:/admin/main";
 	}
 	
 }

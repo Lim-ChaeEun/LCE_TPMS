@@ -29,6 +29,15 @@ public class RentalServiceImpl implements RentalService {
 	private UserDao userDao;
 	
 	@Override
+	public void cancelRental(String rentalCode, String userCode) {
+		rentalDao.deleteRental(rentalCode);
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", userCode);
+		option.put("status", "Y");
+		userDao.updateUserStatus(option);
+	}
+	
+	@Override
 	public void applyRental(Rental rental, String userCode) {
 		rentalDao.insertRental(rental);
 		// 대여신청한 사용자의 상태를 n으로 변경
@@ -40,6 +49,7 @@ public class RentalServiceImpl implements RentalService {
 		SessionUtils.removeAttribute("LOGINED_USER");
 		SessionUtils.addAttribute("LOGINED_USER", user);
 	}
+	
 	
 	@Override
 	public List<HashMap<String, Object>> getFinRentalsByUser(String userCode) {
@@ -58,7 +68,15 @@ public class RentalServiceImpl implements RentalService {
 	@Override
 	public void insertReservation(Reservation reservation) {
 		reservationDao.insertReservation(reservation);
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", reservation.getUserCode());
+		option.put("status", "N");
+		userDao.updateUserStatus(option);
 	}
 	
+	@Override
+	public HashMap<String, Object> getPhoneNowRental(String phoneCode) {
+		return rentalDao.getPhoneNowRental(phoneCode);
+	}
 	
 }

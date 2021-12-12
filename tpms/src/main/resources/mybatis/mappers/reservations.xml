@@ -16,13 +16,30 @@
     		('RV' || lpad(RESERVATION_SEQ.nextval, 4, 0), #{userCode}, #{phoneCode})
 	</insert>
 	
-	<select id="getUserReserve"  parameterType="string" resultMap="ReservMap">
-		select 
-			*
-		from 
+	<delete id="deleteReservation" parameterType="string">
+		delete from 
 			reservation
 		where 
-			user_code = #{value}	
+			reservation_code = #{value}
+	</delete>
+	
+	<select id="getUserReserve"  parameterType="string" resultType="map">
+		select 
+			reservation.reservation_code 	as code,
+            users.user_code 				as userCode,
+            phone.phone_code 				as phoneCode,
+            phone.phone_name 				as name,
+            phone.phone_maker 				as maker,
+            phone.phone_os 					as os,
+            phone.phone_version 			as version
+		from 
+			reservation, users, phone
+		where 
+			users.user_code = #{value}
+        and
+            reservation.phone_code = phone.phone_code
+        and
+            users.user_code = reservation.user_code	
 	</select>
 	
 	<select id="getPhoneReserve"  parameterType="string" resultMap="ReservMap">

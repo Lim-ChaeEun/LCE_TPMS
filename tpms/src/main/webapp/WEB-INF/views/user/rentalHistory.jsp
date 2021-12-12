@@ -17,55 +17,6 @@
 			<!-- 메인 바디 -->
 			<section id="main">
 				<div class="container">
-					<div class="row">
-						<div class="col-12 rentalHisLine">
-							<div class="row">
-								<div class="col-6 col-6-medium col-12-small">
-									<section class="box rentalHis">
-										<header>
-											<h3>대여신청한 기기</h3>
-										</header>
-										<c:choose>
-											<c:when test="${empty waitRental}">
-												<p>현재 승인대기중인 기기가 존재하지 않습니다.</p>
-													<footer>
-														<ul class="actions">
-															<li><a href="#" class="button alt">문의하러가기</a></li>
-														</ul>
-													</footer>
-											</c:when>
-											<c:otherwise>
-												<p>기기: ${waitRental.NAME }</p>
-												<p>제조사: ${waitRental.MAKER }</p>
-												<p>운영체제: ${waitRental.OS }</p>
-											</c:otherwise>
-										</c:choose>
-									</section>
-								</div>
-								<div class="col-6 col-6-medium col-12-small">
-									<section class="box rentalHis">
-										<header>
-											<h3>대여중인 기기</h3>
-										</header>
-										<c:choose>
-											<c:when test="${empty nowRental}">
-												<p>현재 대여중인 기기가 존재하지 않습니다.</p>
-												<footer>
-													<ul class="actions">
-														<li><a href="#" class="button alt">대여하러가기</a></li>
-													</ul>
-												</footer>
-											</c:when>
-											<c:otherwise>
-												<p><strong>기기:  </strong> ${nowRental.NAME } (${nowRental.MAKER })</p>
-												<p><strong>운영체제: </strong> ${nowRental.OS } ${nowRental.VERSION }</p>
-											</c:otherwise>
-										</c:choose>
-									</section>
-								</div>
-							</div>						
-						</div>
-					</div>
 					<div class="row">	
 						<div class="col-12">
 							<section>
@@ -103,17 +54,17 @@
 													<c:otherwise>
 														<c:forEach var="rental" items="${rentals }" varStatus="loop">
 															<tr>
-																<td>${loop.count}</td>
-																<td><p class="bold">${rental.NAME }</p></td>
-																<td>${rental.MAKER }</td>
-																<td>${rental.OS } ${rental.VERSION }</td>
-																<td><p class="bold"><fmt:formatDate value="${rental.STARTDATE }" pattern="yy-MM-d"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="yy-MM-d"/></p></td>
+																<td class="center">${loop.count}</td>
+																<td class="center"><p class="bold">${rental.NAME }</p></td>
+																<td class="center">${rental.MAKER }</td>
+																<td class="center">${rental.OS } ${rental.VERSION }</td>
+																<td class="center"><p class="bold"><fmt:formatDate value="${rental.STARTDATE }" pattern="yy/MM/d"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="yy/MM/d"/></p></td>
 																<c:choose>
 																	<c:when test="${rental.STATUS eq 'REJ' }">
-																		<td><p class="bold danger">반려된 요청</p></td>																
+																		<td class="center"><p class="strong danger">반려됨</p></td>																
 																	</c:when>
 																	<c:otherwise>
-																		<td><p class="bold"><fmt:formatDate value="${rental.GIVEDATE }" pattern="yy-MM-d"/></p></td>																
+																		<td class="center"><p class="bold"><fmt:formatDate value="${rental.GIVEDATE }" pattern="yy/MM/d"/></p></td>																
 																	</c:otherwise>
 																</c:choose>
 															</tr>

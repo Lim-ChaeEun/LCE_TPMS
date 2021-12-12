@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.lce.tpms.vo.User;
+import com.lce.tpms.vo.UserDto;
 
 public interface UserDao {
 
@@ -11,11 +12,8 @@ public interface UserDao {
 	
 	User getUserByCode(String code);
 	
-	void insertUser(User user);
+	void insertUser(UserDto user);
 	
 	void updateUserStatus(HashMap<String, String> option);
 	
-	List<String> getAllDepartments();
-
-	List<String> getAllTeamsByDept(String dept);
 }

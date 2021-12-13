@@ -90,11 +90,12 @@ public class AdminServiceImpl implements AdminService{
 		HashMap<String, String> userParam = new HashMap<String, String>();
 		userParam.put("userCode", rental.getUserCode());
 		if("delay".equals(status)) {
-			userParam.put("status", "Y");
+			userParam.put("status", "X");
 		}else if("return".equals(status)) {
-			userParam.put("status", "N");
+			userParam.put("status", "Y");
 		}
 		rentalDao.updateRental(rentalParam);
+		rentalDao.returnRental(rentalCode);
 		userDao.updateUserStatus(userParam);
 		
 	}

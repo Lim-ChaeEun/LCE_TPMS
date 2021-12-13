@@ -97,8 +97,9 @@ public class HomeController {
 		
 		if(user.getAdmin().equals("Y")) {
 			return "redirect:/admin/main";
+		}else {
+			return "redirect:/user/main";
 		}
-		return "redirect:/user/main";
 	}
 	
 	@GetMapping("/user/main")

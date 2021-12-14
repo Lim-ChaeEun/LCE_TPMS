@@ -79,4 +79,9 @@ public class RentalServiceImpl implements RentalService {
 		return rentalDao.getPhoneNowRental(phoneCode);
 	}
 	
+	@Override
+	public Rental getRentalByCode(String rentalCode) {
+		return rentalDao.getRentalByCode(rentalCode);
+	}
+	
 }

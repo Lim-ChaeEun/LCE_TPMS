@@ -226,49 +226,29 @@ $(function(){
 		alert("대여신청을 반려했습니다.");		
 	}else if(status == 'return'){
 		alert("반납이 완료되었습니다.");
+	}else if(status == 'inquiry'){
+		alert('문의답변이 완료되었습니다.');
 	}
-	
-	/*
-	// 체크박스 관련설정
-	$('#overDue-table').on('click', 'input:checkbox', function(){
-		if($(this).val() == 'checkAll'){
-			let status = $('input:checkbox[name=chk]').prop('checked');
-			$('input:checkbox[name=chk]').prop('checked', status);
-		}
-	})
-	*/
+
 	
 	// 기기대여 신청 승인 . 반려 
 	$('#rental-table tbody td').on('click', 'button', function(){
 		// 승인인 경우
 		let rentalCode = $(this).closest('tr').attr('id');
 		let status = 'approve';
-		console.log(rentalCode);
-		let name = $('#'+rentalCode).find('td').eq(4).find('span').text();
-		let email = $('#'+rentalCode).find('td').eq(4).data('user-email');
-		let phone = $('#'+rentalCode).find('td').eq(1).text();
 		if($(this).hasClass('approve')){
 			let confirmValue = confirm('해당 요청을 승인하시겠습니까.');
 			if(!confirmValue){
 				return false;
 			}
-			//  이메일 작성
-			let title = "대여요청이 승인되었습니다.";
-			let message = "요청하셨던" +phone+ " 대여요청이 승인되었습니다. \n\n관리팀으로 오셔서 수령해가시길 바랍니다.";
-			sendEmail(name, title, message, email, rentalCode, status);
-			
 		} else{
 			status = 'reject';
 			let confirmValue = confirm('해당 요청을 반려하시겠습니까.');
 			if(!confirmValue){
 				return false;
 			}
-			// 이메일 작성  
-			let title = "대여요청이 반려되었습니다.";
-			let message = "요청하셨던" +phone+ " 대여요청이 반려되었습니다. \n\n관련문의는 홈페이지 문의탭을 이용해주세요.";
-			sendEmail(name, title, message, email, rentalCode, status);
 		}
-		
+		location.href = "rental?code="+rentalCode+"&status="+status;
 	})
 	
 	// 반납처리 하기
@@ -283,15 +263,19 @@ $(function(){
 	
 	// 연체알림 이메일 
 	$('#overDue-table tbody td').on('click', '.alt', function(){
+		console.log('sdfsdf')
 		let rentalCode = $(this).closest('tr').attr('id');
-		let selectTD = $('#'+rentalCode).find('td');
-		let name = selectTD.eq(2).find('span').text();
-		let email = selectTD.eq(2).data('user-email');
-		let phoneName = selectTD.eq(1).find('span').text();
-		let endDate = selectTD.eq(3).text();
-		let overDay = selectTD.eq(4).text();
-		// 이메일 전송
-		sendOverEmail(name, phoneName, endDate, overDay, email);
+		$.ajax({
+			type:"get",
+			url:"../rest/notify/overDue?rentalCode="+rentalCode,
+			success: function(){
+				alert('알림전송이 완료되었습니다.');
+			},
+			error:function(){
+				alert('알림전송에 실패했습니다.');
+			}
+		});
+
 	})
 	
 	// 모달관련
@@ -309,40 +293,7 @@ $(function(){
 		let respond = $('#respond #inquiry-respond').val();
 		location.href = "inquiry?code="+inquiryCode+"&respond="+respond;
 	})
-	
-	function sendOverEmail(name, phoneName, endDate, overDay, email){
-		emailjs.init('user_S0kArdgcTNuCZifqLMLpt');
-		let templateParams = {
-				name : name,
-				phoneName : phoneName,
-				endDate : endDate,
-				overDay : overDay,
-				email : email
-		}
-		emailjs.send('service_c2kyuum', 'template_fapyng4',templateParams).then(function(response){
-			console.log('success', response.status, response.text);
-			alert('연체알림을 전송하였습니다.');
-		}, function(error){
-			console.log('error', error);
-		})
-		
-	}
-	
-	// 이메일 보내기 
-	function sendEmail(name, title, message, email, rentalCode, status){
-		emailjs.init('user_S0kArdgcTNuCZifqLMLpt');
-		let templateParams = {
-				name : name,
-				title : title, 
-				message : message,
-				email: email
-		}
-		emailjs.send('service_c2kyuum', 'template_l9q572c',templateParams).then(function(response){
-			location.href = "rental?code="+rentalCode+"&status="+status;
-		}, function(error){
-			console.log('error', error);
-		})
-	}
+
 	
 })
 </script>

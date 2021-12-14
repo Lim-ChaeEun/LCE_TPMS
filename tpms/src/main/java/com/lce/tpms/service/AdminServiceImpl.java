@@ -3,18 +3,18 @@ package com.lce.tpms.service;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lce.tpms.dao.InquiryDao;
+import com.lce.tpms.dao.PhoneDao;
 import com.lce.tpms.dao.RentalDao;
 import com.lce.tpms.dao.ReservationDao;
 import com.lce.tpms.dao.UserDao;
+import com.lce.tpms.vo.Inquiry;
+import com.lce.tpms.vo.Phone;
 import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.Reservation;
 import com.lce.tpms.vo.User;
@@ -30,9 +30,11 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private UserDao userDao;
 	@Autowired
+	private PhoneDao phoneDao;
+	@Autowired
 	private ReservationDao reservDao;
 	@Autowired
-	private JavaMailSenderImpl mailSender;
+	private EmailService emailService;
 	
 	@Override
 	public void updateRental(HashMap<String, String> option) {
@@ -42,18 +44,22 @@ public class AdminServiceImpl implements AdminService{
 		String status = option.get("status");
 		String rentalCode = option.get("rentalCode");
 		Rental rental = rentalDao.getRentalByCode(rentalCode);
+		Phone phone = phoneDao.getPhoneByCode(rental.getPhoneCode());
+		User user = userDao.getUserByCode(rental.getUserCode());
 		// 대여상태 변경
 		rentalParam.put("rentalCode", rentalCode);
 		if("approve".equals(status)) {
 			// 승인 
 			rentalParam.put("status", "ING");
 			rentalDao.updateRental(rentalParam);
+			emailService.sendArroveEmail(user, phone);
 		}else if("reject".equals(status)) {
 			rentalParam.put("status", "REJ");
 			userParam.put("status", "Y");
 			userParam.put("userCode", rental.getUserCode());
 			rentalDao.updateRental(rentalParam);
 			userDao.updateUserStatus(userParam);
+			emailService.sendRejectEmail(user, phone.getModelName());
 		}
 		
 	}
@@ -63,27 +69,16 @@ public class AdminServiceImpl implements AdminService{
 		String status = option.get("status");
 		String rentalCode = option.get("rentalCode");
 		Rental rental = rentalDao.getRentalByCode(rentalCode);
+		User rentalUser = userDao.getUserByCode(rental.getUserCode());
 		// 이 기기를 예약한 사람 있는지 확인
 		Reservation reserv = reservDao.getPhoneReserve(rental.getPhoneCode());
 		if(reserv != null) {
-			User user = userDao.getUserByCode(reserv.getUserCode());
+			User reserveUser = userDao.getUserByCode(reserv.getUserCode());
 			// 예약한 사람에게 이메일 보내기;
-			try {
-				MimeMessage message = mailSender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-				helper.setFrom("TPMS");
-				helper.setTo(user.getEmail());
-				helper.setSubject(user.getName()+"님 예약하신 기기의 반납이 완료되었습니다.");
-				helper.setText("지금 TPMS사이트에서 대여신청이 가능합니다.");
-				
-				mailSender.send(message);
-			} catch(Exception e){
-				System.out.println(e);
-			}
+			emailService.sendReserveEmail(reserveUser);
 			reservDao.deleteReservation(reserv.getCode());
 		}
 		// 대여상태, 
-		// 반납, 사용자 상태 번경, 연체처리, 예약한사람있으면 이메일보내기
 		HashMap<String, String> rentalParam = new HashMap<String, String>();
 		rentalParam.put("rentalCode", rentalCode);
 		rentalParam.put("status", "FIN");
@@ -94,6 +89,7 @@ public class AdminServiceImpl implements AdminService{
 		}else if("return".equals(status)) {
 			userParam.put("status", "Y");
 		}
+		emailService.sendReturnEmail(rentalUser, status);
 		rentalDao.updateRental(rentalParam);
 		rentalDao.returnRental(rentalCode);
 		userDao.updateUserStatus(userParam);
@@ -103,6 +99,9 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void respondInquiry(HashMap<String, String> param) {
 		inquiryDao.updateInquiry(param);
+		Inquiry inquiry = inquiryDao.getInquiryByCode(param.get("inquiryCode"));
+		User user = userDao.getUserByCode(inquiry.getUserCode());
+		emailService.sendInquiryEmail(user, inquiry);
 	}
 	
 	@Override

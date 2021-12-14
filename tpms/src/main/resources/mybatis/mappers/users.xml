@@ -31,6 +31,15 @@
 			user_code = #{userCode}
 	</update>
 	
+	<update id="updateUserAdmin" parameterType="map">
+		update
+			users
+		set
+			user_admin = #{admin}
+		where
+			user_code = #{userCode}
+	</update>
+	
 	<select id="getAllUser" resultMap="UserMap">
 		select 
 			*

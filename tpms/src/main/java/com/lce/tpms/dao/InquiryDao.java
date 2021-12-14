@@ -17,4 +17,6 @@ public interface InquiryDao {
 	
 	void updateInquiry(HashMap<String, String> param);
 	
+	Inquiry getInquiryByCode(String inquiryCode);
+	
 }

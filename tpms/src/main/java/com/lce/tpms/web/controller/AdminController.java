@@ -62,10 +62,27 @@ public class AdminController {
 		HashMap<String, String> option = new  HashMap<String, String>();
 		option.put("rentalCode", code);
 		option.put("status", status);
-		System.out.println("반납처리");
 		adminService.returnRental(option);
-		rat.addFlashAttribute("status", status);
+		rat.addFlashAttribute("status", "return");
 		return "redirect:/admin/main";
+	}
+	
+	@GetMapping("/user/status")
+	public String updateUserStatus(@RequestParam(name = "code") String userCode, @RequestParam String status) {
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", userCode);
+		option.put("status", status);
+		userService.updateUserStatus(option);
+		return "redirect:/admin/user";
+	}
+
+	@GetMapping("/user/admin")
+	public String updateUserAdmin(@RequestParam(name = "code") String userCode, @RequestParam String status) {
+		HashMap<String, String> option = new HashMap<String, String>();
+		option.put("userCode", userCode);
+		option.put("admin", status);
+		userService.updateUserAdmin(option);
+		return "redirect:/admin/user";
 	}
 	
 	@GetMapping("/phone")
@@ -77,11 +94,12 @@ public class AdminController {
 	
 	
 	@GetMapping("/inquiry")
-	public String phoneManagement(@LoginAdmin User user, @RequestParam String code, @RequestParam String respond) {
+	public String phoneManagement(@LoginAdmin User user, @RequestParam String code, @RequestParam String respond, RedirectAttributes rat) {
 		HashMap<String, String> option = new  HashMap<String, String>();
 		option.put("respond", respond);
 		option.put("inquiryCode", code);
 		adminService.respondInquiry(option);
+		rat.addFlashAttribute("status", "inquiry");
 		return "redirect:/admin/main";
 	}
 	

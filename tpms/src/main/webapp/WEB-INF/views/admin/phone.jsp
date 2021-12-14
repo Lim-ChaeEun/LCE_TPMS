@@ -33,21 +33,21 @@
 											<table class="admin">
 												<thead>
 												<colgroup>
-													<col width="8%"/>
-													<col width="8%"/>
-													<col width="15%"/>
+													<col width="5%"/>
 													<col width="10%"/>
 													<col width="15%"/>
-													<col width="20%"/>
-													<col width="8%"/>
-													<col width="8%"/>
-													<col width="13%"/>
+													<col width="10%"/>
+													<col width="10%"/>
+													<col width="10%"/>
+													<col width="10%"/>
+													<col width="10%"/>
+													<col width="10%"/>
 													<col width="10%"/>
 												</colgroup>
 												<tr class="head">
-													<th scope="col">순번</th>
+													<th scope="col"></th>
 													<th scope="col">코드</th>
-													<th scope="col">기기명</th>
+													<th scope="col">기기 명</th>
 													<th scope="col">제조사</th>
 													<th scope="col">운영체제 / 버전</th>
 													<th scope="col">맥주소</th>
@@ -64,10 +64,10 @@
 															<td>${phone.code }</td>
 															<td>${phone.modelName }</td>
 															<td>${phone.maker }</td>
-															<td>${phone.os } / ${phone.version }</td>
+															<td>${phone.os } ${phone.version }</td>
 															<td>${phone.macAddress }</td>
-															<td>${phone.display }</td>
-															<td>${phone.memory }</td>
+															<td>${phone.display } 인치</td>
+															<td>${phone.memory } GB</td>
 															<td>${phone.password }</td>
 															<td class="strong">대여중</td>
 														</tr>

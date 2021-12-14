@@ -6,11 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-/**
- * HttpSession 객체 생상과 폐기, 속성값에 대한 CRUD 기능을 제공하는 클래스
- * @author lim03
- *
- */
+// HttpSession 객체 생상과 폐기, 속성값에 대한 CRUD 기능을 제공하는 클래스
 public class SessionUtils {
 	
 	/*

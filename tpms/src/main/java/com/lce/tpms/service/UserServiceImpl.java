@@ -94,6 +94,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
+	public void updateUserAdmin(HashMap<String, String> option) {
+		userDao.updateUserAdmin(option);
+		
+	}
+	
+	@Override
 	public HashMap<String, Object> getUserMainInfo(String userCode) {
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		// 사용자의 최근 문의 3개까지 조회해서 담기
@@ -114,5 +120,10 @@ public class UserServiceImpl implements UserService{
 		userInfo.put("inquiries", inquiries);
 		userInfo.put("reserve", reserve);
 		return userInfo;
+	}
+	
+	@Override
+	public void updateUserStatus(HashMap<String, String> option) {
+		userDao.updateUserStatus(option);
 	}
 }

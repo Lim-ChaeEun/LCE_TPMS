@@ -16,4 +16,6 @@ public interface UserDao {
 	
 	void updateUserStatus(HashMap<String, String> option);
 	
+	void updateUserAdmin(HashMap<String, String> option);
+	
 }

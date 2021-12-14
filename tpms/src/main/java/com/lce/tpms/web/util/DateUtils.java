@@ -4,11 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// 날짜와 문자열간의 변경 지원하는 메소드 
 public class DateUtils {
 	
-
+	// 일반 날짜데이터 
 	private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+	// 자바스크립트 날짜 데이터 
 	private static SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+	// sql 날짜데이터 
 	private static SimpleDateFormat SQL_TIME_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	public static Date stringToDate(String dateString) throws ParseException {

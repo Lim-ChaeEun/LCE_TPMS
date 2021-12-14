@@ -54,6 +54,15 @@
 		]]>
 	</select>
 	
+	<select id="getInquiryByCode" parameterType="string" resultMap="InquiryMap">
+		select
+			*
+		from
+			inquiry
+		where
+			inquiry_code = #{value}
+	</select>
+	
 	<select id="getNoRespondInquiries" resultType="map">
 		select 
 		    inquiry.inquiry_code			as code,

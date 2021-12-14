@@ -29,15 +29,15 @@
 	    		from
 				    (select 
 				            RANK() OVER (PARTITION BY phone.phone_code ORDER BY TO_CHAR(rental_end_date, 'YYYYMMDD') DESC, rental.rental_code DESC) AS RNK,
-						    phone.phone_code			AS 	code,
+						    phone.phone_code				AS 	code,
 						    phone.phone_name 			AS 	name, 
 						    phone.phone_maker 			AS 	maker, 
-						    phone.phone_os				AS 	os, 
-						    phone.phone_version 		AS 	version, 
-						    phone.phone_memory 			AS 	memory,
-						    phone.phone_display 		AS 	display, 
+						    phone.phone_os					AS 	os, 
+						    phone.phone_version 			AS 	version, 
+						    phone.phone_memory 		AS 	memory,
+						    phone.phone_display 			AS 	display, 
 						    rental.rental_end_date 		AS 	enddate, 
-						    rental.rental_status 		AS	status
+						    rental.rental_status 				AS	status
 						from 
 							phone, rental
 						where

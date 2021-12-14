@@ -30,15 +30,16 @@
 											<p>사용자가 존재하지 않습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin">
+											<table class="admin" id="user-table">
 												<thead>
 												<colgroup>
 													<col width="10%"/>
 													<col width="10%"/>
-													<col width="25%"/>
+													<col width="24%"/>
 													<col width="15%"/>
 													<col width="15%"/>
-													<col width="15%"/>
+													<col width="8%"/>
+													<col width="8%"/>
 													<col width="10%"/>
 												</colgroup>
 												<tr class="head">
@@ -47,13 +48,14 @@
 													<th scope="col">소속</th>
 													<th scope="col">이메일</th>
 													<th scope="col">휴대폰</th>
-													<th scope="col">대여가능여부</th>
-													<th scope="col">관리자</th>
+													<th class="center" scope="col">대여</th>
+													<th scope="col"></th>
+													<th class="center" scope="col">관리자</th>
 												</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="user" items="${users }">
-														<tr>
+														<tr id="${user.code }">
 															<td>${user.code }</td>
 															<td>${user.name }</td>
 															<td>${user.team } / ${user.position }</td>
@@ -61,25 +63,28 @@
 															<td>${user.phone }</td>
 															<c:choose>
 																<c:when test="${user.status eq 'X'}">
-																	<td class="strong danger">불가</td>
+																	<td class="strong danger center">불가</td>
+																	<td><button class="small" id="able">가능</button></td>
 																</c:when>
 																<c:otherwise>
 																	<c:choose>
 																		<c:when test="${user.status eq 'N'}">
-																			<td class="strong">대여중</td>
+																			<td class="strong success center">대여중</td>
+																			<td></td>
 																		</c:when>
 																		<c:otherwise>
-																			<td class="strong">가능</td>
+																			<td class="strong center">가능</td>
+																			<td></td>
 																		</c:otherwise>
 																	</c:choose>
 																</c:otherwise>
 															</c:choose>
 															<c:choose>
 																<c:when test="${user.admin eq 'N'}">
-																	<td><button class="alt">부여</button></td>
+																	<td class="center"><button class="makeBtn" id="grant">부여</button></td>
 																</c:when>
 																<c:otherwise>
-																	<td><button class="alt">취소</button></td>
+																	<td class="center"><button class="alt small" id="revoke">취소</button></td>
 																</c:otherwise>
 															</c:choose>
 														</tr>
@@ -108,7 +113,27 @@
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-
+$(function(){
+	
+	$("#user-table td").on('click', 'button', function(){		
+		const status = $(this).attr("id");
+		const userCode = $(this).closest('tr').attr('id');
+		if(status == 'grant'){
+			if(confirm('해당 사용자에게 관리자 권한을 부여하시겠습니까?')){
+				location.href = "user/admin?code="+userCode+"&status=Y";
+			}
+		}else if(status == 'revoke'){
+			if(confirm('해당 사용자의 관리자 권한을 취소하시겠습니까?')){
+				location.href = "user/admin?code="+userCode+"&status=N";
+			}
+		}else if(status == 'able'){
+			if(confirm('해당 사용자가 대여가능하도록 설정하시겠습니까?')){
+				location.href = "user/status?code="+userCode+"&status=Y";
+			}
+		}
+	})
+	
+})
 </script>
 </body>
 </html>

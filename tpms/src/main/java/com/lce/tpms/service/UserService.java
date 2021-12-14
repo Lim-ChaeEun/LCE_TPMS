@@ -31,4 +31,7 @@ public interface UserService {
 	
 	void cancelReserve(String reserveCode, String userCode);
 	
+	void updateUserAdmin(HashMap<String, String> option);
+	
+	void updateUserStatus(HashMap<String, String> option);
 }

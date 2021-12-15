@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,17 @@ public class AdminServiceImpl implements AdminService{
 	private ReservationDao reservDao;
 	@Autowired
 	private EmailService emailService;
+	
+	@Override
+	@Scheduled(cron = "0 0 12 * * *")
+	public void sendReturnMessage() {
+		List<Rental> oneDayRentals = rentalDao.getOnedayLeft();
+		for(Rental rental : oneDayRentals) {
+			User user = userDao.getUserByCode(rental.getUserCode());
+			Phone phone = phoneDao.getPhoneByCode(rental.getPhoneCode());
+			emailService.sendReturnScheduleEmail(user, phone, rental);
+		}		
+	}
 	
 	@Override
 	public void updateRental(HashMap<String, String> option) {
@@ -95,6 +107,7 @@ public class AdminServiceImpl implements AdminService{
 		userDao.updateUserStatus(userParam);
 		
 	}
+	
 
 	@Override
 	public void respondInquiry(HashMap<String, String> param) {

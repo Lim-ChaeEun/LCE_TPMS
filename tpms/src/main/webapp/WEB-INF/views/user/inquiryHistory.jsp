@@ -125,7 +125,6 @@ $(function(){
 				$('#'+inquiryCode+'.hide').css('display', 'none');
 			}			
 		}
-		
 	})
 })
 </script>

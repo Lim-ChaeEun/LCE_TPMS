@@ -29,7 +29,7 @@
    <!-- controller 패키지의 클래스들을 자동으로 스프링 컨테이너의 빈으로 등록시킨다. -->
    <context:component-scan base-package="com.lce.tpms.web" />
 
-   <!-- JSP 기반의 웹 애플리케이션인 경우 ViewResolver 설정하기 -->
+   <!-- JSP  ViewResolver 설정하기 -->
    <bean id="viewResolver"
       class="org.springframework.web.servlet.view.InternalResourceViewResolver">
       <property name="prefix" value="/WEB-INF/views/" />

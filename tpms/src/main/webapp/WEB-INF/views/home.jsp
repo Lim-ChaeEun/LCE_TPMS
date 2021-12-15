@@ -116,8 +116,8 @@ $(function(){
 	});
 	
 	function confirmUser(){
-		let idValue = $('#login-form :text').val();
-		let pwdValue = $('#login-form :password').val();
+		const idValue = $('#login-form :text').val();
+		const pwdValue = $('#login-form :password').val();
 		if(!idValue){
 			alert('사번을 입력하세요.');
 			$('#login-form :text').focus();

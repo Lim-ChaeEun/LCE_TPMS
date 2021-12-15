@@ -26,4 +26,6 @@ public interface RentalDao {
 	HashMap<String, Object> getPhoneNowRental(String phoneCode);
 	
 	void deleteRental(String rentalCode);
+	
+	List<Rental> getOnedayLeft();
 }

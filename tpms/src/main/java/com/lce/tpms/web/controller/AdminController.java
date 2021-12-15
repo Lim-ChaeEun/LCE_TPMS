@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lce.tpms.service.AdminService;
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
-import com.lce.tpms.vo.Phone;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.annotation.LoginAdmin;
 
@@ -86,9 +85,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("/phone")
-	public String phoneManagement(@LoginAdmin User user, Model model) {
-		List<Phone> phones = phoneService.getAllPhones();
-		model.addAttribute("phones", phones);
+	public String home(Model model, @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {
+		HashMap<String, Object> option = new HashMap<String, Object>();
+		option.put("page", pageNo);
+		// 기기전체의 목록 담기
+		HashMap<String, Object> result = phoneService.getAllPhonesContainsRentalByPageAndOption(option);
+		model.addAttribute("phones", result.get("phones"));
+		model.addAttribute("pagination", result.get("pagination"));
 		return "admin/phone";
 	}
 	

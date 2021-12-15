@@ -18,6 +18,7 @@ import com.lce.tpms.vo.Rental;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.util.DateUtils;
 
+// 이메일전송을 전부 관리하는 서비스 
 @Service
 @Transactional
 public class EmailServiceImpl implements EmailService{

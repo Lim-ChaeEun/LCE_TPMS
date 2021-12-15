@@ -242,6 +242,14 @@ p.header{
 	width: 200px;
 }
 
+	input.normal{
+	width: 150px;
+}
+
+input.small{
+	width : 100px;
+}
+
 .first{
 	margin-left: 15px;
 }

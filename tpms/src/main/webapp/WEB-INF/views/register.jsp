@@ -117,8 +117,7 @@ $(function(){
 	}
 	
 	function confirmAndFocus(element, message){
-		let confirmValue = confirm(message);
-		if(!confirmValue){
+		if(!confirm(message)){
 			element.focus();
 		}
 		return confirmValue;
@@ -139,8 +138,7 @@ $(function(){
 	}
 	
 	$('#registerBtn').on('click', '.alt', function(){
-		let confirmValue = confirm('회원가입을 취소하시겠습니까?');
-		if(confirmValue){
+		if(confirm('회원가입을 취소하시겠습니까?')){
 			location.href = "/tpms/home";
 		}
 		return;

@@ -17,4 +17,7 @@ public interface AdminService {
 	
 	void respondInquiry(HashMap<String, String> param);
 	
+	void sendReturnMessage();
+	
+	
 }

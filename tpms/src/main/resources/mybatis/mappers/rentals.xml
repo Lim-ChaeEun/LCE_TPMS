@@ -12,6 +12,18 @@
 		<result column="rental_give_date" property="giveDate"/>
 		<result column="rental_status" property="status"/>
 	</resultMap>
+	
+	<select id="getOnedayLeft" resultMap="RentalMap">
+		select 
+			* 
+		from 
+			rental
+		where 	
+			trunc(rental_end_date) - trunc(sysdate) = 1
+		and 
+			RENTAL_STATUS = 'ING'
+	</select>
+	
 	<select id="getOverdueRentals" resultType="map">
 		<![CDATA[
 			select 

@@ -167,7 +167,7 @@
 									<div id="respond" class="modal">
 									  <h3>문의 답변하기</h3>
 									  <table>
-										  <colgroup>
+										 <colgroup>
 											<col width="100%"/>
 										</colgroup>
 									  	<tr>
@@ -189,7 +189,7 @@
 									  		<td id="inquiry-content"></td>
 									  	</tr>
 									  </table>
-									  <textarea cols="55" rows="6" id="inquiry-respond"></textarea>
+									  <textarea cols="50" rows="6" id="inquiry-respond"></textarea>
 									  <footer>
 										  <button class="alt">답변완료</button>
 									  </footer>
@@ -213,11 +213,11 @@
 <script src="/tpms/resources/static/assets/js/util.js"></script>
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
 <script>
 $(function(){
+	const returnURL = "/admin/main";
 	
 	const status = "<c:out value='${status}' />";
 	if(status == 'approve'){
@@ -248,7 +248,7 @@ $(function(){
 				return false;
 			}
 		}
-		location.href = "rental?code="+rentalCode+"&status="+status;
+		location.href = "rental?code="+rentalCode+"&status="+status+"&url="+returnURL;
 	})
 	
 	// 반납처리 하기
@@ -258,12 +258,11 @@ $(function(){
 			return false;
 		}
 		let rentalCode = $(this).closest('tr').attr('id');
-		location.href = "rental/return?code="+rentalCode+"&status=delay";
+		location.href = "rental/return?code="+rentalCode+"&status=delay&url="+returnURL;
 	})
 	
 	// 연체알림 이메일 
 	$('#overDue-table tbody td').on('click', '.alt', function(){
-		console.log('sdfsdf')
 		let rentalCode = $(this).closest('tr').attr('id');
 		$.ajax({
 			type:"get",

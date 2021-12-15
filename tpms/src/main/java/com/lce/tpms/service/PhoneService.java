@@ -14,4 +14,6 @@ public interface PhoneService {
 	Phone getPhoneByCode(String phoneCode);
 	
 	List<String> getPhoneMakers();
+	
+	void insertPhone(Phone phone);
 }

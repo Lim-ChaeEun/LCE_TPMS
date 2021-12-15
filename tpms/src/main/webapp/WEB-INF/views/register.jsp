@@ -146,14 +146,14 @@ $(function(){
 	
 	$('#registerBtn').on('click', '.submit' ,function(){
 		const table = $('.join_form table tbody');
-		let code = table.find('#user-id');
-		let name = table.find('#user-name');
-		let password = table.find('#user-password');
-		let passwordConfirm = table.find('#user-passwordConfirm');
-		let email = table.find('#user-email');
-		let phone = table.find('#user-phone');
-		let team = table.find('#user-team');
-		let position = table.find('#position');
+		const code = table.find('#user-id');
+		const name = table.find('#user-name');
+		const password = table.find('#user-password');
+		const passwordConfirm = table.find('#user-passwordConfirm');
+		const email = table.find('#user-email');
+		const phone = table.find('#user-phone');
+		const team = table.find('#user-team');
+		const position = table.find('#position');
 		
 		// 유효성 검사
 		if(code.val() == ''){

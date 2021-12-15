@@ -18,4 +18,6 @@ public interface PhoneDao {
 	Phone getPhoneByCode(String phoneCode);
 
 	List<String> getPhoneMakers();
+	
+	void insertPhone(Phone phone);
 }

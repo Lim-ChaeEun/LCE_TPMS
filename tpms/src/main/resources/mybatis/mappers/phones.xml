@@ -38,6 +38,7 @@
 						    phone.phone_display 			AS 	display, 
 						    phone.phone_MAC_ADDRESS as macAddress,
                             phone.phone_password    	as password,
+                            rental.rental_code 			as rentalCode,
 						    rental.rental_start_date 		AS 	startdate, 
 						    rental.rental_end_date 		AS 	enddate, 
 						    rental.rental_status 				AS	status,

@@ -80,4 +80,9 @@ public class PhoneServiceImpl implements PhoneService{
 	public Phone getPhoneByCode(String phoneCode) {
 		return phoneDao.getPhoneByCode(phoneCode);
 	}
+	
+	@Override
+	public void insertPhone(Phone phone) {
+		phoneDao.insertPhone(phone);
+	}
 }

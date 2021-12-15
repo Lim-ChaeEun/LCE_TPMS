@@ -48,6 +48,12 @@
 						<li class="${menu eq 'approval' ? 'current' : '' }"><a href="/tpms/admin/main">승인관리</a></li>
 						<li class="${menu eq 'phone' ? 'current' : '' }"><a href="/tpms/admin/phone">기기관리</a></li>
 						<li class="${menu eq 'user' ? 'current' : '' }"><a href="/tpms/admin/user">회원관리</a></li>
+						<li class="${menu eq 'my' ? 'current' : '' }">
+							<a href="">${LOGINED_USER.name} 님</a>
+							<ul>
+								<li><a href="/tpms/logout">로그아웃</a></li>
+							</ul>
+						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:if>

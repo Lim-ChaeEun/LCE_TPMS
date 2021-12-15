@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lce.tpms.service.AdminService;
 import com.lce.tpms.service.PhoneService;
 import com.lce.tpms.service.UserService;
+import com.lce.tpms.vo.Phone;
 import com.lce.tpms.vo.User;
 import com.lce.tpms.web.annotation.LoginAdmin;
 
@@ -38,15 +40,22 @@ public class AdminController {
 		model.addAttribute("overdues", overdues);
 		return "admin/main";
 	}
+	
+	@PostMapping("/phone/insert")
+	public String insertPhone(Phone phone, RedirectAttributes rat) {
+		phoneService.insertPhone(phone);
+		rat.addFlashAttribute("status", "insert");
+		return "redirect:/admin/phone";
+	}
 
 	@GetMapping("/rental")
-	public String decideRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, RedirectAttributes rat) {
+	public String decideRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, @RequestParam String url, RedirectAttributes rat) {
 		HashMap<String, String> option = new  HashMap<String, String>();
 		option.put("rentalCode", code);
 		option.put("status", status);
 		adminService.updateRental(option);
 		rat.addFlashAttribute("status", status);
-		return "redirect:/admin/main";
+		return "redirect:"+url;
 	}
 	
 	@GetMapping("/user")
@@ -57,13 +66,13 @@ public class AdminController {
 	}
 	
 	@GetMapping("/rental/return")
-	public String returnRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, RedirectAttributes rat) {
+	public String returnRental(@LoginAdmin User user, @RequestParam String code, @RequestParam String status, @RequestParam String url, RedirectAttributes rat) {
 		HashMap<String, String> option = new  HashMap<String, String>();
 		option.put("rentalCode", code);
 		option.put("status", status);
 		adminService.returnRental(option);
 		rat.addFlashAttribute("status", "return");
-		return "redirect:/admin/main";
+		return "redirect:"+url;
 	}
 	
 	@GetMapping("/user/status")

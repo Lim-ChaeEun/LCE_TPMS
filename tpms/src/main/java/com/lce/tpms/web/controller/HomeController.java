@@ -47,7 +47,7 @@ public class HomeController {
 		if(name == null || name.equals("")) {
 			option.put("name", null);			
 		}else {
-			option.put("name", name);
+			option.put("name", name.trim());
 		}
 		option.put("page", pageNo);
 		// 기기전체의 목록 담기

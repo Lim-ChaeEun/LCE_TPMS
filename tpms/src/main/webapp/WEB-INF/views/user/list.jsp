@@ -124,7 +124,7 @@
 													</c:otherwise>
 												</c:choose>
 												<div class="page">
-													<ul class="pagination modal">
+													<ul class="pagination modala">
 														<c:choose>
 															<c:when test="${pagination.pageNo le 1 }">
 																<li><a class="first">이전</a></li>

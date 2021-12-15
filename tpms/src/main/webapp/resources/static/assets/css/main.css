@@ -26,15 +26,35 @@ section, summary, time, mark, audio, video {
 	vertical-align: baseline;}
 	
 a.button.small.alt, button.small{
-	padding-left: 0.9em;
-	padding-right: 0.9em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
 	padding-top:0.2em;
 	padding-bottom: 0.2em;
 	font-size: 0.9em;
 }
 
+a.button.nano.alt, button.nano{
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	padding-top:0.2em;
+	padding-bottom: 0.2em;
+	font-size: 0.75em;
+}
 
-#respond footer button.alt{
+.middle{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+#insert th{
+	white-space: nowrap;
+}
+
+#phone-list tbody tr.hide{
+	margin:10px;
+}
+
+#respond footer button.alt, #insert footer button.alt{
 	float: right;
 }
 
@@ -242,12 +262,35 @@ p.header{
 	width: 200px;
 }
 
+
+	input.long{
+	border-radius: 5px;
+	width: 250px !important;
+	height: 50px;
+	padding: 0.5em;
+	margin: 14px;
+}
 	input.normal{
-	width: 150px;
+	border-radius: 5px;
+	width: 150px !important;
+	height: 50px;
+	padding: 0.5em;
+	margin: 14px;
 }
 
 input.small{
-	width : 100px;
+	border-radius: 5px;
+	width : 100px !important;
+	height: 50px;
+	padding: 0.5em;
+	margin: 14px;
+}
+input.nano{
+	border-radius: 5px;
+	width : 70px !important;
+	height: 50px;
+	padding: 0.5em;
+	margin: 14px;
 }
 
 .first{
@@ -269,7 +312,7 @@ input.small{
 	}
 
 
-.modal .num{
+.modala .num{
 	margin-left: 3px;
 	padding: 0;
 	width: 30px;
@@ -280,12 +323,12 @@ input.small{
 	border-radius: 100%;
 }
 
-.modal .num:hover{
+.modala .num:hover{
 	background-color: #ff1644;
 	color: #ffffff;
 }
 
-.modal .num.active, .modal .num:active{
+.modala .num.active, .modal .num:active{
 	background-color: #ff1644;
 	cursor: pointer;
 }

@@ -25,70 +25,72 @@
 								</header>
 								<div class="row">
 									<div class="col-12">
-										<table class="table" id="inquiry-table">
-											<thead>
-												<colgroup>
-													<col width="10%"/>
-													<col width="30%"/>
-													<col width="15%"/>
-													<col width="15%"/>
-													<col width="15%"/>
-													<col width="15%"/>
-												</colgroup>
-												<tr>
-													<th scope="col">순번 </th>
-													<th scope="col">문의제목 </th>
-													<th scope="col">문의자 </th>
-													<th scope="col">답변상태 </th>
-													<th scope="col">문의일자 </th>
-													<th scope="col"> </th>
-												</tr>
-											</thead>
-											<tbody id="inquiry-list">
-												<c:choose>
-													<c:when test="${empty inquiries}">
-														<tr>
-															<td colspan="6"><p class="bold center">문의내역이 존재하지 않습니다.</p></td>
-														</tr>
-													</c:when>
-													<c:otherwise>
-														<c:forEach var="inquiry" items="${inquiries }" varStatus="loop">
-															<tr id="${inquiry.code }">
-																<td>${loop.count }</td>
-																<td><p class="bold">${inquiry.title }</p></td>
-																<td>${user.name }</td>
-																<c:choose>
-																	<c:when test="${inquiry.status eq 'N' }">
-																		<td class="bold">미완료</td>
-																	</c:when>
-																	<c:otherwise>	
-																		<td class="bold"><p class="danger">답변완료</p></td>
-																	</c:otherwise>
-																</c:choose>
-																<td><p class="bold"><fmt:formatDate value="${inquiry.createdDate}" pattern="yyyy-MM-dd"/></p></td>
-																<td><button id="show">보기</button></td>
+										<div class="table-box">
+											<table class="table table--min" id="inquiry-table">
+												<thead>
+													<colgroup>
+														<col width="10%"/>
+														<col width="30%"/>
+														<col width="15%"/>
+														<col width="15%"/>
+														<col width="15%"/>
+														<col width="15%"/>
+													</colgroup>
+													<tr>
+														<th scope="col">순번 </th>
+														<th scope="col">문의제목 </th>
+														<th scope="col">문의자 </th>
+														<th scope="col">답변상태 </th>
+														<th scope="col">문의일자 </th>
+														<th scope="col"> </th>
+													</tr>
+												</thead>
+												<tbody id="inquiry-list">
+													<c:choose>
+														<c:when test="${empty inquiries}">
+															<tr>
+																<td colspan="6"><p class="bold center">문의내역이 존재하지 않습니다.</p></td>
 															</tr>
-															<tr class="hide" style="display:none "  id="${inquiry.code }">
-																<td colspan="1" class="bold"><p>문의내용</p></td>
-																<td colspan="5">${inquiry.content }</td>
-															</tr>
-															<tr class="hide" style="display:none "  id="${inquiry.code }">
-																<c:choose>
-																	<c:when test="${inquiry.status eq 'N' }">
-																		<td colspan="6" class="center"><p class="bold">작성된 답변이 없습니다.</p></td>
-																	</c:when>
-																	<c:otherwise>
-																		<td colspan="1" class="bold"><p class="danger">문의답변</p></td>
-																		<td colspan="4">${inquiry.respond }</td>
-																		<td colspan="1" class="bold"><p><fmt:formatDate value="${inquiry.respondDate}" pattern="yyyy-MM-dd"/></p></td>
-																	</c:otherwise>
-																</c:choose>
-															</tr>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
-											</tbody>
-										</table>
+														</c:when>
+														<c:otherwise>
+															<c:forEach var="inquiry" items="${inquiries }" varStatus="loop">
+																<tr id="${inquiry.code }">
+																	<td>${loop.count }</td>
+																	<td><p class="bold">${inquiry.title }</p></td>
+																	<td>${user.name }</td>
+																	<c:choose>
+																		<c:when test="${inquiry.status eq 'N' }">
+																			<td class="bold">미완료</td>
+																		</c:when>
+																		<c:otherwise>	
+																			<td class="bold"><p class="danger">답변완료</p></td>
+																		</c:otherwise>
+																	</c:choose>
+																	<td><p class="bold"><fmt:formatDate value="${inquiry.createdDate}" pattern="yyyy-MM-dd"/></p></td>
+																	<td><button id="show">보기</button></td>
+																</tr>
+																<tr class="hide" style="display:none "  id="${inquiry.code }">
+																	<td colspan="1" class="bold"><p>문의내용</p></td>
+																	<td colspan="5">${inquiry.content }</td>
+																</tr>
+																<tr class="hide" style="display:none "  id="${inquiry.code }">
+																	<c:choose>
+																		<c:when test="${inquiry.status eq 'N' }">
+																			<td colspan="6" class="center"><p class="bold">작성된 답변이 없습니다.</p></td>
+																		</c:when>
+																		<c:otherwise>
+																			<td colspan="1" class="bold"><p class="danger">문의답변</p></td>
+																			<td colspan="4">${inquiry.respond }</td>
+																			<td colspan="1" class="bold"><p><fmt:formatDate value="${inquiry.respondDate}" pattern="yyyy-MM-dd"/></p></td>
+																		</c:otherwise>
+																	</c:choose>
+																</tr>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</section>

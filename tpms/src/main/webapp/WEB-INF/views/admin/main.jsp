@@ -34,7 +34,8 @@
 											<p>대기중인 대여신청이 없습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin" id="rental-table">
+										<div class="table-box">
+											<table class="admin table--min" id="rental-table">
 												<thead>
 												<colgroup>
 													<col width="8%"/>
@@ -69,6 +70,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+										</div>
 										</c:otherwise>
 									</c:choose>
 								</section>
@@ -83,7 +85,8 @@
 											<p>현재 연체된 목록이 없습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin" id="overDue-table">
+										<div class="table-box">
+											<table class="admin table--min" id="overDue-table">
 												<thead>
 												<colgroup>
 													<col width="10%"/>
@@ -118,6 +121,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+										</div>
 										</c:otherwise>
 									</c:choose>
 								</section>
@@ -132,7 +136,8 @@
 											<p>답변하지 않은 문의가 없습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin" id="inquiry-table">
+										<div class="table-box">
+											<table class="admin table--min" id="inquiry-table">
 												<thead>
 												<colgroup>
 													<col width="8%"/>
@@ -161,6 +166,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+										</div>
 										</c:otherwise>
 									</c:choose>
 									<!-- 모달 -->

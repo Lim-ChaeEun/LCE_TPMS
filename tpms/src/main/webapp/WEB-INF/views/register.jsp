@@ -30,7 +30,7 @@
 										      <div class="container register">
 										        <div>
 										          <p><strong class="important">*</strong> 표시항목은 필수입력 값입니다.</p>
-										          <div class="join_form">
+										          <div class="join_form table-box">
 										            <table>
 										              <colgroup>
 										                <col width="30%"/>

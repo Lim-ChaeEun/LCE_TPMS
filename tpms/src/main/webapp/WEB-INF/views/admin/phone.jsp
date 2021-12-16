@@ -27,15 +27,19 @@
 							<div class="col-12 col-12-medium col-12-small">
 								<section class="box">
 									<div class="row">
-										<div class="col-10"></div>
-										<div class="col-2"><a href="#insert" rel="modal:open" class="button alt" id="insert-phone">기기추가</a></div>
+										<div class="col-12">
+											<div id="addPhone">
+												<a href="#insert" rel="modal:open" class="button alt" id="insert-phone">기기추가</a>
+											</div>
+										</div>
 									</div>
 									<c:choose>
 										<c:when test="${empty phones }">
 											<p>등록된 기기가 존재하지 않습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin" id="phone-list">
+											<div class="table-box">
+											<table class="admin table--min" id="phone-list">
 												<thead>
 												<colgroup>
 														<col width="3%"/>
@@ -115,6 +119,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+										</div>
 										</c:otherwise>
 									</c:choose>
 									<!-- 페이징 -->

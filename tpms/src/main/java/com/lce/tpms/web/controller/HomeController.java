@@ -35,6 +35,11 @@ public class HomeController {
 		model.addAttribute("error", ex);
 		return "home";
 	}
+	
+	@GetMapping("/error")
+	public String errorPage() {
+		return "common/error";
+	}
 
 	@GetMapping("/user/list")
 	public String home(Model model,@RequestParam(name = "maker", required = false) String maker, @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "page", required = false, defaultValue = "1" ) int pageNo) {

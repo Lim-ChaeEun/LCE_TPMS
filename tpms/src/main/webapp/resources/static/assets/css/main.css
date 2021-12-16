@@ -40,10 +40,31 @@ a.button.nano.alt, button.nano{
 	padding-bottom: 0.2em;
 	font-size: 0.75em;
 }
+#search-option, #addPhone{
+	float: right;
+}
 
 .middle{
 	margin-top: 20px;
 	margin-bottom: 0px;
+}
+
+.table, .rental-info table {
+  table-layout:fixed;
+  width:100%;
+}
+.table td, .table th , .rental-info table td, .rental-info table th {
+  word-break:break-all
+}
+.table--min {
+  min-width:1000px;
+}
+
+@media screen and (max-width:768px) {
+  /*normal*/
+  .table-box {
+    overflow-x:auto;
+  }
 }
 
 #insert th{
@@ -3449,7 +3470,6 @@ input, select, textarea {
 
 				#banner header {
 					padding: 1.5em 1em 1.5em 1em;
-					display: block;
 					border-radius: 0;
 				}
 

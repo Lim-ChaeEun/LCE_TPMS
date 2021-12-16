@@ -25,7 +25,8 @@
 								</header>
 								<div class="row">
 									<div class="col-12">
-										<table class="table" id="rental-table">
+									<div class="table-box">
+										<table class="table table--min" id="rental-table">
 											<thead>
 												<colgroup>
 													<col width="10%"/>
@@ -73,6 +74,7 @@
 												</c:choose>
 											</tbody>
 										</table>
+										</div>
 									</div>
 								</div>
 							</section>

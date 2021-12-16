@@ -30,7 +30,8 @@
 											<p>사용자가 존재하지 않습니다.</p>
 										</c:when>
 										<c:otherwise>
-											<table class="admin" id="user-table">
+										<div class="table-box" >
+											<table class="admin table--min" id="user-table">
 												<thead>
 												<colgroup>
 													<col width="10%"/>
@@ -91,6 +92,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+										</div>
 										</c:otherwise>
 									</c:choose>
 								</section>

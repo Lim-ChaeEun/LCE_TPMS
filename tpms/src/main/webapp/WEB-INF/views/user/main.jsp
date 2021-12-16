@@ -97,7 +97,7 @@
 																				<td class="strong danger">연체됨</td>
 																			</c:when>
 																			<c:otherwise>
-																				<td class="strong">${rental.REMAINDAY lt 0 } 일</td>
+																				<td class="strong">${rental.REMAINDAY } 일</td>
 																			</c:otherwise>
 																		</c:choose>
 																	</tr>

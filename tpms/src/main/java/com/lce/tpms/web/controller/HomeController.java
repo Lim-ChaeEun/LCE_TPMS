@@ -38,7 +38,7 @@ public class HomeController {
 	
 	@GetMapping("/error")
 	public String errorPage() {
-		return "common/error";
+		return "common/400error";
 	}
 
 	@GetMapping("/user/list")
@@ -128,7 +128,7 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	
-	@GetMapping(value = {"/home", "/login"})
+	@GetMapping(value = {"/home", "/login", ""})
 	public String home() {
 		// 로그인 되어있다면 로그아웃 시키기
 		User user = (User)SessionUtils.getAttribute("LOGINED_USER");

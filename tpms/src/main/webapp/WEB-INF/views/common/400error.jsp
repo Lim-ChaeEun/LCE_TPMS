@@ -21,8 +21,18 @@
 					<div class="col-12 rentalHisLine">
 						<header class="major">
 							<h2>페이지를 표시할 수 없습니다.</h2>
-							<a href="home">홈으로 돌아가기</a>
 						</header>
+						<div class="row">
+							<div class="col-12 col-12-small">
+								<section class="box">
+									<header class="inquiryHead">
+										<div class="alert alert-danger">
+											<p class='inquiyHead strong'>페이지의 주소가 잘못 입력되었거나, 변경 혹은 삭제되어 요청하신 페이지를 찾을 수가 없습니다.</p>
+										</div>
+									</header>
+								</section>
+							</div>
+						</div>
 					</div>						
 				</div>
 			</div>
@@ -30,7 +40,6 @@
 		<!-- 푸터 -->
 		<%@ include file="footer.jsp" %>
 	</div>
-
 <!-- Scripts -->
 <script src="/tpms/resources/static/assets/js/jquery.min.js"></script>
 <script src="/tpms/resources/static/assets/js/jquery.dropotron.min.js"></script>

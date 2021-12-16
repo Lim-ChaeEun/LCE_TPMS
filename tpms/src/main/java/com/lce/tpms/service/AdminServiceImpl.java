@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService{
 	private EmailService emailService;
 	
 	@Override
-	@Scheduled(cron = "0 0 12 * * *")
+	@Scheduled(cron = "0 0 12 * * ?")
 	public void sendReturnMessage() {
 		List<Rental> oneDayRentals = rentalDao.getOnedayLeft();
 		for(Rental rental : oneDayRentals) {

@@ -49,22 +49,22 @@
 																	<h3>대여신청 중인 기기</h3>
 																</header>
 																<div class="rentalnow">
-																<table>
-																	<tr>
-																		<th>기기</th>
-																		<td>${waitRental.NAME }</td>
-																		<th>제조사</th>
-																		<td>${waitRental.MAKER }</td>
-																	</tr>
-																	<tr>
-																		<th>운영체제</th>
-																		<td>${waitRental.OS } ${waitRental.VERSION }</td>
-																	</tr>
-																	<tr>
-																		<th>대여기간</th>
-																		<td><fmt:formatDate value="${waitRental.STARTDATE }" pattern="MM/d"/> ~ <fmt:formatDate value="${waitRental.ENDDATE }" pattern="MM/d"/></td>
-																	</tr>
-																</table>
+																	<table>
+																		<tr>
+																			<th>기기</th>
+																			<td>${waitRental.NAME }</td>
+																			<th>제조사</th>
+																			<td>${waitRental.MAKER }</td>
+																		</tr>
+																		<tr>
+																			<th>운영체제</th>
+																			<td>${waitRental.OS } ${waitRental.VERSION }</td>
+																		</tr>
+																		<tr>
+																			<th>대여기간</th>
+																			<td><fmt:formatDate value="${waitRental.STARTDATE }" pattern="MM/d"/> ~ <fmt:formatDate value="${waitRental.ENDDATE }" pattern="MM/d"/></td>
+																		</tr>
+																	</table>
 																</div>
 																<footer>
 																	<ul class="actions">
@@ -77,31 +77,31 @@
 																	<h3>대여중인 기기</h3>
 																</header>
 																<div class="rentalnow">
-																<table>
-																	<tr>
-																		<th>기기</th>
-																		<td>${rental.NAME }</td>
-																		<th>제조사</th>
-																		<td>${rental.MAKER }</td>
-																	</tr>
-																	<tr>
-																		<th>운영체제</th>
-																		<td>${rental.OS } ${rental.VERSION }</td>
-																	</tr>
-																	<tr>
-																		<th>대여기간</th>
-																		<td><fmt:formatDate value="${rental.STARTDATE }" pattern="MM/d"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="MM/d"/></td>
-																		<th>잔여일수</th>
-																		<c:choose>
-																			<c:when test="${rental.REMAINDAY lt 0 }">
-																				<td class="strong danger">연체됨</td>
-																			</c:when>
-																			<c:otherwise>
-																				<td class="strong">${rental.REMAINDAY } 일</td>
-																			</c:otherwise>
-																		</c:choose>
-																	</tr>
-																</table>
+																	<table>
+																		<tr>
+																			<th>기기</th>
+																			<td>${rental.NAME }</td>
+																			<th>제조사</th>
+																			<td>${rental.MAKER }</td>
+																		</tr>
+																		<tr>
+																			<th>운영체제</th>
+																			<td>${rental.OS } ${rental.VERSION }</td>
+																		</tr>
+																		<tr>
+																			<th>대여기간</th>
+																			<td><fmt:formatDate value="${rental.STARTDATE }" pattern="MM/d"/> ~ <fmt:formatDate value="${rental.ENDDATE }" pattern="MM/d"/></td>
+																			<th>잔여일수</th>
+																			<c:choose>
+																				<c:when test="${rental.REMAINDAY lt 0 }">
+																					<td class="strong danger">연체됨</td>
+																				</c:when>
+																				<c:otherwise>
+																					<td class="strong">${rental.REMAINDAY } 일</td>
+																				</c:otherwise>
+																			</c:choose>
+																		</tr>
+																	</table>
 																</div>
 															</c:otherwise>
 														</c:choose>
@@ -145,11 +145,11 @@
 										<c:choose>
 											<c:when test="${empty inquiries}">
 												<p>등록한 문의가 존재하지 않습니다.</p>
-													<footer>
-														<ul class="actions">
-															<li><a href="/tpms/user/inquiry" class="button alt">문의하러가기</a></li>
-														</ul>
-													</footer>
+												<footer>
+													<ul class="actions">
+														<li><a href="/tpms/user/inquiry" class="button alt">문의하러가기</a></li>
+													</ul>
+												</footer>
 											</c:when>
 											<c:otherwise>
 												<table>

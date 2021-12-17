@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService{
 	public HashMap<String, Object> getUserMainInfo(String userCode) {
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
 		// 사용자의 최근 문의 3개까지 조회해서 담기
-		List<Inquiry> inquiries = inquiryDao.getInquiriesByUser(userCode);
+		List<Inquiry> inquiries = inquiryDao.getUserRecentInquiry(userCode);
 		// 대여, 예약내역 조회해서 담기
 		HashMap<String, Object> rental = rentalService.getRentalByUserAndStatus("ING");
 		userInfo.put("rental", rental);

@@ -42,7 +42,7 @@
 			from 
 				rental, users, phone
 			where 
-				rental_end_date < sysdate
+				trunc(rental_end_date) < trunc(sysdate)
 			and 
 				rental_status = 'ING'
 			and 

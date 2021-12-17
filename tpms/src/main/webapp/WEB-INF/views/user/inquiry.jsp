@@ -66,7 +66,6 @@
 		<!-- 푸터 -->
 		<%@ include file="../common/footer.jsp" %>
 	</div>
-
 <!-- Scripts -->
 <script src="/tpms/resources/static/assets/js/jquery.min.js"></script>
 <script src="/tpms/resources/static/assets/js/jquery.dropotron.min.js"></script>

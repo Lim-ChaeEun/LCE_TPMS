@@ -20,136 +20,136 @@
 					<div class="row">
 						<div class="col-12">
 							<!-- 기기리스트 -->
-								<section>
-									<header class="major">
-										<h2>기기 리스트</h2>
-									</header>
-									<div class="row">
-										<div class="col-12">
-											<div id="search-option">
-												<c:choose>
-													<c:when test="${name ne null }">
-														<input type="text"  value="${name }">
-													</c:when>
-													<c:otherwise>
-														<input type="text"  placeholder=" ex) 아이폰">
-													</c:otherwise>
-												</c:choose>
-												<button class="searchBtn alt">검색</button>
-												<button class="searchBtn reset">초기화</button>
-											</div>
+							<section>
+								<header class="major">
+									<h2>기기 리스트</h2>
+								</header>
+								<div class="row">
+									<div class="col-12">
+										<div id="search-option">
+											<c:choose>
+												<c:when test="${name ne null }">
+													<input type="text"  value="${name }">
+												</c:when>
+												<c:otherwise>
+													<input type="text"  placeholder=" ex) 아이폰">
+												</c:otherwise>
+											</c:choose>
+											<button class="searchBtn alt">검색</button>
+											<button class="searchBtn reset">초기화</button>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-12">
-											<div class="table-box">
-												<table class="table table--min" >
-													<thead>
-														<colgroup>
-															<col width="7%"/>
-															<col width="11%"/>
-															<col width="30%"/>
-															<col width="15%"/>
-															<col width="13%"/>
-															<col width="13%"/>
-															<col width="11%"/>
-														</colgroup>
-														<tr>
-															<th scope="col">순번 </th>
-															<th scope="col" class="selectbox">
-																<label for="select">제조사</label>
-																<select name="maker" class="select">
-																	<option value=""  ${maker eq "null" ? 'selected' : '' }> 제조사 </option>
-																	<c:forEach var="mk" items="${makers }">
-																		<option value="${mk }"  ${maker eq mk ? 'selected' : '' }>${mk }</option>
-																	</c:forEach>
-																</select>
-															</th>
-															<th scope="col">모델명 </th>
-															<th scope="col">운영체제 / 버전 </th>
-															<th scope="col">상태 </th>
-															<th scope="col">반납일</th>
-															<th scope="col">대여 /예약 </th>
-														</tr>
-													</thead>
-													<tbody id="phone-list">
-														<c:choose>
-															<c:when test="${empty phones }">
-																<tr>
-																	<td colspan="8">대여가능한 기기가 존재하지 않습니다.</td>
-																</tr>
-															</c:when>
-															<c:otherwise>
-																<c:forEach var="phone" items="${phones}" varStatus="loop">
-																	<tr id="${phone.CODE}" class="back">
-																		<td class="center">${loop.count + ((pagination.pageNo-1)*10)}</td>
-																		<td>${phone.MAKER }</td>
-																		<td><strong>${phone.NAME }</strong></td>
-																		<td class="center"><strong>${phone.OS }  ${phone.VERSION }</strong></td>
-																		<c:choose>
-																			<c:when test="${empty phone.STATUS or phone.STATUS eq 'FIN' or phone.STATUS eq 'REJ'}">
-																				<td class="bold center">신청가능</td>									
-																				<td class="center"></td>									
-																				<td class="center"><button class="btn apply makeBtn">신청</button></td>
-																			</c:when>
-																			<c:otherwise>
-																				<c:choose>
-																					<c:when test="${phone.STATUS eq 'WAIT' }">
-																						<td class='bold danger center'>승인대기중</td>
-																						<td class="center"></td>									
-																						<td class="center"></td>									
-																					</c:when>
-																					<c:otherwise>
-																						<td class='bold danger center'>대여중</td>
-																						<td class='bold center'><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/d"/> 예정</td>
-																						<td class="center"><button class="btn reserve">예약 </button></td>									
-																					</c:otherwise>
-																				</c:choose>
-																			</c:otherwise>
-																		</c:choose>
-																	</tr>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="table-box">
+											<table class="table table--min" >
+												<thead>
+													<colgroup>
+														<col width="7%"/>
+														<col width="11%"/>
+														<col width="30%"/>
+														<col width="15%"/>
+														<col width="13%"/>
+														<col width="13%"/>
+														<col width="11%"/>
+													</colgroup>
+													<tr>
+														<th scope="col">순번 </th>
+														<th scope="col" class="selectbox">
+															<label for="select">제조사</label>
+															<select name="maker" class="select">
+																<option value=""  ${maker eq "null" ? 'selected' : '' }> 제조사 </option>
+																<c:forEach var="mk" items="${makers }">
+																	<option value="${mk }"  ${maker eq mk ? 'selected' : '' }>${mk }</option>
 																</c:forEach>
-															</c:otherwise>
-														</c:choose>
-													</tbody>
-												</table>
-											</div>
-											<!-- 페이징 -->
-											<c:if test="${pagination.totalRows gt 0 }">
-												<!-- url 설정하기  -->
-												<c:choose>
-													<c:when test="${maker ne null or name ne null }">
-														<c:set var="url" value="list?maker=${maker }&name=${name }&page=" />
-													</c:when>
-													<c:otherwise>
-														<c:set var="url" value="list?page=" />
-													</c:otherwise>
-												</c:choose>
-												<div class="page">
-													<ul class="pagination modala">
-														<c:choose>
-															<c:when test="${pagination.pageNo le 1 }">
-																<li><a class="first">이전</a></li>
-															</c:when>
-															<c:otherwise>
-																<li><a href="${url }${pagination.pageNo - 1 }" class="first">이전</a></li>
-															</c:otherwise>
-														</c:choose>
-														<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-															<li><a href="${url }${num }" class="${pagination.pageNo eq num ? 'active' : ''} num">${num }</a></li>
-														</c:forEach>
-														<c:choose>
-															<c:when test="${pagination.pageNo ge pagination.totalPages }">
-																<li><a class="last">다음</a></li>
-															</c:when>
-															<c:otherwise>
-																<li><a href="${url }${pagination.pageNo + 1 }" class="last">다음</a></li>
-															</c:otherwise>
-														</c:choose>
-													</ul>
-												</div>
-											</c:if>
+															</select>
+														</th>
+														<th scope="col">모델명 </th>
+														<th scope="col">운영체제 / 버전 </th>
+														<th scope="col">상태 </th>
+														<th scope="col">반납일</th>
+														<th scope="col">대여 /예약 </th>
+													</tr>
+												</thead>
+												<tbody id="phone-list">
+													<c:choose>
+														<c:when test="${empty phones }">
+															<tr>
+																<td colspan="8">대여가능한 기기가 존재하지 않습니다.</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<c:forEach var="phone" items="${phones}" varStatus="loop">
+																<tr id="${phone.CODE}" class="back">
+																	<td class="center">${loop.count + ((pagination.pageNo-1)*10)}</td>
+																	<td>${phone.MAKER }</td>
+																	<td><strong>${phone.NAME }</strong></td>
+																	<td class="center"><strong>${phone.OS }  ${phone.VERSION }</strong></td>
+																	<c:choose>
+																		<c:when test="${empty phone.STATUS or phone.STATUS eq 'FIN' or phone.STATUS eq 'REJ'}">
+																			<td class="bold center">신청가능</td>									
+																			<td class="center"></td>									
+																			<td class="center"><button class="btn apply makeBtn">신청</button></td>
+																		</c:when>
+																		<c:otherwise>
+																			<c:choose>
+																				<c:when test="${phone.STATUS eq 'WAIT' }">
+																					<td class='bold danger center'>승인대기중</td>
+																					<td class="center"></td>									
+																					<td class="center"></td>									
+																				</c:when>
+																				<c:otherwise>
+																					<td class='bold danger center'>대여중</td>
+																					<td class='bold center'><fmt:formatDate value="${phone.ENDDATE }" pattern="MM/d"/> 예정</td>
+																					<td class="center"><button class="btn reserve">예약 </button></td>									
+																				</c:otherwise>
+																			</c:choose>
+																		</c:otherwise>
+																	</c:choose>
+																</tr>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
+												</tbody>
+											</table>
 										</div>
+										<!-- 페이징 -->
+										<c:if test="${pagination.totalRows gt 0 }">
+											<!-- url 설정하기  -->
+											<c:choose>
+												<c:when test="${maker ne null or name ne null }">
+													<c:set var="url" value="list?maker=${maker }&name=${name }&page=" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="url" value="list?page=" />
+												</c:otherwise>
+											</c:choose>
+											<div class="page">
+												<ul class="pagination modala">
+													<c:choose>
+														<c:when test="${pagination.pageNo le 1 }">
+															<li><a class="first">이전</a></li>
+														</c:when>
+														<c:otherwise>
+															<li><a href="${url }${pagination.pageNo - 1 }" class="first">이전</a></li>
+														</c:otherwise>
+													</c:choose>
+													<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
+														<li><a href="${url }${num }" class="${pagination.pageNo eq num ? 'active' : ''} num">${num }</a></li>
+													</c:forEach>
+													<c:choose>
+														<c:when test="${pagination.pageNo ge pagination.totalPages }">
+															<li><a class="last">다음</a></li>
+														</c:when>
+														<c:otherwise>
+															<li><a href="${url }${pagination.pageNo + 1 }" class="last">다음</a></li>
+														</c:otherwise>
+													</c:choose>
+												</ul>
+											</div>
+										</c:if>
+									</div>
 								</div>
 							</section>
 						</div>

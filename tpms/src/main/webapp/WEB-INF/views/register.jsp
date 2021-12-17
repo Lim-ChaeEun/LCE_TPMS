@@ -10,33 +10,33 @@
 	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
 </head>
 <body class="homepage is-preload">
-	<div id="page-wrapper">
-		<!-- 헤더 -->
-		<c:set var="menu" value="main"/>
-		<%@ include file="common/header.jsp" %>
-		<!-- 메인 바디 -->
-			<section id="main">
-				<div class="container">
-					<div class="row">	
-						<div class="col-12">
-							<section>
-								<header class="major">
-									<h2>회원가입</h2>
-								</header>
-								<div class="row">
-									<div class="col-2"></div>
-									<div class="col-8 col-12-small">
-										<section class="box">
-										      <div class="container register">
-										        <div>
-										          <p><strong class="important">*</strong> 표시항목은 필수입력 값입니다.</p>
-										          <div class="join_form table-box">
-										            <table>
-										              <colgroup>
-										                <col width="30%"/>
-										                <col width="auto"/>
-										              </colgroup>
-										              <tbody>
+<div id="page-wrapper">
+	<!-- 헤더 -->
+	<c:set var="menu" value="main"/>
+	<%@ include file="common/header.jsp" %>
+	<!-- 메인 바디 -->
+	<section id="main">
+		<div class="container">
+			<div class="row">	
+				<div class="col-12">
+					<section>
+						<header class="major">
+							<h2>회원가입</h2>
+						</header>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-8 col-12-small">
+								<section class="box">
+							    	<div class="container register">
+								    	<div>
+								       		<p><strong class="important">*</strong> 표시항목은 필수입력 값입니다.</p>
+								          	<div class="join_form table-box">
+									        	<table>
+									           		<colgroup>
+									                	<col width="30%"/>
+									                	<col width="auto"/>
+									              	</colgroup>
+									              	<tbody>
 										            	<tr>
 										             		<th><span>아이디(사번)</span><strong class="important">*</strong></th>
 										                  	<td><input id="user-id" type="text" placeholder="사번을 입력하세요."></td>
@@ -76,30 +76,29 @@
 										               			</select>
 										               		</td>
 										                </tr>
-										              </tbody>
-										            </table>
-										          </div>
-										          <footer>
-													<ul class="actions" id="registerBtn">
-														<li><a class="button submit">회원가입</a></li>
-														<li><a class="button alt">취소</a></li>
-													</ul>
-												</footer>
-										        </div> 
-										      </div>
-										</section>
-										<div class="col-2"></div>
+									            	</tbody>
+									            </table>
+								        	</div>
+									      	<footer>
+												<ul class="actions" id="registerBtn">
+													<li><a class="button submit">회원가입</a></li>
+													<li><a class="button alt">취소</a></li>
+												</ul>
+											</footer>
+								        </div> 
 									</div>
-								</div>
-							</section>
+								</section>
+							</div>
+							<div class="col-2"></div>
 						</div>
-					</div>
+					</section>
 				</div>
-			</section>
-		<!-- 푸터 -->
-		<%@ include file="common/footer.jsp" %>
-	</div>
-
+			</div>
+		</div>
+	</section>
+	<!-- 푸터 -->
+	<%@ include file="common/footer.jsp" %>
+</div>
 <!-- Scripts -->
 <script src="/tpms/resources/static/assets/js/jquery.min.js"></script>
 <script src="/tpms/resources/static/assets/js/jquery.dropotron.min.js"></script>

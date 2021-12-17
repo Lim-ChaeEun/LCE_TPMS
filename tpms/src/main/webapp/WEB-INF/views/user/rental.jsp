@@ -20,63 +20,63 @@
 					<div class="row">
 						<div class="col-12 ">
 							<header class="major">
-										<h2>대여 신청</h2>
+								<h2>대여 신청</h2>
 							</header>
 							<div class="row">
 								<div class="col-12 col-12-medium col-12-small">
 									<section class="box rental-info">
 										<header class="inquiryHead">
-												<h4 class="inquiryHead"><span class="danger">※ 필독 ※</span>  기기대여 신청 시 유의사항 </h4>
-												<p class='inquiyHead'>대여가능한 최대 일수는 7일 입니다.</p>
-												<p class='inquiyHead'>대여신청은 대여일로부터 3일 이전부터 가능합니다.</p>
-											</header>
-											<div class="table-box">
-												<table id="rental-table" data-phone-code="${phone.code }"  class="table--min" >
-													<tr>
-														<th>대여일시<span class="important">✔</span></th>
-														<td colspan="5"><input type="date" name="startDate"> ~ <input type="date" name="endDate"></td>
-													</tr>
-													<tr>
-														<th>기기</th>
-														<td>${phone.modelName } </td>
-														<th>운영체제 (버전) </th>
-														<td>${phone.os }  ${phone.version }</td>
-														<th>디스플레이</th>
-														<td>${phone.display } 인치 </td>
-													</tr>
-													<tr>
-														<th>제조사 </th>
-														<td>${phone.maker }</td>
-														<th>맥주소 </th>
-														<td>${phone.macAddress }</td>
-														<th>메모리</th>
-														<td> ${phone.memory } GB</td>
-													</tr>
-												</table>
+											<h4 class="inquiryHead"><span class="danger">※ 필독 ※</span>  기기대여 신청 시 유의사항 </h4>
+											<p class='inquiyHead'>대여가능한 최대 일수는 7일 입니다.</p>
+											<p class='inquiyHead'>대여신청은 대여일로부터 3일 이전부터 가능합니다.</p>
+										</header>
+										<div class="table-box">
+											<table id="rental-table" data-phone-code="${phone.code }"  class="table--min" >
+												<tr>
+													<th>대여일시<span class="important">✔</span></th>
+													<td colspan="5"><input type="date" name="startDate"> ~ <input type="date" name="endDate"></td>
+												</tr>
+												<tr>
+													<th>기기</th>
+													<td>${phone.modelName } </td>
+													<th>운영체제 (버전) </th>
+													<td>${phone.os }  ${phone.version }</td>
+													<th>디스플레이</th>
+													<td>${phone.display } 인치 </td>
+												</tr>
+												<tr>
+													<th>제조사 </th>
+													<td>${phone.maker }</td>
+													<th>맥주소 </th>
+													<td>${phone.macAddress }</td>
+													<th>메모리</th>
+													<td> ${phone.memory } GB</td>
+												</tr>
+											</table>
 										</div>
-												<header>
-													<h3>대여자 정보</h3>
-												</header>
-												<div class="table-box">
-												<table class="table--min" >
-													<tr>
-														<th>사번</th>
-														<td>${user.code }</td>
-														<th>소속</th>
-														<td>${user.team }</td>
-														<th>휴대폰</th>
-														<td>${user.phone }</td>
-													</tr>
-													<tr>
-														<th>이름</th>
-														<td>${user.name }</td>
-														<th>직급</th>
-														<td>${user.position }</td>
-														<th>이메일</th>
-														<td>${user.email }</td>
-													</tr>
-												</table>
-												</div>
+										<header>
+											<h3>대여자 정보</h3>
+										</header>
+										<div class="table-box">
+											<table class="table--min" >
+												<tr>
+													<th>사번</th>
+													<td>${user.code }</td>
+													<th>소속</th>
+													<td>${user.team }</td>
+													<th>휴대폰</th>
+													<td>${user.phone }</td>
+												</tr>
+												<tr>
+													<th>이름</th>
+													<td>${user.name }</td>
+													<th>직급</th>
+													<td>${user.position }</td>
+													<th>이메일</th>
+													<td>${user.email }</td>
+												</tr>
+											</table>
+										</div>
 										<footer>
 											<ul class="actions">
 												<li><a href="../user/list" class="button alt">취소</a></li>

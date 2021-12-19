@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/tpms/resources/static/assets/css/main.css" />
 	<link rel="icon" type="image/png" href="/tpms/resources/static/images/head.png"/>
+	<link rel="stylesheet" type="text/css" href="/tpms/resources/static/assets/css/icons.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body class="homepage is-preload">
@@ -220,9 +221,38 @@
 <script src="/tpms/resources/static/assets/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<script type="text/javascript" src="/tpms/resources/static/assets//js/loadingoverlay.min.js"></script>
 
 <script>
+
 $(function(){
+	
+	/*
+		$.LoadingOverlay("show", {
+			background       : "rgba(0, 0, 0, 0.2)",
+			image            : "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'><circle r='80' cx='500' cy='90'/><circle r='80' cx='500' cy='910'/><circle r='80' cx='90' cy='500'/><circle r='80' cx='910' cy='500'/><circle r='80' cx='212' cy='212'/><circle r='80' cx='788' cy='212'/><circle r='80' cx='212' cy='788'/><circle r='80' cx='788' cy='788'/></svg>",
+			maxSize          : 60,
+		});
+	
+	*/
+	
+	function loading(){
+		$.LoadingOverlay("show", {
+			background       : "rgba(0, 0, 0, 0.2)",
+			image 			 : "",
+			maxSize          : 60,
+			fontawesome      : "fa fa-spinner fa-pulse fa-fw",
+			fontawesomeColor : "#ff1644",
+		});
+	}
+	
+	$(document).ajaxStart(function(){
+	    loading();
+	});
+	$(document).ajaxStop(function(){
+	    $.LoadingOverlay("hide");
+	});
+	
 	const returnURL = "/admin/main";
 	
 	const status = "<c:out value='${status}' />";
@@ -255,6 +285,8 @@ $(function(){
 			}
 		}
 		location.href = "rental?code="+rentalCode+"&status="+status+"&url="+returnURL;
+		
+		loading();
 	})
 	
 	// 반납처리 하기
@@ -265,6 +297,7 @@ $(function(){
 		}
 		let rentalCode = $(this).closest('tr').attr('id');
 		location.href = "rental/return?code="+rentalCode+"&status=delay&url="+returnURL;
+		loading();
 	})
 	
 	// 연체알림 이메일 
@@ -280,7 +313,6 @@ $(function(){
 				alert('알림전송에 실패했습니다.');
 			}
 		});
-
 	})
 	
 	// 모달관련
@@ -297,6 +329,7 @@ $(function(){
 		let inquiryCode = $(this).attr('id');
 		let respond = $('#respond #inquiry-respond').val();
 		location.href = "inquiry?code="+inquiryCode+"&respond="+respond;
+		loading();
 	})
 
 	

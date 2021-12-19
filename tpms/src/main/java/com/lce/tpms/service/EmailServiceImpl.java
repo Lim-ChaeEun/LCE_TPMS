@@ -102,7 +102,7 @@ public class EmailServiceImpl implements EmailService{
 			// 연체일 구하기 (날짜로만 구하기 )
 			String todayString = DateUtils.dateToDateString(new Date());
 			Date today = DateUtils.stringToDate(todayString);
-			long overDay = ((today.getTime() - rental.getEndDate().getTime()) / (1000*24*60*60));
+			long overDay = ((today.getTime() - rental.getEndDate().getTime()) / (1000*24*60*60)) + 1;
 			String subject = "[TPMS] " + user.getName() + " 님 연체관련 안내드립니다.";
 			String endDateString = DateUtils.dateToDateString(rental.getEndDate());
 			String content = "안녕하세요 " + user.getName() + " 님, "

@@ -225,15 +225,18 @@ $(function(){
 	
 	// 예약선택 시 
 	$('#phone-list').on('click', '.reserve' , function(){
-		let phoneCode = $(this).closest('tr').attr('id');
-		// 로그인 여부 , 예약가능 여부 확
-		if(!loginConfirm()){
-			return false;
+		if(confirm('예약신청하시겠습니까?')){
+			
+			let phoneCode = $(this).closest('tr').attr('id');
+			// 로그인 여부 , 예약가능 여부 확
+			if(!loginConfirm()){
+				return false;
+			}
+			if(!reserveConfirm()){
+				return false;
+			}
+			location.href = "../rental/reservation?phone=" + phoneCode;	
 		}
-		if(!reserveConfirm()){
-			return false;
-		}
-		location.href = "../rental/reservation?phone=" + phoneCode;	
 	});	
 	
 	
